@@ -1,0 +1,31 @@
+/* Orange Dark Palette */
+@define-color orange-brightest  #ffd080;
+@define-color orange-light      #ffb040;
+@define-color orange-main       #e87820;
+@define-color orange-dark       #c05010;
+@define-color orange-deep       #7a2900;
+@define-color orange-ember      #ffc060;
+
+/* Backgrounds — warm near-black browns */
+@define-color bg-darkest        #060402;
+@define-color bg-0              #0a0704;
+@define-color bg-1              #120d08;
+@define-color bg-2              #1c1410;
+@define-color bg-3              #2a1e14;
+
+/* Text */
+@define-color fg                #f5dfc8;
+@define-color subtext           #c8a888;
+@define-color muted             #7a5840;
+
+/* Semantic aliases (used by mechabar CSS) */
+@define-color accent            @orange-light;
+@define-color br                @orange-dark;
+@define-color shadow            shade(@bg-darkest, 0.6);
+
+/* States */
+@define-color warning           @orange-brightest;
+@define-color critical          #e84040;
+@define-color charging          #90c060;
+@define-color hover-bg          @bg-2;
+@define-color hover-fg          alpha(@fg, 0.6);

@@ -1,0 +1,50 @@
+/* Ignore GTK theme
+ * https://github.com/Alexays/Waybar/issues/1351
+ */
+* { all: initial; }
+
+@import "styles/fonts/jetbrains-mono-nerd.css";
+@import "styles/themes/orange-dark.css";
+
+* {
+	font-weight: bold;
+	color: @fg;
+}
+
+#waybar {
+	background-color: @shadow;
+}
+#waybar > box {
+	margin: 3px;
+	background-color: @bg-0;
+}
+
+/* Vertically align modules */
+.module {
+	margin-bottom: -1px;
+}
+
+button {
+	border-radius: 16px;
+	padding: 0 10px;
+	min-width: 16px;
+}
+button:hover {
+	background-color: @hover-bg;
+	color: @hover-fg;
+}
+
+tooltip {
+	border: 2px solid @br;
+	background-color: @bg-0;
+}
+tooltip > box {
+	padding: 0 6px;
+}
+tooltip label {
+	font-weight: normal;
+}
+
+@import "styles/dividers.css";
+@import "styles/modules.css";
+@import "styles/states.css";

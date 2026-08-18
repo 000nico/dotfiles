@@ -1,0 +1,30 @@
+{
+	"clock#time": {
+		"format": "{:%H:%M}",
+		"min-length": 5,
+		"max-length": 5,
+		"tooltip-format": "<b>Standard Time</b>: <span text_transform='lowercase'>{:%I:%M %p}</span>"
+	},
+
+	"clock#date": {
+		"format": "󰸗 {:%d-%m}",
+		"min-length": 8,
+		"max-length": 8,
+		"actions": {
+			"on-click": "mode"
+		},
+
+		"calendar": {
+			"mode": "month",
+			"mode-mon-col": 3,
+			"format": {
+				"months": "<span alpha='100%'><b>{}</b></span>",
+				"days": "<span alpha='85%'>{}</span>",
+				"weekdays": "<span alpha='60%'><i>{}</i></span>",
+				"today": "<span alpha='100%'><b><u>{}</u></b></span>"
+			}
+		},
+
+		"tooltip-format": "{calendar}"
+	}
+}

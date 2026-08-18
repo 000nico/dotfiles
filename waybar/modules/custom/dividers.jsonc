@@ -1,0 +1,43 @@
+{
+	"custom/left#accent": {
+		"format": "",
+		"tooltip": false
+	},
+	"custom/left#bg-1": {
+		"format": "",
+		"tooltip": false
+	},
+	"custom/left#bg-2": {
+		"format": "",
+		"tooltip": false
+	},
+	"custom/left#bg-3": {
+		"format": "",
+		"tooltip": false
+	},
+	"custom/left#inverse": {
+		"format": "",
+		"tooltip": false
+	},
+
+	"custom/right#accent": {
+		"format": "",
+		"tooltip": false
+	},
+	"custom/right#bg-1": {
+		"format": "",
+		"tooltip": false
+	},
+	"custom/right#bg-2": {
+		"format": "",
+		"tooltip": false
+	},
+	"custom/right#bg-3": {
+		"format": "",
+		"tooltip": false
+	},
+	"custom/right#inverse": {
+		"format": "",
+		"tooltip": false
+	}
+}

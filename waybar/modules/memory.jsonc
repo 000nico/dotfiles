@@ -1,0 +1,15 @@
+{
+	"memory": {
+		"interval": 10,
+		"format": "󰘚 {percentage}%",
+		"states": {
+			"warning": 75,
+			"critical": 90
+		},
+		"format-warning": "󰀧 {percentage}%",
+		"format-critical": "󰀧 {percentage}%",
+		"min-length": 7,
+		"max-length": 7,
+		"tooltip-format": "Memory Used: {used:0.0f}/{total:0.0f} GiB"
+	}
+}

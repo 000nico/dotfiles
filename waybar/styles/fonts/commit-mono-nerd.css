@@ -1,0 +1,21 @@
+* {
+	font-family: "CommitMono Nerd Font";
+	font-size: 14px;
+}
+
+#workspaces button.active label,
+#workspaces button.focused label,
+#custom-distro {
+	font-size: 18.5px;
+}
+
+#custom-power {
+	font-size: 16px;
+}
+
+#custom-left,
+#custom-left.inverse,
+#custom-right,
+#custom-right.inverse {
+	font-size: 22px;
+}
