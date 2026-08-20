@@ -1,0 +1,21 @@
+-- Orange theme colors
+ORANGE_LIGHT  = "rgba(ffd080ff)"
+ORANGE_MAIN   = "rgba(ffb040ff)"
+ORANGE_DARK   = "rgba(e07020ff)"
+ORANGE_DEEP   = "rgba(7a2900ff)"
+ORANGE_BG     = "rgba(1c1512ff)"
+ORANGE_MUTED  = "rgba(503525aa)"
+ORANGE_GRAY   = "rgba(705545aa)"
+ORANGE_ACCENT = "rgba(ffc060ff)"
+WHITE         = "rgba(ffffffff)"
+
+-- Cachy legacy color aliases
+CACHYLGREEN = ORANGE_LIGHT
+CACHYMGREEN = ORANGE_MAIN
+CACHYDGREEN = ORANGE_DARK
+CACHYLBLUE  = ORANGE_ACCENT
+CACHYMBLUE  = ORANGE_DEEP
+CACHYDBLUE  = ORANGE_BG
+CACHYWHITE  = WHITE
+CACHYGREY   = ORANGE_GRAY
+CACHYGRAY   = ORANGE_MUTED
