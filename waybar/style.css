@@ -13,10 +13,12 @@
 
 #waybar {
 	background-color: @shadow;
+	border-radius: 8px;
 }
 #waybar > box {
 	margin: 3px;
 	background-color: @bg-0;
+	border-radius: 6px;
 }
 
 /* Vertically align modules */
@@ -37,6 +39,7 @@ button:hover {
 tooltip {
 	border: 2px solid @br;
 	background-color: @bg-0;
+	border-radius: 6px;
 }
 tooltip > box {
 	padding: 0 6px;
