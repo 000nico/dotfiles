@@ -13,3 +13,9 @@ export PATH="/home/nico/.local/bin:$PATH"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+# Run fastfetch on interactive shell startup
+if [[ -o interactive ]]; then
+  fastfetch
+fi
+
