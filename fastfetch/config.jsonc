@@ -32,7 +32,7 @@
     "colors"
   ],
   "logo": {
-    "type": "kitty",
+    "type": "kitty-direct",
     "source": "/home/nico/Pictures/L.webp",
     "width": 30
   }
