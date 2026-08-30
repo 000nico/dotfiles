@@ -1,6 +1,6 @@
 {
 	"cpu": {
-		"interval": 10,
+		"interval": 5,
 		"format": "󰍛 {usage}%",
 		"states": {
 			"warning": 75,
@@ -10,6 +10,9 @@
 		"format-critical": "󰀨 {usage}%",
 		"min-length": 7,
 		"max-length": 7,
-		"tooltip": false
+		"on-click": "kitty -e btop",
+		"tooltip": true,
+		"tooltip-format": "CPU Usage: {usage}%"
 	}
 }
+

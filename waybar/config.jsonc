@@ -19,9 +19,7 @@
 
 		"custom/left#bg-1",
 		"hyprland/workspaces",
-		"custom/right#bg-1",
-
-		"hyprland/window"
+		"custom/right#bg-1"
 	],
 
 	"modules-center": [

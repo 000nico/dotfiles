@@ -78,7 +78,9 @@ hl.bind("XF86Calculator", hl.dsp.exec_cmd(launchPrefix .. CALCULATOR))
 hl.bind(mainMod .. " + W", hl.dsp.exec_cmd(launchPrefix .. BROWSER))
 hl.bind("CONTROL + SHIFT + Escape", hl.dsp.exec_cmd(launchPrefix .. TERMINAL .. " -e btop"))
 hl.bind(mainMod .. " + L", hl.dsp.exec_cmd("loginctl lock-session"))
+hl.bind(mainMod .. " + X", hl.dsp.exec_cmd("/home/nico/.config/waybar/scripts/wofi-power.sh"))
 hl.bind(mainMod .. " + ALT + C", hl.dsp.exec_cmd("hyprctl dispatch exit"))
+
 
 ---------------------------
 ---- HARDWARE CONTROLS ----

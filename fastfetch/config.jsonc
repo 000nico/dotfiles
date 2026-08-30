@@ -1,39 +1,86 @@
 {
   "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/master/doc/json_schema.json",
+  "logo": {
+    "type": "kitty",
+    "source": "/home/nico/Pictures/L.webp",
+    "width": 28,
+    "height": 14,
+    "padding": {
+      "top": 1,
+      "left": 1,
+      "right": 3
+    }
+  },
+  "display": {
+    "separator": " 󰅂 ",
+    "color": {
+      "keys": "yellow",
+      "title": "yellow"
+    }
+  },
   "modules": [
     "title",
-    "separator",
-    "os",
-    "host",
-    "kernel",
-    "uptime",
-    "packages",
-    "shell",
-    "display",
-    "de",
-    "wm",
-    "wmtheme",
-    "theme",
-    "icons",
-    "font",
-    "cursor",
-    "terminal",
-    "terminalfont",
-    "cpu",
-    "gpu",
-    "memory",
-    "swap",
-    "disk",
-    "battery",
-    "poweradapter",
-    "localip",
-    "locale",
+    {
+      "type": "custom",
+      "format": "────────────────────────────────────"
+    },
+    {
+      "type": "os",
+      "key": "󰣇 OS"
+    },
+    {
+      "type": "kernel",
+      "key": "󰌽 Kernel"
+    },
+    {
+      "type": "wm",
+      "key": "󱂬 WM"
+    },
+    {
+      "type": "shell",
+      "key": "󰞷 Shell"
+    },
+    {
+      "type": "terminal",
+      "key": "󰞍 Terminal"
+    },
+    {
+      "type": "uptime",
+      "key": "󰥔 Uptime"
+    },
+    {
+      "type": "packages",
+      "key": "󰏖 Packages"
+    },
+    {
+      "type": "custom",
+      "format": "────────────────────────────────────"
+    },
+    {
+      "type": "cpu",
+      "key": "󰻠 CPU"
+    },
+    {
+      "type": "gpu",
+      "key": "󰢮 GPU"
+    },
+    {
+      "type": "memory",
+      "key": "󰍛 Memory"
+    },
+    {
+      "type": "disk",
+      "key": "󰋊 Disk"
+    },
+    {
+      "type": "battery",
+      "key": "󰁹 Battery"
+    },
     "break",
-    "colors"
-  ],
-  "logo": {
-    "type": "kitty-direct",
-    "source": "/home/nico/Pictures/L.webp",
-    "width": 30
-  }
+    {
+      "type": "colors",
+      "symbol": "circle"
+    }
+  ]
 }
+

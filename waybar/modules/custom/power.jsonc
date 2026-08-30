@@ -1,7 +1,8 @@
 {
 	"custom/power": {
 		"format": "󰤄",
-		"on-click": "kitty -e ~/.config/waybar/scripts/power",
+		"on-click": "~/.config/waybar/scripts/wofi-power.sh",
 		"tooltip-format": "Power Menu"
 	}
 }
+

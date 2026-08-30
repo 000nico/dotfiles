@@ -1,15 +1,20 @@
 {
 	"mpris": {
-		"format": "{player_icon} {title} - {artist}",
+		"format": "{player_icon}  {title} - {artist}",
+		"format-paused": "󰏤  <i>{title} - {artist}</i>",
 		"player-icons": {
-			"default": "󰐊"
+			"default": "󰎈",
+			"spotify": "",
+			"firefox": "󰈹",
+			"chromium": ""
 		},
-		"format-paused": "{status_icon} {title} - {artist}",
-		"status-icons": {
-			"paused": "󰏤"
-		},
-		"max-length": 1000,
-		"tooltip-format": "Playing: {title} - {artist}",
-		"tooltip-format-paused": "Paused: {title} - {artist}"
+		"max-length": 32,
+		"on-click": "playerctl play-pause",
+		"on-click-right": "playerctl next",
+		"on-click-middle": "playerctl previous",
+		"on-scroll-up": "playerctl volume 0.05+",
+		"on-scroll-down": "playerctl volume 0.05-",
+		"tooltip-format": "<b>{player}</b> ({status})\n{title} - {artist}"
 	}
 }
+

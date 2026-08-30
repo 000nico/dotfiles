@@ -3,16 +3,16 @@
 hl.config({
 	general = {
 		gaps_in = 2,
-		gaps_out = 5,
+		gaps_out = 4,
 		border_size = 2,
 		extend_border_grab_area = 10,
 		resize_on_border = true,
 		col = {
 			active_border = {
-				colors = { ORANGE_ACCENT, ORANGE_MAIN },
+				colors = { ORANGE_ACCENT, ORANGE_MAIN, ORANGE_DARK },
 				angle = 45,
 			},
-			inactive_border = ORANGE_MUTED,
+			inactive_border = "rgba(40251588)",
 		},
 	},
 	group = {
@@ -32,21 +32,23 @@ hl.config({
 		},
 	},
 	decoration = {
-		dim_special = 0.3,
-		rounding = 6,
-		active_opacity = 0.95,
-		inactive_opacity = 0.85,
-		fullscreen_opacity = 1,
+		dim_special = 0.35,
+		rounding = 10,
+		active_opacity = 0.96,
+		inactive_opacity = 0.88,
+		fullscreen_opacity = 1.0,
 		shadow = {
 			enabled = false,
-			range = 10,
-			render_power = 3,
-			color = "rgba(ff6b002a)",
 		},
 		blur = {
-			size = 2,
-			passes = 2,
+			enabled = true,
+			size = 6,
+			passes = 3,
+			vibrancy = 0.2,
+			new_optimizations = true,
+			ignore_opacity = true,
 			special = true,
+			xray = false,
 		},
 	},
 })

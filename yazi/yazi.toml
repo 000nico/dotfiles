@@ -6,4 +6,7 @@ edit = [
 [open]
 rules = [
 	{ mime = "text/*", use = "edit" },
+	{ mime = "application/*", use = "edit" },
+	{ url = "*", use = "edit" },
 ]
+

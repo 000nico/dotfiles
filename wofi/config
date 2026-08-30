@@ -1,5 +1,5 @@
-width=550
-height=400
+width=520
+height=380
 location=center
 show=drun
 prompt=Search...
@@ -11,5 +11,6 @@ orientation=vertical
 content_halign=fill
 insensitive=true
 allow_images=true
-image_size=28
+image_size=26
 hide_scroll=true
+

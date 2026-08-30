@@ -1,6 +1,6 @@
 {
 	"memory": {
-		"interval": 10,
+		"interval": 5,
 		"format": "󰘚 {percentage}%",
 		"states": {
 			"warning": 75,
@@ -10,6 +10,8 @@
 		"format-critical": "󰀧 {percentage}%",
 		"min-length": 7,
 		"max-length": 7,
-		"tooltip-format": "Memory Used: {used:0.0f}/{total:0.0f} GiB"
+		"on-click": "kitty -e btop",
+		"tooltip-format": "Memory Used: {used:0.1f}/{total:0.1f} GiB ({percentage}%)"
 	}
 }
+

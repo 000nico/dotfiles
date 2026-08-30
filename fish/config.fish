@@ -1,12 +1,26 @@
 source /usr/share/cachyos-fish-config/cachyos-config.fish
 
-# overwrite greeting
-# potentially disabling fastfetch
-#function fish_greeting
-#    # smth smth
-#end
-
-# Added by Antigravity CLI installer
+# Environment variables
 set -gx PATH "/home/nico/.local/bin" $PATH
 set -gx TERMINAL kitty
-alias nvim="kitty @ set-spacing padding=0; command nvim; kitty @ set-spacing padding=default"
+set -gx EDITOR nvim
+set -gx VISUAL nvim
+
+# Modern CLI Aliases
+alias ls="eza --icons --group-directories-first"
+alias ll="eza -la --icons --group-directories-first --git"
+alias tree="eza --tree --icons"
+alias cat="bat --paging=never"
+alias ff="fastfetch"
+alias top="btop"
+alias y="yazi"
+alias v="nvim"
+
+
+# Greeting
+function fish_greeting
+    if status is-interactive
+        fastfetch
+    end
+end
+

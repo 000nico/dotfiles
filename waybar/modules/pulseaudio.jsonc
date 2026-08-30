@@ -24,9 +24,10 @@
 		"min-length": 7,
 		"max-length": 7,
 		"on-click": "~/.config/waybar/scripts/volume output mute",
+		"on-click-right": "pavucontrol",
 		"on-scroll-up": "~/.config/waybar/scripts/volume output raise",
 		"on-scroll-down": "~/.config/waybar/scripts/volume output lower",
-		"tooltip-format": "<b>Output Device</b>: {desc}"
+		"tooltip-format": "<b>Output Device</b>: {desc}\n<i>Right-click: open mixer</i>"
 	},
 
 	"pulseaudio#input": {
