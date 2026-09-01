@@ -1,4 +1,4 @@
-// Niri configuration - Orange Dark Theme (matching dotfiles)
+// Niri configuration - Purple Dark Theme
 // Documentation: https://niri-wm.github.io/niri/
 
 input {
@@ -39,10 +39,10 @@ layout {
     }
 
     border {
-        width 2
-        active-gradient from="#ffc060" to="#e07020" angle=45
-        inactive-color "#402515aa"
-        urgent-color "#e84040"
+        width 1
+        active-gradient from="#c084fc" to="#7c3aed" angle=45
+        inactive-color "#2d1a4eaa"
+        urgent-color "#f87171"
     }
 
     shadow {
@@ -57,7 +57,7 @@ layout {
 // Autostart processes
 spawn-at-startup "waybar"
 spawn-at-startup "mako"
-spawn-at-startup "swaybg" "-i" "/home/nico/Pictures/catto.jpg" "-m" "fill"
+spawn-at-startup "swaybg" "-i" "/home/nico/Downloads/wall.png" "-m" "fill"
 spawn-sh-at-startup "dbus-update-activation-environment --systemd --all"
 spawn-sh-at-startup "xhost +SI:localuser:root 2>/dev/null || true"
 
@@ -73,7 +73,9 @@ animations {
     slowdown 1.0
 }
 
+
 // Window rules
+
 window-rule {
     geometry-corner-radius 5
     clip-to-geometry true

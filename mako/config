@@ -1,4 +1,4 @@
-# Mako Notification Daemon Configuration - Amber Rice Edition
+# Mako Notification Daemon Configuration - Purple Dark Edition
 max-visible=5
 sort=-time
 layer=overlay
@@ -17,10 +17,10 @@ icon-location=left
 
 # Colors & Fonts
 font=JetBrainsMono Nerd Font 10
-background-color=#0a0704f2
-text-color=#f5dfc8
-border-color=#ffb040
-progress-color=source #ffb040
+background-color=#080512f2
+text-color=#e9d5ff
+border-color=#c084fc
+progress-color=source #c084fc
 
 # Behavior
 default-timeout=6000
@@ -28,24 +28,24 @@ ignore-timeout=0
 
 # Actions
 [actionable]
-border-color=#ffd080
+border-color=#d8b4fe
 
 # Urgency Levels
 [urgency=low]
-background-color=#0a0704ea
-border-color=#7a5840
-text-color=#c8a888
+background-color=#080512ea
+border-color=#4c1d95
+text-color=#b8a0d8
 default-timeout=3500
 
 [urgency=normal]
-background-color=#0a0704f2
-border-color=#ffb040
-text-color=#f5dfc8
+background-color=#080512f2
+border-color=#c084fc
+text-color=#e9d5ff
 default-timeout=6000
 
 [urgency=high]
-background-color=#150604f6
-border-color=#ff453a
-text-color=#ffebe8
+background-color=#0d0518f6
+border-color=#f87171
+text-color=#fee2e2
 default-timeout=0
 

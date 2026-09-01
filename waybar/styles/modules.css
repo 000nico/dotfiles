@@ -1,100 +1,102 @@
-/* Left modules */
+/* ── LEFT pill modules ───────────────────────────── */
 
-#custom-user {
-	padding: 0 16px;
+#custom-distro {
+	padding: 0 10px 0 4px;
+	color: @accent;
+	font-size: 15px;
 }
 
 #workspaces {
-	padding: 0 1px;
-	background-color: @bg-1;
+	padding: 0 4px;
 }
 
-#window {
-	padding: 0 12px;
-	/* Prevent large Unicode characters from increasing the bar height
-	 * https://github.com/Alexays/Waybar/issues/2026
-	 */
-	margin: -50px 0;
+#workspaces button {
+	padding: 0 5px;
+	color: @muted;
+	font-size: 11px;
 }
-#window label {
+
+#workspaces button.active,
+#workspaces button.focused {
+	color: @accent;
+}
+
+#workspaces button.empty {
+	color: rgba(107, 79, 160, 0.4);
+}
+
+#mpris {
+	padding: 0 8px 0 10px;
 	font-weight: normal;
+	font-size: 12px;
+	color: @subtext;
 }
 
-#keyboard-state label,
-#language {
-	padding: 0 12px 0 8px;
-	font-weight: normal;
-	color: @hover-fg;
-}
+/* ── CENTER pill modules ─────────────────────────── */
 
-/* Center modules */
-
-#temperature {
-	background-color: @bg-1;
-}
-
-#memory {
-	background-color: @bg-2;
-}
-
-#cpu {
-	background-color: @bg-3;
-}
-
-#custom-distro {
-	padding: 0 10px 0 5px;
-	background-color: @accent;
-	color: @bg-0;
-}
-
-#idle_inhibitor {
-	background-color: @bg-3;
-}
 #clock.time {
-	padding-right: 6px;
-	background-color: @bg-3;
+	padding: 0 6px 0 2px;
+	font-size: 14px;
+	color: @fg;
 }
 
 #clock.date {
-	padding-left: 6px;
-	background-color: @bg-2;
+	padding: 0 2px 0 6px;
+	font-size: 12px;
+	color: @subtext;
+	font-weight: normal;
 }
 
-#network {
-	padding: 0 6px 0 4px;
-	background-color: @bg-1;
-}
-#bluetooth {
-	padding: 0 5px;
-	background-color: @bg-1;
-}
-#custom-update {
-	padding: 0 8px 0 2px;
-	background-color: @bg-1;
+/* ── RIGHT pill modules ──────────────────────────── */
+
+#cpu {
+	padding: 0 6px;
+	color: @subtext;
+	font-size: 12px;
+	font-weight: normal;
 }
 
-/* Right modules */
-
-#mpris {
-	padding: 0 12px;
+#memory {
+	padding: 0 6px;
+	color: @subtext;
+	font-size: 12px;
 	font-weight: normal;
 }
 
 #pulseaudio,
 #wireplumber {
-	background-color: @bg-1;
+	padding: 0 5px;
 }
 
 #backlight {
-	background-color: @bg-2;
+	padding: 0 5px;
+	color: @subtext;
+	font-weight: normal;
 }
 
 #battery {
-	background-color: @bg-3;
+	padding: 0 6px;
 }
 
 #custom-power {
-	border-radius: 16px;
-	padding: 0 19px 0 16px;
+	padding: 0 4px 0 8px;
 	color: @accent;
+	font-size: 15px;
+}
+
+/* ── Dividers between modules ────────────────────── */
+#cpu,
+#memory,
+#clock.date,
+#pulseaudio,
+#wireplumber,
+#backlight,
+#battery,
+#mpris {
+	border-left: 1px solid rgba(76, 29, 149, 0.3);
+}
+
+#workspaces {
+	border-left: 1px solid rgba(76, 29, 149, 0.3);
+	border-right: 1px solid rgba(76, 29, 149, 0.3);
 }

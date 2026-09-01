@@ -1,29 +1,11 @@
+
 @import url('../../.cache/wal/colors-waybar.css');
 
 * {
     font-size:15px;
-    font-family: "JetBrainsMono Nerd Font", "CodeNewRoman Nerd Font Propo", monospace;
+    font-family: "CodeNewRoman Nerd Font Propo";
 }
 window#waybar{
-    all:unset;
-}
-.modules-left {
-    padding:7px;
-    margin:10px 0 5px 10px;
-    border-radius:10px;
-    background: alpha(@background,.6);
-    box-shadow: 0px 0px 2px rgba(0, 0, 0, .6);
-}
-.modules-center {
-    padding:7px;
-    margin:10px 0 5px 0;
-    border-radius:10px;
-    background: alpha(@background,.6);
-    box-shadow: 0px 0px 2px rgba(0, 0, 0, .6);
-}
-.modules-right {
-    padding:7px;
-    margin: 10px 10px 5px 0;
     border-radius:10px;
     background: alpha(@background,.6);
     box-shadow: 0px 0px 2px rgba(0, 0, 0, .6);
@@ -37,7 +19,7 @@ tooltip {
     color:@color9;
 }
 #custom-notification {
-    padding: 0px 5px;
+    padding: 0px 5px 0 10;
     transition: all .3s ease;
     color:@color7;
 }
@@ -53,7 +35,7 @@ tooltip {
 
 }
 #workspaces {
-    padding: 0px 5px;
+    padding: 7px 5px;
 }
 #workspaces button {
     all:unset;
@@ -67,8 +49,7 @@ tooltip {
     text-shadow: 0px 0px 1.5px rgba(0, 0, 0, .5);
     transition: all 1s ease;
 }
-#workspaces button.active,
-#workspaces button.focused {
+#workspaces button.active {
     color: @color9;
     border: none;
     text-shadow: 0px 0px 2px rgba(0, 0, 0, .5);
@@ -84,8 +65,7 @@ tooltip {
     text-shadow: 0px 0px 1.5px rgba(0, 0, 0, .5);
     transition: all 1s ease;
 }
-#workspaces button.empty.active,
-#workspaces button.empty.focused {
+#workspaces button.empty.active {
     color: @color9;
     border: none;
     text-shadow: 0px 0px 2px rgba(0, 0, 0, .5);
@@ -103,7 +83,7 @@ tooltip {
 
 }
 #battery{
-    padding: 0px 5px;
+    padding: 0px 10px 0 5;
     transition: all .3s ease;
     color:@color7;
 

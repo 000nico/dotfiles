@@ -1,0 +1,31 @@
+/* Purple Dark Palette */
+@define-color purple-brightest  #e9d5ff;
+@define-color purple-light      #c084fc;
+@define-color purple-main       #a855f7;
+@define-color purple-dark       #7c3aed;
+@define-color purple-deep       #4c1d95;
+@define-color purple-ember      #d8b4fe;
+
+/* Backgrounds — cool near-black with purple tint */
+@define-color bg-darkest        #05030a;
+@define-color bg-0              #080512;
+@define-color bg-1              #0f0a1e;
+@define-color bg-2              #18102c;
+@define-color bg-3              #22163a;
+
+/* Text */
+@define-color fg                #e9d5ff;
+@define-color subtext           #b8a0d8;
+@define-color muted             #6b4fa0;
+
+/* Semantic aliases */
+@define-color accent            @purple-light;
+@define-color br                @purple-dark;
+@define-color shadow            shade(@bg-darkest, 0.6);
+
+/* States */
+@define-color warning           @purple-brightest;
+@define-color critical          #f87171;
+@define-color charging          #86efac;
+@define-color hover-bg          @bg-2;
+@define-color hover-fg          alpha(@fg, 0.6);

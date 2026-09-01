@@ -78,7 +78,7 @@ unset -f _load_plugin
 
 # Tune autosuggestion style
 ZSH_AUTOSUGGEST_STRATEGY=(history completion)
-ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#7a5840,underline"
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#6b4fa0,underline"
 ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
 
 # ──────────────────────────────────────────────────────────────
@@ -215,9 +215,9 @@ if command -v fzf &>/dev/null; then
         --layout=reverse
         --border=rounded
         --info=inline
-        --color=fg:#f5dfc8,fg+:#ffc060,bg:#0a0704,bg+:#1a0e06
-        --color=hl:#ffb040,hl+:#ffd080,border:#ffb040,prompt:#ffc060
-        --color=pointer:#ffc060,marker:#e07020,spinner:#ffb040,header:#c8a888
+        --color=fg:#e9d5ff,fg+:#c084fc,bg:#080512,bg+:#0f0a1e
+        --color=hl:#a855f7,hl+:#d8b4fe,border:#c084fc,prompt:#c084fc
+        --color=pointer:#c084fc,marker:#7c3aed,spinner:#a855f7,header:#b8a0d8
         --prompt='  '
         --pointer='❯'
         --marker='●'
