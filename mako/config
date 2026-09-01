@@ -27,7 +27,7 @@ default-timeout=6000
 ignore-timeout=0
 
 # Actions
-[action]
+[actionable]
 border-color=#ffd080
 
 # Urgency Levels

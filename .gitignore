@@ -1,0 +1,26 @@
+# Neovim lazy-lock (auto-generated, do NOT commit to avoid conflicts)
+nvim/lazy-lock.json
+
+# Vesktop / browser profile data (private & large)
+vesktop/
+librewolf/
+mozilla/
+
+# Nix store garbage
+result
+result-*
+
+# System/editor junk
+.DS_Store
+*.swp
+*.swo
+*~
+
+# Btop cache
+btop/log/
+
+# Zsh completion cache
+.zcompdump*
+
+# Cache files
+.cache/

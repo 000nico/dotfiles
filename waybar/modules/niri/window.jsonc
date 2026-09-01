@@ -1,5 +1,6 @@
 {
-	"hyprland/window": {
+	"niri/window": {
+		"format": "{title}",
 		"rewrite": {
 			"": "Desktop",
 			"kitty": "Terminal",
