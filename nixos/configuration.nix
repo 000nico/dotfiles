@@ -131,6 +131,7 @@
     zsh-syntax-highlighting
     zsh-autocomplete
     fzf
+    zoxide
     eza
     bat
     fastfetch
