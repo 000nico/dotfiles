@@ -1,169 +1,198 @@
-@import url('../../.cache/wal/colors-waybar.css');
+/* DerAnsari Waybar style adapted with purple terminal dark theme */
+@define-color background #080512;
+@define-color second-background #18102c;
+@define-color text #e9d5ff;
+@define-color borders #7c3aed;
+@define-color focused #c084fc;
+@define-color focused2 #d8b4fe;
+@define-color color1 #a855f7;
+@define-color color2 #818cf8;
+@define-color color3 #86efac;
+@define-color urgent #f87171;
 
 * {
-    font-size:15px;
-    font-family: "JetBrainsMono Nerd Font", "CodeNewRoman Nerd Font Propo", monospace;
+  font-family: "JetBrainsMono Nerd Font", "Iosevka Nerd Font", monospace;
+  font-size: 14px;
 }
-window#waybar{
-    all:unset;
-}
-.modules-left {
-    padding:7px;
-    margin:10px 0 5px 10px;
-    border-radius:10px;
-    background: alpha(@background,.6);
-    box-shadow: 0px 0px 2px rgba(0, 0, 0, .6);
-}
-.modules-center {
-    padding:7px;
-    margin:10px 0 5px 0;
-    border-radius:10px;
-    background: alpha(@background,.6);
-    box-shadow: 0px 0px 2px rgba(0, 0, 0, .6);
-}
-.modules-right {
-    padding:7px;
-    margin: 10px 10px 5px 0;
-    border-radius:10px;
-    background: alpha(@background,.6);
-    box-shadow: 0px 0px 2px rgba(0, 0, 0, .6);
-}
-tooltip {
-    background:@background;
-    color: @color7;
-}
-#clock:hover, #custom-pacman:hover, #custom-notification:hover,#bluetooth:hover,#network:hover,#battery:hover, #cpu:hover,#memory:hover,#temperature:hover{
-    transition: all .3s ease;
-    color:@color9;
-}
-#custom-notification {
-    padding: 0px 5px;
-    transition: all .3s ease;
-    color:@color7;
-}
-#clock{
-    padding: 0px 5px;
-    color:@color7;
-    transition: all .3s ease;
-}
-#custom-pacman{
-    padding: 0px 5px;
-    transition: all .3s ease;
-    color:@color7;
 
+#custom-openbracket,
+#custom-closebracket {
+  margin: 0 4px;
+  color: @borders;
+  font-weight: bold;
 }
-#workspaces {
-    padding: 0px 5px;
+
+#custom-split {
+  margin: 0 4px;
+  color: @borders;
+  opacity: 0.5;
 }
+
+window#waybar {
+  background-color: transparent;
+  border-bottom: 0;
+  color: @text;
+  transition: background-color 0.5s;
+}
+
+window#waybar.hidden {
+  opacity: 0.2;
+}
+
+window#waybar.empty #window {
+  background-color: transparent;
+}
+
+/* Configuring the modules */
+.modules-left {
+  margin: 8px 0 0 10px;
+  padding: 2px 6px;
+  background-color: rgba(8, 5, 18, 0.85);
+  border: 1.5px solid @focused;
+  border-radius: 4px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
+}
+
+.modules-center {
+  margin: 8px 0 0 0;
+  padding: 2px 8px;
+  background-color: rgba(8, 5, 18, 0.85);
+  border: 1.5px solid @focused;
+  border-radius: 4px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
+}
+
+.modules-right {
+  margin: 8px 10px 0 0;
+  padding: 2px 8px;
+  background-color: rgba(8, 5, 18, 0.85);
+  border: 1.5px solid @focused;
+  border-radius: 4px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
+}
+
+button {
+  border: none;
+}
+
+/* Left island */
+#custom-arch,
+#custom-powerprofile,
+#custom-themeswitcher {
+  padding-right: 6px;
+  padding-left: 4px;
+  font-size: 14px;
+}
+
+#custom-arch:hover,
+#custom-powerprofile:hover,
+#custom-themeswitcher:hover {
+  color: @focused;
+}
+
+/* Workspace panel */
 #workspaces button {
-    all:unset;
-    padding: 0px 5px;
-    color: alpha(@color9,.4);
-    transition: all .2s ease;
+  min-width: 0;
+  padding: 0 6px;
+  background-color: transparent;
+  color: @text;
+  border-radius: 2px;
 }
+
 #workspaces button:hover {
-    color:rgba(0,0,0,0);
-    border: none;
-    text-shadow: 0px 0px 1.5px rgba(0, 0, 0, .5);
-    transition: all 1s ease;
+  background-color: @second-background;
 }
+
 #workspaces button.active,
 #workspaces button.focused {
-    color: @color9;
-    border: none;
-    text-shadow: 0px 0px 2px rgba(0, 0, 0, .5);
-}
-#workspaces button.empty {
-    color: rgba(0,0,0,0);
-    border: none;
-    text-shadow: 0px 0px 1.5px rgba(0, 0, 0, .2);
-}
-#workspaces button.empty:hover {
-    color: rgba(0,0,0,0);
-    border: none;
-    text-shadow: 0px 0px 1.5px rgba(0, 0, 0, .5);
-    transition: all 1s ease;
-}
-#workspaces button.empty.active,
-#workspaces button.empty.focused {
-    color: @color9;
-    border: none;
-    text-shadow: 0px 0px 2px rgba(0, 0, 0, .5);
-}
-#bluetooth{
-    padding: 0px 5px;
-    transition: all .3s ease;
-    color:@color7;
-
-}
-#network{
-    padding: 0px 5px;
-    transition: all .3s ease;
-    color:@color7;
-
-}
-#battery{
-    padding: 0px 5px;
-    transition: all .3s ease;
-    color:@color7;
-
-
-}
-#battery.charging {
-    color: #26A65B;
+  color: @focused;
+  background-color: @second-background;
+  font-weight: bold;
 }
 
-#battery.warning:not(.charging) {
-    color: #ffbe61;
+#workspaces button.urgent {
+  background-color: @urgent;
+}
+
+/* Media player */
+#mpris {
+  margin: 0 0 0 4px;
+  padding: 0 6px;
+  color: @text;
+}
+
+#mpris.playing {
+  color: @color3;
+}
+
+/* Center module */
+#window {
+  padding: 0 4px;
+  font-weight: 500;
+}
+
+/* Right Island */
+#clock,
+#battery,
+#cpu,
+#memory,
+#custom-clipboard,
+#custom-bluetooth,
+#network {
+  padding: 0 6px;
+}
+
+#clock:hover,
+#battery:hover,
+#cpu:hover,
+#memory:hover,
+#custom-clipboard:hover,
+#custom-bluetooth:hover,
+#network:hover,
+#idle_inhibitor:hover,
+#custom-swaync:hover,
+#backlight:hover,
+#wireplumber:hover {
+  color: @focused;
+}
+
+#idle_inhibitor {
+  padding: 0 4px;
+}
+
+#custom-powerprofile {
+  padding: 0 4px;
+}
+
+#backlight,
+#wireplumber {
+  padding: 0 4px;
+}
+
+#wireplumber.muted {
+  color: @urgent;
+}
+
+#custom-swaync {
+  padding: 0 6px;
+  font-size: 14px;
+  color: @text;
+}
+
+#battery.charging,
+#battery.plugged {
+  color: @color3;
 }
 
 #battery.critical:not(.charging) {
-    color: #f53c3c;
-    animation-name: blink;
-    animation-duration: 0.5s;
-    animation-timing-function: linear;
-    animation-iteration-count: infinite;
-    animation-direction: alternate;
-}
-#group-expand{
-    padding: 0px 5px;
-    transition: all .3s ease; 
-}
-#custom-expand{
-    padding: 0px 5px;
-    color:alpha(@foreground,.2);
-    text-shadow: 0px 0px 2px rgba(0, 0, 0, .7);
-    transition: all .3s ease; 
-}
-#custom-expand:hover{
-    color:rgba(255,255,255,.2);
-    text-shadow: 0px 0px 2px rgba(255, 255, 255, .5);
-}
-#custom-colorpicker{
-    padding: 0px 5px;
-}
-#cpu,#memory,#temperature{
-    padding: 0px 5px;
-    transition: all .3s ease; 
-    color:@color7;
-
-}
-#custom-endpoint{
-    color:transparent;
-    text-shadow: 0px 0px 1.5px rgba(0, 0, 0, 1);
-
-}
-#tray{
-    padding: 0px 5px;
-    transition: all .3s ease; 
-
-}
-#tray menu * {
-    padding: 0px 5px;
-    transition: all .3s ease; 
+  background-color: @urgent;
+  color: @text;
+  animation: blink 0.5s steps(12) infinite alternate;
 }
 
-#tray menu separator {
-    padding: 0px 5px;
-    transition: all .3s ease; 
+@keyframes blink {
+  to {
+    background-color: @second-background;
+    color: @text;
+  }
 }

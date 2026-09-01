@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Check if waybar is running
 if pgrep -x "waybar" > /dev/null; then

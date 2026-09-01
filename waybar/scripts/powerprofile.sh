@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Get supported powerctl
 if command -v powerprofilesctl &>/dev/null; then

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 WAYBAR_DIR="$HOME/.config/waybar"
 STYLECSS="$WAYBAR_DIR/style.css"
 CONFIG="$WAYBAR_DIR/config"

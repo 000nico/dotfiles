@@ -1,69 +1,86 @@
-#!/bin/bash
-# Wallpaper Switcher Script — NixOS + Niri + swaybg
-# Usage: theme-switcher.sh [next|random|restore|list]
+#!/usr/bin/env bash
 
-WALLPAPER_DIR="$HOME/Pictures"
+# Theme Switcher Script
+WALLPAPER_DIR="$HOME/new-dotfiles/assets"
 CURRENT_WALLPAPER_FILE="$HOME/.cache/current_wallpaper"
 
 # Collect wallpapers
-mapfile -t WALLPAPERS < <(find "$WALLPAPER_DIR" -type f \( -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.png" -o -iname "*.webp" \) | sort)
+mapfile -t WALLPAPERS < <(find "$WALLPAPER_DIR" -type f \( -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.png" \) | sort)
 
 if [ ${#WALLPAPERS[@]} -eq 0 ]; then
-  notify-send "Wallpaper Switcher" "No wallpapers found in $WALLPAPER_DIR"
+  notify-send "Theme Switcher" "No wallpapers found in $WALLPAPER_DIR"
   exit 1
 fi
 
+# Helpers
 get_current_index() {
   [[ -f "$CURRENT_WALLPAPER_FILE" ]] && cat "$CURRENT_WALLPAPER_FILE" || echo "0"
 }
 
-apply_wallpaper() {
+apply_theme() {
   local wallpaper_path="$1"
   local index="$2"
   local wallpaper_name
   wallpaper_name=$(basename "$wallpaper_path")
 
-  echo "$index" > "$CURRENT_WALLPAPER_FILE"
+  echo "$index" >"$CURRENT_WALLPAPER_FILE"
 
-  # Apply wallpaper using swaybg (replace any existing instance)
-  pkill swaybg 2>/dev/null || true
-  swaybg -i "$wallpaper_path" -m fill &
+  # Pick random position for grow animation
+  local positions=("center" "top" "bottom" "left" "right" "top-left" "top-right" "bottom-left" "bottom-right")
+  local random_pos=${positions[$RANDOM % ${#positions[@]}]}
 
-  notify-send "Wallpaper Switcher" "Applied: $wallpaper_name"
+  # Apply wallpaper with random grow origin
+  swww init &>/dev/null || true
+  swww img "$wallpaper_path" \
+    --transition-type grow \
+    --transition-fps 60 \
+    --transition-duration 2.0 \
+    --transition-pos "$random_pos"
+
+  update_hyprlock_wallpaper "$wallpaper_path"
+  notify-send "Theme Switcher" "Applied: $wallpaper_name"
 }
 
-restore_wallpaper() {
+update_hyprlock_wallpaper() {
+  local wallpaper_path="$1"
+  local hyprlock_config="$HOME/.config/hypr/hyprlock.conf"
+
+  [[ ! -f "${hyprlock_config}.backup" ]] && cp "$hyprlock_config" "${hyprlock_config}.backup"
+
+  sed -i "/background {/,/}/{s|path = .*|path = $wallpaper_path|}" "$hyprlock_config"
+}
+
+restore_theme() {
   local index=$(get_current_index)
-  apply_wallpaper "${WALLPAPERS[$index]}" "$index"
+  apply_theme "${WALLPAPERS[$index]}" "$index"
 }
 
+# Main
 case "${1:-next}" in
 "next")
-  next_index=$(( ($(get_current_index) + 1) % ${#WALLPAPERS[@]} ))
-  apply_wallpaper "${WALLPAPERS[$next_index]}" "$next_index"
+  next_index=$((($(get_current_index) + 1) % ${#WALLPAPERS[@]}))
+  apply_theme "${WALLPAPERS[$next_index]}" "$next_index"
   ;;
 "random")
-  random_index=$(( RANDOM % ${#WALLPAPERS[@]} ))
-  apply_wallpaper "${WALLPAPERS[$random_index]}" "$random_index"
+  random_index=$((RANDOM % ${#WALLPAPERS[@]}))
+  apply_theme "${WALLPAPERS[$random_index]}" "$random_index"
   ;;
 "restore")
-  restore_wallpaper
+  restore_theme
   ;;
 "list")
+  # Show only filenames in wofi
   selected=$(printf "%s\n" "${WALLPAPERS[@]##*/}" | wofi --dmenu --prompt "Choose Wallpaper" --insensitive)
+
   if [ -n "$selected" ]; then
     for i in "${!WALLPAPERS[@]}"; do
       if [[ "${WALLPAPERS[$i]##*/}" == "$selected" ]]; then
-        apply_wallpaper "${WALLPAPERS[$i]}" "$i"
+        apply_theme "${WALLPAPERS[$i]}" "$i"
         break
       fi
     done
   else
-    notify-send "Wallpaper Switcher" "No wallpaper selected."
+    notify-send "Theme Switcher" "No wallpaper selected."
   fi
-  ;;
-*)
-  echo "Usage: $0 [next|random|restore|list]"
-  exit 1
   ;;
 esac
