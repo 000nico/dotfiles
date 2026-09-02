@@ -40,7 +40,7 @@ layout {
     }
 
     border {
-        width 2
+        width 1
         active-gradient from="#c084fc" to="#7c3aed" angle=45
         inactive-color "#1f1432aa"
         urgent-color "#f87171"

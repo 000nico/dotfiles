@@ -1,0 +1,8 @@
+{
+	"custom/themeswitcher": {
+		"format": "󰏘",
+		"tooltip-format": "<b>Theme Switcher</b>\n󰏘 Left click: Choose Theme (Menu)\n󱐋 Right click: Next Theme",
+		"on-click": "/home/nico/.config/waybar/scripts/theme-switcher.sh menu",
+		"on-click-right": "/home/nico/.config/waybar/scripts/theme-switcher.sh next"
+	}
+}

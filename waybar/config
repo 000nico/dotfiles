@@ -2,10 +2,10 @@
 	"mode": "dock",
 	"position": "top",
 	"layer": "top",
-	"height": 32,
-	"margin-top": 6,
-	"margin-left": 8,
-	"margin-right": 8,
+	"height": 26,
+	"margin-top": 4,
+	"margin-left": 6,
+	"margin-right": 6,
 	"spacing": 0,
 	"reload_style_on_change": true,
 
@@ -17,6 +17,7 @@
 
 	"modules-left": [
 		"custom/distro",
+		"custom/themeswitcher",
 		"niri/workspaces",
 		"mpris"
 	],
