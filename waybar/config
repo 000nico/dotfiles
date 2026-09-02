@@ -1,236 +1,37 @@
-[{
-    "height": 40,
-    "spacing": 5, 
+{
+	"mode": "dock",
+	"position": "top",
+	"layer": "top",
+	"height": 32,
+	"margin-top": 6,
+	"margin-left": 8,
+	"margin-right": 8,
+	"spacing": 0,
+	"reload_style_on_change": true,
 
-    "modules-left": [
-        "group/Utilities",
-        "group/workspaces",
-        "mpris"
-    ],
-    "modules-center": [
-        "group/windows"
-    ],
-    "modules-right": [
-        "group/cpuram",
-        "group/system"
-    ],
+	"include": [
+		"~/.config/waybar/modules/custom/*.jsonc",
+		"~/.config/waybar/modules/niri/*.jsonc",
+		"~/.config/waybar/modules/*.jsonc"
+	],
 
+	"modules-left": [
+		"custom/distro",
+		"niri/workspaces",
+		"mpris"
+	],
 
-    "custom/openbracket": {
-        "format": "[",
-        "tooltip": false
-    },
-    "custom/closebracket": {
-        "format": "]",
-        "tooltip": false
-    },    
-    "custom/split": {
-      "format": "|",
-      "tooltip": false
-    },
+	"modules-center": [
+		"clock#time",
+		"clock#date"
+	],
 
-    "group/Utilities":{
-        "orientation": "horizontal",
-        "modules":[
-            "custom/openbracket",
-            "custom/arch",
-            "idle_inhibitor",
-            "custom/split",
-            "custom/powerprofile",
-            "custom/themeswitcher",
-            "custom/closebracket"
-        ]
-    },
-    "custom/arch": {
-         "format": "󰣇",
-        "tooltip": false,
-         "on-click": "wofi --show drun"
-    },
-    "custom/powerprofile": {
-        "exec": "~/.config/waybar/scripts/powerprofile.sh display",
-        "on-click": "~/.config/waybar/scripts/powerprofile.sh toggle",
-        "interval": 5,
-        "tooltip": true,
-        "exec-tooltip": "~/.config/waybar/scripts/powerprofile.sh tooltip",
-        "tooltip-format": "Power Profile: {} \nClick to cycle: Efficient → Normal → Overclocked"
-    },
-    "custom/themeswitcher":{
-        "format": "",
-        "tooltip": true,
-        "tooltip-format": "Click to change theme",
-        "on-click": "~/.config/waybar/scripts/theme-switcher.sh next 2>/dev/null || true",
-        "on-click-right": "~/.config/waybar/scripts/theme-switcher.sh random 2>/dev/null || true"
-    },
-
-    "group/workspaces":{
-        "orientation": "horizontal",
-        "modules":[
-            "custom/openbracket",
-            "niri/workspaces",
-            "custom/closebracket"
-        ]
-    },
-    "niri/workspaces": {
-        "format": "{icon}",
-        "format-icons": {
-            "1": "1",
-            "2": "2",
-            "3": "3",
-            "4": "4",
-            "5": "5",
-            "6": "6",
-            "default": "•"
-        }
-    },
-
-    "mpris": {
-        "format": "[   {status_icon} | {dynamic} ]",
-        "interval": 1,
-        "dynamic-len": 40,
-        "status-icons": {
-            "playing": "▶",
-            "paused": "⏸",
-            "stopped": ""
-        },
-        "dynamic-order": ["artist", "title"]
-    },
-
-
-    "group/windows": {
-        "orientation":"horizontal",
-        "modules":[
-            "custom/openbracket",
-            "niri/window",
-            "custom/closebracket"
-        ]
-    },
-    "niri/window": {
-        "format": "{title}", 
-        "max-length": 30,
-        "min-length": 0,
-        "all-outputs": true
-    },
-
-
-    "group/cpuram": {
-        "orientation": "horizontal",
-        "modules": [
-            "custom/openbracket",
-            "cpu",
-            "custom/split",
-            "memory",
-            "custom/closebracket"
-        ]
-    },
-    "cpu": {
-        "format": "CPU:{usage}%",
-        "tooltip": false,
-        "interval": 2,
-        "on-click": "kitty -e btop"
-    },
-    "memory":{
-        "format": "RAM:{}%",
-        "tooltip": false,
-        "interval": 2,
-        "on-click": "kitty -e btop"
-    },
-
-    "group/brightvol": {
-        "orientation": "horizontal",
-        "modules": [
-            "custom/openbracket",
-            "backlight",
-            "custom/split",
-            "wireplumber",
-            "custom/closebracket"
-        ]
-    },
-    "wireplumber": {
-        "scroll-step": 5,
-        "format": "{icon}{volume}%",
-        "format-bluetooth": "{icon}{volume}% ",
-        "format-bluetooth-muted": " {icon}",
-        "format-muted": "",
-        "format-icons": {
-            "headphone": "",
-            "hands-free": "",
-            "headset": "",
-            "phone": "",
-            "portable": "",
-            "car": "",
-            "default": [" :", " :", " :"]
-        },
-        "on-click": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
-        "on-click-right": "pavucontrol"
-    },
-    "backlight": {
-        "format": "{icon}:{percent}%",
-        "format-icons": ["", "", "🌙"]
-    },
-
-    "group/system": {
-        "orientation": "horizontal",
-        "modules": [
-            "custom/openbracket",
-            "clock",
-            "custom/split",
-            "network",
-            "custom/bluetooth",
-            "custom/clipboard",
-            "battery",
-            "custom/swaync",
-            "custom/closebracket"
-        ]
-    },
-    "clock": {
-        "format": "{:%I:%M}",
-        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>"
-    },
-    "custom/clipboard": {
-        "format": "",
-        "tooltip": false,
-        "on-click": "~/.config/waybar/scripts/clipboard_menu.sh"
-    },
-    "battery": {
-        "states": {
-            "warning": 30,
-            "critical": 15
-        },
-        "format": "{icon} {capacity}%",
-        "format-full": "{icon} {capacity}%",
-        "format-charging": " {capacity}%",
-        "format-plugged": "  {capacity}%",
-        "format-icons": ["", "", "", "", ""],
-        "on-click": "~/.config/waybar/scripts/wofi-power.sh"
-    },
-    "idle_inhibitor": {
-        "format": "{icon}",
-        "format-icons": {
-            "activated": "",
-            "deactivated": ""
-        }
-    },
-    "custom/swaync": {
-      "format": "",
-      "on-click": "makoctl dismiss -a 2>/dev/null || swaync-client --toggle-panel 2>/dev/null",
-      "interval": 0
-    },
-
-    "network": {
-        "format-wifi": "",
-        "format-ethernet": "󰈀 LAN",
-        "format-disconnected": "󰖪",
-        "tooltip-format": "{essid} ({signalStrength}%)",
-        "on-click": "kitty -e nmtui"
-    },
-    "custom/bluetooth": {
-        "format": "{}",
-        "exec": "~/.config/waybar/scripts/bluetooth_status.sh 2>/dev/null || echo ''",
-        "interval": 5,
-        "on-click": "blueman-manager"
-    },
-    "tray": {
-        "icon-size": 14,
-        "spacing": 10
-    }
-}]
+	"modules-right": [
+		"cpu",
+		"memory",
+		"group/pulseaudio",
+		"backlight",
+		"battery",
+		"custom/power"
+	]
+}

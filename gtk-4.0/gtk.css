@@ -1,7 +1,7 @@
 /* Global Sharp Square Aesthetic (radius 0) for GTK4 & Libadwaita / Nautilus */
 * {
-    border-radius: 0px !important;
-    -gtk-outline-radius: 0px !important;
+    border-radius: 0px;
+    -gtk-outline-radius: 0px;
 }
 
 /* Colors */

@@ -61,7 +61,6 @@ window#waybar.hidden {
 button {
   border: none;
   border-radius: 0px;
-  cursor: pointer;
   transition: all 0.15s ease-in-out;
 }
 
@@ -79,7 +78,6 @@ button {
   padding: 2px 8px;
   margin: 1px 2px;
   border-radius: 0px;
-  cursor: pointer;
   transition: all 0.15s ease-in-out;
 }
 
