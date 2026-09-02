@@ -1,23 +1,26 @@
 {
 	"battery": {
+		"interval": 5,
 		"format": "{icon} {capacity}%",
 		"format-icons": [
 			"󰂎", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"
 		],
 		"format-charging": "󰉁 {capacity}%",
 		"states": {
-			"warning": 20,
-			"critical": 10
+			"warning": 25,
+			"critical": 15
 		},
 		"max-length": 7,
 		"min-length": 7,
-		"tooltip-format": "<b>Discharging</b>: {time}",
-		"tooltip-format-charging": "<b>Charging</b>: {time}",
+		"tooltip-format": "<b>Discharging</b>: {time}\n<i>Click: Show details</i>",
+		"tooltip-format-charging": "<b>Charging</b>: {time}\n<i>Click: Show details</i>",
 		"format-time": "{H}h {M}min",
+		"on-click": "notify-send 'Battery Status' \"Capacity: $(cat /sys/class/power_supply/BAT0/capacity 2>/dev/null || echo '?')%\nStatus: $(cat /sys/class/power_supply/BAT0/status 2>/dev/null || echo '?')\nPower: $(awk '{print $1/1000000 \"W\"}' /sys/class/power_supply/BAT0/power_now 2>/dev/null || echo 'N/A')\" -i battery",
+		"on-click-right": "kitty -e powertop 2>/dev/null || kitty -e btop",
 		"events": {
-			"on-discharging-warning": "notify-send 'Battery Low (20%)' -u critical -i 'battery-020' -h string:x-canonical-private-synchronous:battery",
-			"on-discharging-critical": "notify-send 'Battery Critical (10%)' -u critical -i 'battery-010' -h string:x-canonical-private-synchronous:battery",
-			"on-charging-100": "notify-send 'Battery Full (100%)' -i 'battery-100-charged' -h string:x-canonical-private-synchronous:battery"
+			"on-discharging-warning": "notify-send 'Battery Low (25%)' -u critical -i 'battery-020'",
+			"on-discharging-critical": "notify-send 'Battery Critical (15%)' -u critical -i 'battery-010'",
+			"on-charging-100": "notify-send 'Battery Full (100%)' -i 'battery-100-charged'"
 		}
 	}
 }

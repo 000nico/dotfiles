@@ -1,6 +1,6 @@
 {
 	"memory": {
-		"interval": 5,
+		"interval": 2,
 		"format": "󰘚 {percentage}%",
 		"states": {
 			"warning": 75,
@@ -11,7 +11,6 @@
 		"min-length": 7,
 		"max-length": 7,
 		"on-click": "kitty -e btop",
-		"tooltip-format": "Memory Used: {used:0.1f}/{total:0.1f} GiB ({percentage}%)"
+		"tooltip-format": "Memory Used: {used:0.1f}/{total:0.1f} GiB ({percentage}%)\n<i>Click: Open btop</i>"
 	}
 }
-

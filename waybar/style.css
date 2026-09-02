@@ -1,7 +1,10 @@
-/* DerAnsari Waybar style adapted with purple terminal dark theme */
+/* Waybar Style - Sharp Square Borders & Interactive Feedback */
 @define-color background #080512;
 @define-color second-background #18102c;
+@define-color hover-background #261646;
+@define-color active-background #3b1d6e;
 @define-color text #e9d5ff;
+@define-color subtext #b8a0d8;
 @define-color borders #7c3aed;
 @define-color focused #c084fc;
 @define-color focused2 #d8b4fe;
@@ -11,172 +14,176 @@
 @define-color urgent #f87171;
 
 * {
-  font-family: "JetBrainsMono Nerd Font", "Iosevka Nerd Font", monospace;
-  font-size: 14px;
-}
-
-#custom-openbracket,
-#custom-closebracket {
-  margin: 0 4px;
-  color: @borders;
-  font-weight: bold;
-}
-
-#custom-split {
-  margin: 0 4px;
-  color: @borders;
-  opacity: 0.5;
+  font-family: "JetBrainsMono Nerd Font", monospace;
+  font-size: 13px;
+  border-radius: 0px;
 }
 
 window#waybar {
   background-color: transparent;
   border-bottom: 0;
   color: @text;
-  transition: background-color 0.5s;
+  transition: background-color 0.3s ease;
 }
 
 window#waybar.hidden {
   opacity: 0.2;
 }
 
-window#waybar.empty #window {
-  background-color: transparent;
-}
-
-/* Configuring the modules */
+/* Islands with strict square borders (radius 0) */
 .modules-left {
-  margin: 8px 0 0 10px;
+  margin: 6px 0 0 8px;
   padding: 2px 6px;
-  background-color: rgba(8, 5, 18, 0.85);
-  border: 1.5px solid @focused;
-  border-radius: 4px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
+  background-color: rgba(8, 5, 18, 0.90);
+  border: 2px solid @borders;
+  border-radius: 0px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.7);
 }
 
 .modules-center {
-  margin: 8px 0 0 0;
+  margin: 6px 0 0 0;
   padding: 2px 8px;
-  background-color: rgba(8, 5, 18, 0.85);
-  border: 1.5px solid @focused;
-  border-radius: 4px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
+  background-color: rgba(8, 5, 18, 0.90);
+  border: 2px solid @borders;
+  border-radius: 0px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.7);
 }
 
 .modules-right {
-  margin: 8px 10px 0 0;
+  margin: 6px 8px 0 0;
   padding: 2px 8px;
-  background-color: rgba(8, 5, 18, 0.85);
-  border: 1.5px solid @focused;
-  border-radius: 4px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
+  background-color: rgba(8, 5, 18, 0.90);
+  border: 2px solid @borders;
+  border-radius: 0px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.7);
 }
 
 button {
   border: none;
+  border-radius: 0px;
+  cursor: pointer;
+  transition: all 0.15s ease-in-out;
 }
 
-/* Left island */
-#custom-arch,
-#custom-powerprofile,
-#custom-themeswitcher {
-  padding-right: 6px;
-  padding-left: 4px;
-  font-size: 14px;
+/* Interactive module states */
+#custom-distro,
+#workspaces button,
+#mpris,
+#clock,
+#battery,
+#cpu,
+#memory,
+#backlight,
+#pulseaudio,
+#custom-power {
+  padding: 2px 8px;
+  margin: 1px 2px;
+  border-radius: 0px;
+  cursor: pointer;
+  transition: all 0.15s ease-in-out;
 }
 
-#custom-arch:hover,
-#custom-powerprofile:hover,
-#custom-themeswitcher:hover {
+#custom-distro {
   color: @focused;
+  font-size: 16px;
+  padding: 0 8px;
 }
 
-/* Workspace panel */
+#custom-distro:hover {
+  background-color: @hover-background;
+  color: #ffffff;
+}
+
+#custom-distro:active {
+  background-color: @active-background;
+}
+
+/* Workspaces */
 #workspaces button {
   min-width: 0;
   padding: 0 6px;
   background-color: transparent;
-  color: @text;
-  border-radius: 2px;
+  color: @subtext;
+  border-radius: 0px;
+  border-bottom: 2px solid transparent;
 }
 
 #workspaces button:hover {
-  background-color: @second-background;
+  background-color: @hover-background;
+  color: @focused2;
 }
 
 #workspaces button.active,
 #workspaces button.focused {
-  color: @focused;
+  color: #ffffff;
   background-color: @second-background;
+  border-bottom: 2px solid @focused;
   font-weight: bold;
 }
 
 #workspaces button.urgent {
   background-color: @urgent;
+  color: #ffffff;
 }
 
-/* Media player */
+/* Media Player */
 #mpris {
-  margin: 0 0 0 4px;
-  padding: 0 6px;
   color: @text;
+  border-left: 1px solid rgba(124, 58, 237, 0.4);
+  padding-left: 8px;
+}
+
+#mpris:hover {
+  background-color: @hover-background;
+  color: @focused2;
+}
+
+#mpris:active {
+  background-color: @active-background;
 }
 
 #mpris.playing {
   color: @color3;
 }
 
-/* Center module */
-#window {
-  padding: 0 4px;
-  font-weight: 500;
+/* Center Clock */
+#clock {
+  color: @text;
+  font-weight: 600;
 }
 
-/* Right Island */
-#clock,
-#battery,
-#cpu,
-#memory,
-#custom-clipboard,
-#custom-bluetooth,
-#network {
-  padding: 0 6px;
-}
-
-#clock:hover,
-#battery:hover,
-#cpu:hover,
-#memory:hover,
-#custom-clipboard:hover,
-#custom-bluetooth:hover,
-#network:hover,
-#idle_inhibitor:hover,
-#custom-swaync:hover,
-#backlight:hover,
-#wireplumber:hover {
+#clock:hover {
+  background-color: @hover-background;
   color: @focused;
 }
 
-#idle_inhibitor {
-  padding: 0 4px;
+#clock:active {
+  background-color: @active-background;
 }
 
-#custom-powerprofile {
-  padding: 0 4px;
+/* Right Island Modules Interactive Styling */
+#cpu:hover,
+#memory:hover,
+#backlight:hover,
+#pulseaudio:hover,
+#battery:hover,
+#custom-power:hover {
+  background-color: @hover-background;
+  color: @focused;
 }
 
-#backlight,
-#wireplumber {
-  padding: 0 4px;
+#cpu:active,
+#memory:active,
+#backlight:active,
+#pulseaudio:active,
+#battery:active,
+#custom-power:active {
+  background-color: @active-background;
+  color: #ffffff;
 }
 
-#wireplumber.muted {
+#pulseaudio.muted {
   color: @urgent;
-}
-
-#custom-swaync {
-  padding: 0 6px;
-  font-size: 14px;
-  color: @text;
 }
 
 #battery.charging,
@@ -186,8 +193,32 @@ button {
 
 #battery.critical:not(.charging) {
   background-color: @urgent;
-  color: @text;
+  color: #ffffff;
   animation: blink 0.5s steps(12) infinite alternate;
+}
+
+#custom-power {
+  color: @urgent;
+  font-size: 15px;
+  padding: 0 6px;
+}
+
+#custom-power:hover {
+  background-color: rgba(248, 113, 113, 0.2);
+  color: #ff9999;
+}
+
+/* Tooltips */
+tooltip {
+  background: rgba(8, 5, 18, 0.96);
+  border: 1.5px solid @borders;
+  border-radius: 0px;
+  color: @text;
+  padding: 6px 10px;
+}
+
+tooltip label {
+  color: @text;
 }
 
 @keyframes blink {

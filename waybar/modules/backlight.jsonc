@@ -6,8 +6,10 @@
 		],
 		"min-length": 7,
 		"max-length": 7,
-		"on-scroll-up": "~/.config/waybar/scripts/backlight up",
-		"on-scroll-down": "~/.config/waybar/scripts/backlight down",
-		"tooltip-format": "Screen Brightness"
+		"on-scroll-up": "brightnessctl set 5%+",
+		"on-scroll-down": "brightnessctl set 5%-",
+		"on-click": "brightnessctl set 50%",
+		"on-click-right": "brightnessctl set 100%",
+		"tooltip-format": "Brightness: {percent}%\n<i>Scroll: Adjust\nLeft click: 50%\nRight click: 100%</i>"
 	}
 }

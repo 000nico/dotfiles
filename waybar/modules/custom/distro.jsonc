@@ -1,6 +1,8 @@
 {
 	"custom/distro": {
 		"format": "",
-		"tooltip": false
+		"tooltip-format": "<b>NixOS (Niri WM)</b>\n󰍉 Left click: App Launcher\n󰞍 Right click: Fastfetch",
+		"on-click": "wofi --show drun",
+		"on-click-right": "kitty -e sh -c 'fastfetch; echo \"\nPress Enter to close...\"; read'"
 	}
 }

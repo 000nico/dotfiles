@@ -1,0 +1,33 @@
+/* Gruvbox Dark Palette for Waybar */
+@define-color gruv-bg-darkest   #141617;
+@define-color gruv-bg-0         #1d2021;
+@define-color gruv-bg-1         #282828;
+@define-color gruv-bg-2         #32302f;
+@define-color gruv-bg-3         #3c3836;
+
+@define-color gruv-fg           #ebdbb2;
+@define-color gruv-subtext      #d5c4a1;
+@define-color gruv-muted        #a89984;
+
+@define-color gruv-yellow       #fabd2f;
+@define-color gruv-orange       #fe8019;
+@define-color gruv-red          #fb4934;
+@define-color gruv-green        #b8bb26;
+@define-color gruv-aqua         #8ec07c;
+@define-color gruv-blue         #83a598;
+@define-color gruv-purple       #d3869b;
+
+/* Semantic aliases */
+@define-color background        @gruv-bg-0;
+@define-color second-background @gruv-bg-1;
+@define-color hover-background  @gruv-bg-2;
+@define-color active-background @gruv-bg-3;
+@define-color text              @gruv-fg;
+@define-color subtext           @gruv-subtext;
+@define-color borders           @gruv-yellow;
+@define-color focused           @gruv-orange;
+@define-color focused2          @gruv-yellow;
+@define-color color1            @gruv-purple;
+@define-color color2            @gruv-blue;
+@define-color color3            @gruv-green;
+@define-color urgent            @gruv-red;

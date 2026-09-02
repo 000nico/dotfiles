@@ -12,7 +12,7 @@
 
 	"pulseaudio#output": {
 		"format": "{icon} {volume}%",
-		"format-muted": "{icon} {volume}%",
+		"format-muted": "󰝟 {volume}%",
 		"format-icons": {
 			"default": [ "󰕿", "󰖀", "󰕾" ],
 			"default-muted": "󰝟",
@@ -23,11 +23,11 @@
 		},
 		"min-length": 7,
 		"max-length": 7,
-		"on-click": "~/.config/waybar/scripts/volume output mute",
+		"on-click": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
 		"on-click-right": "pavucontrol",
-		"on-scroll-up": "~/.config/waybar/scripts/volume output raise",
-		"on-scroll-down": "~/.config/waybar/scripts/volume output lower",
-		"tooltip-format": "<b>Output Device</b>: {desc}\n<i>Right-click: open mixer</i>"
+		"on-scroll-up": "wpctl set-volume -l 1.0 @DEFAULT_AUDIO_SINK@ 5%+",
+		"on-scroll-down": "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-",
+		"tooltip-format": "<b>Output Device</b>: {desc}\n<i>Click: Mute toggle\nRight click: Open mixer\nScroll: Volume</i>"
 	},
 
 	"pulseaudio#input": {
@@ -36,9 +36,10 @@
 		"format-source-muted": "󰍭 {volume}%",
 		"min-length": 7,
 		"max-length": 7,
-		"on-click": "~/.config/waybar/scripts/volume input mute",
-		"on-scroll-up": "~/.config/waybar/scripts/volume input raise",
-		"on-scroll-down": "~/.config/waybar/scripts/volume input lower",
-		"tooltip-format": "<b>Input Device</b>: {desc}"
+		"on-click": "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle",
+		"on-click-right": "pavucontrol -t 4",
+		"on-scroll-up": "wpctl set-volume -l 1.0 @DEFAULT_AUDIO_SOURCE@ 5%+",
+		"on-scroll-down": "wpctl set-volume @DEFAULT_AUDIO_SOURCE@ 5%-",
+		"tooltip-format": "<b>Input Device</b>: {desc}\n<i>Click: Mic mute toggle</i>"
 	}
 }

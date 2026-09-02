@@ -18,9 +18,20 @@
 
   # ==========================================
   # Display Manager & Desktop (Niri WM)
+  # Aesthetic TUI Matrix Login Screen (Ly)
   # ==========================================
-  services.displayManager.sddm.enable = true;
-  services.displayManager.sddm.wayland.enable = true;
+  services.displayManager.ly = {
+    enable = true;
+    settings = {
+      animation = "matrix";
+      clock = "%a %d %b %H:%M:%S";
+      hide_borders = false;
+      margin_h = 2;
+      margin_v = 1;
+      clear_password = true;
+      bigclock = false;
+    };
+  };
 
   programs.niri.enable = true;
 
@@ -33,6 +44,54 @@
   };
 
   # ==========================================
+  # Power Management & Battery Optimization
+  # ==========================================
+  services.power-profiles-daemon.enable = false;
+  services.thermald.enable = true;
+
+  services.tlp = {
+    enable = true;
+    settings = {
+      # CPU Frequency & Energy Profiles
+      CPU_SCALING_GOVERNOR_ON_AC = "performance";
+      CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
+      CPU_ENERGY_PERF_POLICY_ON_AC = "performance";
+      CPU_ENERGY_PERF_POLICY_ON_BAT = "power";
+
+      # Performance Scaling
+      CPU_MIN_PERF_ON_AC = 0;
+      CPU_MAX_PERF_ON_AC = 100;
+      CPU_MIN_PERF_ON_BAT = 0;
+      CPU_MAX_PERF_ON_BAT = 65;
+
+      # Platform Profiles
+      PLATFORM_PROFILE_ON_AC = "performance";
+      PLATFORM_PROFILE_ON_BAT = "low-power";
+
+      # Bus & Peripheral Power Saving
+      PCIE_ASPM_ON_AC = "performance";
+      PCIE_ASPM_ON_BAT = "powersave";
+      RUNTIME_PM_ON_AC = "on";
+      RUNTIME_PM_ON_BAT = "auto";
+
+      # Audio & Network Power Saving
+      SOUND_POWER_SAVE_ON_AC = 0;
+      SOUND_POWER_SAVE_ON_BAT = 1;
+      WIFI_PWR_ON_AC = "off";
+      WIFI_PWR_ON_BAT = "on";
+
+      # Disk & Battery Care
+      DISK_APM_LEVEL_ON_AC = "254";
+      DISK_APM_LEVEL_ON_BAT = "128";
+    };
+  };
+
+  powerManagement = {
+    enable = true;
+    powertop.enable = true;
+  };
+
+  # ==========================================
   # Networking & Hostname
   # ==========================================
   networking.hostName = "nixos";
@@ -42,6 +101,7 @@
   # Time & Localization
   # ==========================================
   time.timeZone = "America/Argentina/Buenos_Aires";
+  time.hardwareClockInLocalTime = true;
   i18n.defaultLocale = "en_US.UTF-8";
   i18n.extraLocaleSettings = {
     LC_ADDRESS = "es_AR.UTF-8";
@@ -86,6 +146,7 @@
     auto-optimise-store = true;
   };
   nixpkgs.config.allowUnfree = true;
+  programs.nix-ld.enable = true;
 
   # ==========================================
   # Shell & User Configuration
@@ -153,12 +214,16 @@
     neovim
     vscodium
     jetbrains.idea
+    python3
 
-    # Applications
+    # Applications & Media
     firefox
     librewolf
     vesktop
     nautilus
+    spotify-tui
+    ncspot
+    mpv
 
     # Wayland & Desktop Utilities
     waybar
@@ -178,6 +243,10 @@
     networkmanagerapplet
     xdg-utils
     dconf
+
+    # Power Management Tools
+    tlp
+    powertop
   ];
 
   # ==========================================

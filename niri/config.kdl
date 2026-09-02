@@ -1,4 +1,4 @@
-// Niri configuration - Purple Dark Theme
+// Niri configuration - Aesthetic Square Dark Theme
 // Documentation: https://niri-wm.github.io/niri/
 
 input {
@@ -11,6 +11,7 @@ input {
 
     touchpad {
         tap
+        natural-scroll
     }
 
     mouse {
@@ -22,7 +23,7 @@ input {
 
 // Layout & Decorations
 layout {
-    gaps 6
+    gaps 8
     center-focused-column "never"
     always-center-single-column
 
@@ -39,25 +40,25 @@ layout {
     }
 
     border {
-        width 1
+        width 2
         active-gradient from="#c084fc" to="#7c3aed" angle=45
-        inactive-color "#2d1a4eaa"
+        inactive-color "#1f1432aa"
         urgent-color "#f87171"
     }
 
     shadow {
         on
-        softness 15
-        spread 2
+        softness 12
+        spread 1
         offset x=0 y=2
-        color "#00000088"
+        color "#00000099"
     }
 }
 
 // Autostart processes
 spawn-at-startup "waybar"
 spawn-at-startup "mako"
-spawn-at-startup "swaybg" "-i" "/home/nico/Downloads/wall.png" "-m" "fill"
+spawn-at-startup "swaybg" "-i" "/home/nico/dotfiles/catto.jpg" "-m" "fill"
 spawn-sh-at-startup "dbus-update-activation-environment --systemd --all"
 spawn-sh-at-startup "xhost +SI:localuser:root 2>/dev/null || true"
 
@@ -73,11 +74,9 @@ animations {
     slowdown 1.0
 }
 
-
-// Window rules
-
+// Window rules - Strict Square Aesthetics (radius 0)
 window-rule {
-    geometry-corner-radius 5
+    geometry-corner-radius 0
     clip-to-geometry true
 }
 
@@ -101,20 +100,28 @@ window-rule {
     default-column-width { proportion 1.0; }
 }
 
+window-rule {
+    match app-id=r#"^spotify-tui$"#
+    default-column-width { proportion 0.66667; }
+}
+
 binds {
     // Hotkey overlay & Inhibit
     Mod+Shift+Slash { show-hotkey-overlay; }
     Mod+Escape allow-inhibiting=false { toggle-keyboard-shortcuts-inhibit; }
 
-    // Applications
+    // Applications & Rice
     Mod+Return hotkey-overlay-title="Terminal" { spawn "kitty"; }
     Mod+Q      hotkey-overlay-title="Terminal" { spawn "kitty"; }
     Mod+R      hotkey-overlay-title="App Launcher" { spawn "wofi" "--show" "drun"; }
     Mod+Space  hotkey-overlay-title="App Launcher" { spawn "wofi" "--show" "drun"; }
     Mod+D      hotkey-overlay-title="App Launcher" { spawn "wofi" "--show" "drun"; }
     Mod+W      hotkey-overlay-title="Browser" { spawn "librewolf"; }
-    Mod+E      hotkey-overlay-title="File Manager" { spawn "kitty" "-e" "yazi"; }
+    Mod+E      hotkey-overlay-title="File Manager (Yazi)" { spawn "kitty" "-e" "yazi"; }
+    Mod+Shift+E hotkey-overlay-title="File Manager (Nautilus)" { spawn "nautilus"; }
     Mod+T      hotkey-overlay-title="Text Editor" { spawn "kitty" "-e" "nvim"; }
+    Mod+S      hotkey-overlay-title="Spotify TUI" { spawn "kitty" "--class" "spotify-tui" "-e" "spt"; }
+    Mod+Shift+T hotkey-overlay-title="Theme Switcher" { spawn "/home/nico/.config/waybar/scripts/theme-switcher.sh" "menu"; }
     Ctrl+Shift+Escape hotkey-overlay-title="Task Manager" { spawn "kitty" "-e" "btop"; }
     Mod+X      hotkey-overlay-title="Power Menu" { spawn "/home/nico/.config/waybar/scripts/wofi-power.sh"; }
     Mod+L      hotkey-overlay-title="Lock Session" { spawn "loginctl" "lock-session"; }

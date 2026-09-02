@@ -1,0 +1,77 @@
+/* Global Sharp Square Aesthetic (radius 0) */
+* {
+    border-radius: 0px !important;
+    -gtk-outline-radius: 0px !important;
+}
+
+/* Color Palette - Dark Purple Aesthetic */
+@define-color bg_color #080512;
+@define-color fg_color #e9d5ff;
+@define-color base_color #05030a;
+@define-color text_color #e9d5ff;
+@define-color selected_bg_color #7c3aed;
+@define-color selected_fg_color #ffffff;
+@define-color tooltip_bg_color #0f0a1e;
+@define-color tooltip_fg_color #e9d5ff;
+@define-color border_color #3b1d6e;
+@define-color header_bg #0f0a1e;
+@define-color sidebar_bg #0c0818;
+
+window, window.background {
+    background-color: @bg_color;
+    color: @fg_color;
+}
+
+headerbar, .titlebar {
+    background-color: @header_bg;
+    color: @fg_color;
+    border-bottom: 1px solid @border_color;
+    box-shadow: none;
+}
+
+.sidebar, .sidebar list, .navigation-sidebar {
+    background-color: @sidebar_bg;
+    color: @fg_color;
+    border-right: 1px solid @border_color;
+}
+
+button {
+    background-color: #18102c;
+    color: @fg_color;
+    border: 1px solid @border_color;
+    padding: 6px 12px;
+    transition: all 0.2s ease;
+}
+
+button:hover {
+    background-color: #241642;
+    border-color: #c084fc;
+    color: #ffffff;
+}
+
+button:checked, button:active {
+    background-color: @selected_bg_color;
+    color: @selected_fg_color;
+    border-color: #c084fc;
+}
+
+entry {
+    background-color: #0f0a1e;
+    color: @fg_color;
+    border: 1px solid @border_color;
+    padding: 6px 10px;
+}
+
+entry:focus {
+    border-color: #c084fc;
+}
+
+scrollbar slider {
+    background-color: rgba(124, 58, 237, 0.4);
+    min-width: 6px;
+    min-height: 6px;
+}
+
+scrollbar slider:hover {
+    background-color: rgba(192, 132, 252, 0.8);
+}

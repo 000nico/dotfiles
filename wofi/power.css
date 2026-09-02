@@ -1,8 +1,8 @@
-/* Wofi - Sharp Square Aesthetic */
+/* wofi power menu — terminal style sharp square */
 window {
     margin: 0px;
     border: 2px solid #7c3aed;
-    background-color: rgba(8, 5, 18, 0.96);
+    background-color: rgba(8, 5, 18, 0.97);
     border-radius: 0px;
     font-family: "JetBrainsMono Nerd Font", monospace;
     font-size: 13px;
@@ -10,17 +10,16 @@ window {
 }
 
 #input {
-    margin: 12px 12px 6px 12px;
-    padding: 8px 12px;
+    margin: 10px 10px 4px 10px;
+    padding: 6px 10px;
     border: none;
     border-bottom: 2px solid #4c1d95;
     border-radius: 0px;
-    color: #e9d5ff;
-    background-color: rgba(15, 10, 30, 0.6);
+    color: #c084fc;
+    background-color: rgba(15, 10, 30, 0.5);
     caret-color: #c084fc;
-    font-weight: 500;
+    font-weight: 400;
     font-family: "JetBrainsMono Nerd Font", monospace;
-    font-size: 13px;
 }
 
 #input:focus {
@@ -30,7 +29,7 @@ window {
 }
 
 #inner-box {
-    margin: 4px 8px 10px 8px;
+    margin: 0px 4px 6px 4px;
     background-color: transparent;
 }
 
@@ -45,20 +44,15 @@ window {
 }
 
 #text {
-    margin: 2px 8px;
-    color: #b8a0d8;
+    margin: 2px 6px;
+    color: #a855f7;
     font-weight: 400;
-}
-
-#img {
-    margin-right: 8px;
-    border-radius: 0px;
 }
 
 #entry {
     padding: 8px 12px;
     border-radius: 0px;
-    margin: 2px 0px;
+    margin: 1px 0px;
     border-left: 3px solid transparent;
     transition: all 0.15s ease;
 }
@@ -68,13 +62,10 @@ window {
     border-left: 3px solid #7c3aed;
 }
 
-#entry:hover #text {
-    color: #d8b4fe;
-}
-
 #entry:selected {
     background-color: rgba(35, 20, 65, 0.95);
     border-left: 3px solid #c084fc;
+    color: #c084fc;
 }
 
 #entry:selected #text {

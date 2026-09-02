@@ -1,12 +1,43 @@
+# Yazi Configuration - Aesthetic & Fast
+[manager]
+ratio          = [ 1, 3, 4 ]
+sort_by        = "natural"
+sort_sensitive = false
+sort_reverse   = false
+sort_dir_first = true
+linemode       = "size"
+show_hidden    = true
+show_symlink   = true
+
 [opener]
 edit = [
 	{ run = 'nvim "$@"', block = true, for = "unix" },
+]
+play = [
+	{ run = 'mpv "$@"', orphan = true, for = "unix" },
+]
+open = [
+	{ run = 'xdg-open "$@"', desc = "Open with default app" },
 ]
 
 [open]
 rules = [
 	{ mime = "text/*", use = "edit" },
+	{ mime = "image/*", use = "open" },
+	{ mime = "video/*", use = "play" },
+	{ mime = "audio/*", use = "play" },
+	{ mime = "application/json", use = "edit" },
 	{ mime = "application/*", use = "edit" },
 	{ url = "*", use = "edit" },
 ]
 
+[preview]
+tab_size        = 2
+max_width       = 1000
+max_height      = 1000
+cache_dir       = ""
+image_filter    = "triangle"
+image_quality   = 75
+sixel_fraction  = 15
+ueberzug_scale  = 1
+ueberzug_offset = [ 0, 0, 0, 0 ]

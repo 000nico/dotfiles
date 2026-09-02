@@ -1,8 +1,8 @@
 {
 	"custom/power": {
 		"format": "󰤄",
-		"on-click": "~/.config/waybar/scripts/wofi-power.sh",
-		"tooltip-format": "Power Menu"
+		"on-click": "/home/nico/.config/waybar/scripts/wofi-power.sh",
+		"on-click-right": "loginctl lock-session",
+		"tooltip-format": "Power Menu\n<i>Left click: Power menu\nRight click: Lock screen</i>"
 	}
 }
-

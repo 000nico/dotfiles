@@ -1,0 +1,123 @@
+/* Global Sharp Square Aesthetic (radius 0) for GTK4 & Libadwaita / Nautilus */
+* {
+    border-radius: 0px !important;
+    -gtk-outline-radius: 0px !important;
+}
+
+/* Colors */
+@define-color accent_color #c084fc;
+@define-color accent_bg_color #7c3aed;
+@define-color accent_fg_color #ffffff;
+
+@define-color window_bg_color #080512;
+@define-color window_fg_color #e9d5ff;
+
+@define-color view_bg_color #05030a;
+@define-color view_fg_color #e9d5ff;
+
+@define-color headerbar_bg_color #0d081a;
+@define-color headerbar_fg_color #e9d5ff;
+@define-color headerbar_border_color #2a1548;
+
+@define-color card_bg_color #0f0a1e;
+@define-color card_fg_color #e9d5ff;
+@define-color card_border_color #3b1d6e;
+
+@define-color sidebar_bg_color #0a0616;
+@define-color sidebar_fg_color #e9d5ff;
+@define-color sidebar_border_color #2a1548;
+
+@define-color popover_bg_color #0f0a1e;
+@define-color popover_fg_color #e9d5ff;
+
+/* Nautilus (Files) specific styling */
+window.background, .background {
+    background-color: @window_bg_color;
+    color: @window_fg_color;
+}
+
+/* Sidebar styling */
+.sidebar, .navigation-sidebar, .sidebar-pane {
+    background-color: @sidebar_bg_color;
+    color: @sidebar_fg_color;
+    border-right: 1px solid @sidebar_border_color;
+}
+
+.navigation-sidebar row {
+    padding: 6px 10px;
+    margin: 2px 6px;
+    border-left: 2px solid transparent;
+}
+
+.navigation-sidebar row:selected {
+    background-color: rgba(124, 58, 237, 0.25);
+    border-left: 2px solid #c084fc;
+    color: #ffffff;
+}
+
+.navigation-sidebar row:hover:not(:selected) {
+    background-color: rgba(24, 16, 44, 0.6);
+}
+
+/* View & Cards */
+.view, .content-view, iconview {
+    background-color: @view_bg_color;
+    color: @view_fg_color;
+}
+
+/* Header bar */
+headerbar {
+    background-color: @headerbar_bg_color;
+    border-bottom: 1px solid @headerbar_border_color;
+    box-shadow: none;
+}
+
+/* Floating bar (status info in nautilus) */
+.floating-bar {
+    background-color: rgba(15, 10, 30, 0.9);
+    border: 1px solid #7c3aed;
+    color: #e9d5ff;
+    padding: 4px 10px;
+}
+
+/* Buttons */
+button {
+    background-color: #140d24;
+    border: 1px solid #2e1750;
+    color: @window_fg_color;
+    padding: 6px 12px;
+}
+
+button:hover {
+    background-color: #22143c;
+    border-color: #a855f7;
+    color: #ffffff;
+}
+
+button:active, button:checked {
+    background-color: @accent_bg_color;
+    color: @accent_fg_color;
+    border-color: #c084fc;
+}
+
+/* Search bar and text entries */
+entry, searchbar {
+    background-color: #0d0818;
+    border: 1px solid #3b1d6e;
+    color: @window_fg_color;
+}
+
+entry:focus {
+    border-color: #c084fc;
+}
+
+/* Scrollbars */
+scrollbar slider {
+    background-color: rgba(124, 58, 237, 0.4);
+    min-width: 5px;
+    min-height: 5px;
+}
+
+scrollbar slider:hover {
+    background-color: rgba(192, 132, 252, 0.8);
+}

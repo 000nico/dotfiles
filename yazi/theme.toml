@@ -1,0 +1,67 @@
+# Yazi Aesthetic Purple/Square Theme
+[mgr]
+cwd = { fg = "#c084fc", bold = true }
+
+# Hovered / Cursor
+hovered         = { fg = "#ffffff", bg = "#2d1a4e", bold = true }
+preview_hovered = { underline = true }
+
+# Find
+find_keyword  = { fg = "#fde68a", bold = true, italic = true }
+find_position = { fg = "#c084fc", bg = "reset", bold = true }
+
+# Marker
+marker_selected = { fg = "#86efac", bg = "#86efac" }
+marker_copied   = { fg = "#fde68a", bg = "#fde68a" }
+marker_cut      = { fg = "#f87171", bg = "#f87171" }
+
+# Tab
+tab_active   = { fg = "#080512", bg = "#c084fc", bold = true }
+tab_inactive = { fg = "#b8a0d8", bg = "#18102c" }
+tab_width    = 1
+
+# Border
+border_symbol = "│"
+border_style  = { fg = "#4c1d95" }
+
+[status]
+separator_open  = ""
+separator_close = ""
+separator_style = { fg = "#18102c", bg = "#18102c" }
+
+# Mode
+mode_normal = { fg = "#080512", bg = "#c084fc", bold = true }
+mode_select = { fg = "#080512", bg = "#86efac", bold = true }
+mode_unset  = { fg = "#080512", bg = "#f87171", bold = true }
+
+# Progress
+progress_label  = { fg = "#ffffff", bold = true }
+progress_normal = { fg = "#c084fc", bg = "#18102c" }
+progress_error  = { fg = "#f87171", bg = "#18102c" }
+
+# Permissions
+permissions_t = { fg = "#818cf8" }
+permissions_r = { fg = "#fde68a" }
+permissions_w = { fg = "#f87171" }
+permissions_x = { fg = "#86efac" }
+permissions_s = { fg = "#a855f7" }
+
+[input]
+border   = { fg = "#c084fc" }
+title    = {}
+value    = {}
+selected = { reversed = true }
+
+[select]
+border   = { fg = "#c084fc" }
+active   = { fg = "#d8b4fe", bold = true }
+inactive = {}
+
+[which]
+cols            = 3
+mask            = { bg = "#080512" }
+cand            = { fg = "#c084fc" }
+rest            = { fg = "#b8a0d8" }
+desc            = { fg = "#e9d5ff" }
+separator       = " ➜ "
+separator_style = { fg = "#4c1d95" }

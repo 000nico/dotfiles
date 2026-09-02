@@ -1,9 +1,9 @@
 {
 	"cpu": {
-		"interval": 5,
+		"interval": 2,
 		"format": "󰍛 {usage}%",
 		"states": {
-			"warning": 75,
+			"warning": 70,
 			"critical": 90
 		},
 		"format-warning": "󰀨 {usage}%",
@@ -11,8 +11,8 @@
 		"min-length": 7,
 		"max-length": 7,
 		"on-click": "kitty -e btop",
+		"on-click-right": "kitty -e htop",
 		"tooltip": true,
-		"tooltip-format": "CPU Usage: {usage}%"
+		"tooltip-format": "CPU Usage: {usage}%\n<i>Click: Open btop</i>"
 	}
 }
-
