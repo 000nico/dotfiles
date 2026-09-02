@@ -1,50 +1,56 @@
-# Mako Notification Daemon Configuration - Square Aesthetic Dark Edition
+# Mako Notification Daemon Configuration - Auto-Dismissing & Aesthetic
 max-visible=5
 sort=-time
 layer=overlay
 anchor=top-right
 
-# Geometry - Clean Sharp Rectangular Design
-width=360
-height=130
+# Geometry - Clean Sharp Rectangular Design (1px border)
+width=340
+height=110
 margin=12
-padding=12,16
-border-size=2
+padding=10,14
+border-size=1
 border-radius=0
 icons=1
-max-icon-size=48
+max-icon-size=40
 icon-location=left
 
-# Colors & Fonts (Default Purple Dark Theme)
+# Colors & Fonts (Purple Dark Theme)
 font=JetBrainsMono Nerd Font 10
 background-color=#080512f2
 text-color=#e9d5ff
 border-color=#c084fc
 progress-color=source #c084fc
 
-# Behavior
-default-timeout=6000
-ignore-timeout=0
+# Auto-dismiss behavior (Always auto-expire)
+default-timeout=4000
+ignore-timeout=1
+
+# Interactive click actions
+on-button-left=dismiss
+on-button-middle=dismiss-all
+on-button-right=dismiss-all
+on-touch=dismiss
 
 # Actions
 [actionable]
 border-color=#d8b4fe
 
-# Urgency Levels
+# Urgency Levels with Auto-Dismiss Timeouts
 [urgency=low]
 background-color=#080512ea
 border-color=#4c1d95
 text-color=#b8a0d8
-default-timeout=3500
+default-timeout=2500
 
 [urgency=normal]
 background-color=#080512f2
 border-color=#c084fc
 text-color=#e9d5ff
-default-timeout=6000
+default-timeout=4000
 
 [urgency=high]
-background-color=#0d0518f6
+background-color=#0d0518f8
 border-color=#f87171
 text-color=#fee2e2
-default-timeout=0
+default-timeout=7000
