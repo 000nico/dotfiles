@@ -1,19 +1,10 @@
 {
 	"clock#time": {
+		"timezone": "America/Argentina/Buenos_Aires",
 		"format": "{:%H:%M}",
 		"min-length": 5,
 		"max-length": 5,
-		"tooltip-format": "<b>Standard Time</b>: {:%I:%M %p}\n<i>Click: Open calendar</i>",
-		"on-click": "kitty -e sh -c 'cal -3; echo \"\nPress Enter to close...\"; read'",
-		"on-click-right": "gnome-calendar 2>/dev/null || true"
-	},
-
-	"clock#date": {
-		"format": "󰸗 {:%d-%m}",
-		"min-length": 8,
-		"max-length": 8,
-		"on-click": "kitty -e sh -c 'cal -y; echo \"\nPress Enter to close...\"; read'",
-		"on-click-right": "gnome-calendar 2>/dev/null || true",
+		"tooltip-format": "{calendar}",
 		"calendar": {
 			"mode": "month",
 			"mode-mon-col": 3,
@@ -23,7 +14,24 @@
 				"weekdays": "<span alpha='60%'><i>{}</i></span>",
 				"today": "<span alpha='100%'><b><u>{}</u></b></span>"
 			}
-		},
-		"tooltip-format": "{calendar}"
+		}
+	},
+
+	"clock#date": {
+		"timezone": "America/Argentina/Buenos_Aires",
+		"format": "󰸗 {:%d-%m}",
+		"min-length": 8,
+		"max-length": 8,
+		"tooltip-format": "{calendar}",
+		"calendar": {
+			"mode": "month",
+			"mode-mon-col": 3,
+			"format": {
+				"months": "<span alpha='100%'><b>{}</b></span>",
+				"days": "<span alpha='85%'>{}</span>",
+				"weekdays": "<span alpha='60%'><i>{}</i></span>",
+				"today": "<span alpha='100%'><b><u>{}</u></b></span>"
+			}
+		}
 	}
 }

@@ -242,28 +242,28 @@
 [color]
 gradient = 1
 gradient_count = 8
-gradient_color_1 = '#2d0a4e'
-gradient_color_2 = '#4c1d95'
-gradient_color_3 = '#6d28d9'
-gradient_color_4 = '#7c3aed'
-gradient_color_5 = '#8b5cf6'
-gradient_color_6 = '#a855f7'
-gradient_color_7 = '#c084fc'
-gradient_color_8 = '#e9d5ff'
+gradient_color_1 = '#282828'
+gradient_color_2 = '#3c3836'
+gradient_color_3 = '#504945'
+gradient_color_4 = '#689d6a'
+gradient_color_5 = '#8ec07c'
+gradient_color_6 = '#fabd2f'
+gradient_color_7 = '#b8bb26'
+gradient_color_8 = '#ebdbb2'
 
 
 
 # Horizontal is only supported on noncurses output.
 # Only one color will be calculated per bar.
 ; horizontal_gradient = 0
-; horizontal_gradient_color_1 = '#c45161'
-; horizontal_gradient_color_2 = '#e094a0'
-; horizontal_gradient_color_3 = '#f2b6c0'
-; horizontal_gradient_color_4 = '#f2dde1'
-; horizontal_gradient_color_5 = '#cbc7d8'
-; horizontal_gradient_color_6 = '#8db7d2'
-; horizontal_gradient_color_7 = '#5e62a9'
-; horizontal_gradient_color_8 = '#434279'
+; horizontal_gradient_color_1 = '#282828'
+; horizontal_gradient_color_2 = '#3c3836'
+; horizontal_gradient_color_3 = '#504945'
+; horizontal_gradient_color_4 = '#689d6a'
+; horizontal_gradient_color_5 = '#8ec07c'
+; horizontal_gradient_color_6 = '#fabd2f'
+; horizontal_gradient_color_7 = '#b8bb26'
+; horizontal_gradient_color_8 = '#ebdbb2'
 
 
 # If both vertical and horizontal gradient is enabled, vertical will be blended in this direction.

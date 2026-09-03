@@ -1,21 +1,9 @@
-/* Waybar Style - Compact Sharp & Ultra-Thin Borders */
-@define-color background #080512;
-@define-color second-background #18102c;
-@define-color hover-background #261646;
-@define-color active-background #3b1d6e;
-@define-color text #e9d5ff;
-@define-color subtext #b8a0d8;
-@define-color borders #7c3aed;
-@define-color focused #c084fc;
-@define-color focused2 #d8b4fe;
-@define-color color1 #a855f7;
-@define-color color2 #818cf8;
-@define-color color3 #86efac;
-@define-color urgent #f87171;
+/* Waybar Style - Roomier Sharp Layout */
+@import "colors.css";
 
 * {
   font-family: "JetBrainsMono Nerd Font", monospace;
-  font-size: 11.5px;
+  font-size: 12px;
   border-radius: 0px;
   min-height: 0;
 }
@@ -33,27 +21,27 @@ window#waybar.hidden {
 
 /* Islands with strict square ultra-thin borders (1px) */
 .modules-left {
-  margin: 2px 0 0 4px;
-  padding: 0px 4px;
-  background-color: rgba(8, 5, 18, 0.92);
+  margin: 4px 0 0 0;
+  padding: 0px 12px;
+  background-color: alpha(@background, 0.96);
   border: 1px solid @borders;
   border-radius: 0px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
 }
 
 .modules-center {
-  margin: 2px 0 0 0;
-  padding: 0px 6px;
-  background-color: rgba(8, 5, 18, 0.92);
+  margin: 4px 0 0 0;
+  padding: 0px 8px;
+  background-color: alpha(@background, 0.96);
   border: 1px solid @borders;
   border-radius: 0px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
 }
 
 .modules-right {
-  margin: 2px 4px 0 0;
-  padding: 0px 6px;
-  background-color: rgba(8, 5, 18, 0.92);
+  margin: 4px 0 0 0;
+  padding: 0px 4px;
+  background-color: alpha(@background, 0.96);
   border: 1px solid @borders;
   border-radius: 0px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
@@ -77,7 +65,7 @@ button {
 #backlight,
 #pulseaudio,
 #custom-power {
-  padding: 1px 6px;
+  padding: 1px 5px;
   margin: 1px 1px;
   border-radius: 0px;
   transition: all 0.15s ease-in-out;
@@ -85,8 +73,9 @@ button {
 
 #custom-distro {
   color: @focused;
-  font-size: 13px;
-  padding: 0 5px;
+  font-size: 16px;
+  padding: 0 11px;
+  margin-right: 6px;
 }
 
 #custom-distro:hover {
@@ -100,8 +89,9 @@ button {
 
 #custom-themeswitcher {
   color: @color1;
-  font-size: 12px;
-  padding: 0 5px;
+  font-size: 15px;
+  padding: 0 11px;
+  margin-right: 6px;
 }
 
 #custom-themeswitcher:hover {
@@ -116,7 +106,8 @@ button {
 /* Workspaces */
 #workspaces button {
   min-width: 0;
-  padding: 0 5px;
+  padding: 0 9px;
+  margin: 1px 2px;
   background-color: transparent;
   color: @subtext;
   border-radius: 0px;
@@ -144,8 +135,9 @@ button {
 /* Media Player */
 #mpris {
   color: @text;
-  border-left: 1px solid rgba(124, 58, 237, 0.4);
-  padding-left: 6px;
+  border-left: 1px solid alpha(@borders, 0.4);
+  padding: 0 8px 0 12px;
+  margin-left: 6px;
 }
 
 #mpris:hover {
@@ -225,8 +217,8 @@ button {
 
 /* Tooltips */
 tooltip {
-  background: rgba(8, 5, 18, 0.96);
-  border: 1px solid @borders;
+  background: alpha(@background, 0.82);
+  border: 1px solid alpha(@borders, 0.72);
   border-radius: 0px;
   color: @text;
   padding: 4px 8px;

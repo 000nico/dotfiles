@@ -11,7 +11,6 @@ input {
 
     touchpad {
         tap
-        natural-scroll
     }
 
     mouse {
@@ -40,25 +39,67 @@ layout {
     }
 
     border {
-        width 1
-        active-gradient from="#c084fc" to="#7c3aed" angle=45
-        inactive-color "#1f1432aa"
-        urgent-color "#f87171"
+        width 2
+        active-color "#9bdcff"
+        inactive-color "#30485aaa"
+        urgent-color "#ff8fa3"
     }
 
     shadow {
         on
-        softness 12
-        spread 1
-        offset x=0 y=2
-        color "#00000099"
+        softness 30
+        spread 4
+        offset x=0 y=4
+        color "#00000080"
+    }
+}
+
+blur {
+    passes 3
+    offset 3
+    noise 0.03
+    saturation 1.15
+}
+
+window-rule {
+    match app-id=r#"^(kitty|kitty-yazi|firefox|librewolf|vesktop|codium|VSCodium|spotify|spotify-tui|org\.gnome\.Nautilus|nautilus|org\.pwmt\.zathura|pavucontrol|blueman-manager)$"#
+    opacity 0.92
+    background-effect {
+        blur true
+    }
+}
+
+window-rule {
+    match app-id=r#"^fuzzel$"#
+    opacity 0.82
+    background-effect {
+        blur true
+    }
+}
+
+layer-rule {
+    match namespace="^fuzzel$"
+    opacity 0.82
+    shadow {
+        on
+        softness 30
+        spread 4
+        offset x=0 y=6
+        color "#00000080"
+    }
+    background-effect {
+        xray true
+        blur true
+        noise 0.05
+        saturation 1.2
     }
 }
 
 // Autostart processes
 spawn-at-startup "waybar"
 spawn-at-startup "mako"
-spawn-at-startup "swaybg" "-i" "/home/nico/dotfiles/catto.jpg" "-m" "fill"
+spawn-at-startup "swaybg" "-i" "/home/nico/dotfiles/assets/catto.jpg" "-m" "fill"
+spawn-at-startup "/home/nico/.config/niri/clipboard-watch.sh"
 spawn-sh-at-startup "dbus-update-activation-environment --systemd --all"
 spawn-sh-at-startup "xhost +SI:localuser:root 2>/dev/null || true"
 
@@ -112,13 +153,13 @@ binds {
 
     // Applications & Rice
     Mod+Return hotkey-overlay-title="Terminal" { spawn "kitty"; }
-    Mod+Q      hotkey-overlay-title="Terminal" { spawn "kitty"; }
-    Mod+R      hotkey-overlay-title="App Launcher" { spawn "wofi" "--show" "drun"; }
-    Mod+Space  hotkey-overlay-title="App Launcher" { spawn "wofi" "--show" "drun"; }
-    Mod+D      hotkey-overlay-title="App Launcher" { spawn "wofi" "--show" "drun"; }
+    Mod+C      hotkey-overlay-title="Terminal" { spawn "kitty"; }
+    Mod+R      hotkey-overlay-title="App Launcher" { spawn "fuzzel"; }
+    Mod+Space  hotkey-overlay-title="App Launcher" { spawn "fuzzel"; }
+    Mod+D      hotkey-overlay-title="App Launcher" { spawn "fuzzel"; }
     Mod+W      hotkey-overlay-title="Browser" { spawn "librewolf"; }
     Mod+E      hotkey-overlay-title="File Manager (Yazi)" { spawn "kitty" "-e" "yazi"; }
-    Mod+Shift+N hotkey-overlay-title="File Manager (Nautilus)" { spawn "nautilus"; }
+    Mod+Shift+N hotkey-overlay-title="File Manager (Yazi)" { spawn "kitty" "--class" "kitty-yazi" "-e" "yazi"; }
     Mod+T      hotkey-overlay-title="Text Editor" { spawn "kitty" "-e" "nvim"; }
     Mod+S      hotkey-overlay-title="Spotify TUI" { spawn "kitty" "--class" "spotify-tui" "-e" "spt"; }
     Mod+Shift+T hotkey-overlay-title="Theme Switcher" { spawn "/home/nico/.config/waybar/scripts/theme-switcher.sh" "menu"; }
@@ -127,7 +168,7 @@ binds {
     Mod+L      hotkey-overlay-title="Lock Session" { spawn "loginctl" "lock-session"; }
 
     // Window Management
-    Mod+C      { close-window; }
+    Mod+Q      { close-window; }
     Mod+Shift+C { center-column; }
     Mod+Alt+Space { toggle-window-floating; }
     Mod+V      { toggle-window-floating; }
@@ -205,8 +246,8 @@ binds {
     Mod+O repeat=false { toggle-overview; }
 
     // Screenshots
-    Print      { spawn-sh "grim -g \"$(slurp)\" - | satty -f -"; }
-    Mod+Print  { spawn-sh "grim - | satty -f -"; }
+    Print      { spawn "/home/nico/.config/niri/screenshot.sh" "region"; }
+    Mod+Print  { spawn "/home/nico/.config/niri/screenshot.sh" "screen"; }
     Ctrl+Print { screenshot-screen; }
     Alt+Print  { screenshot-window; }
 

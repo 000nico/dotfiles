@@ -1,67 +1,50 @@
-# Yazi Aesthetic Purple/Square Theme
 [mgr]
-cwd = { fg = "#c084fc", bold = true }
-
-# Hovered / Cursor
-hovered         = { fg = "#ffffff", bg = "#2d1a4e", bold = true }
+cwd = { fg = "#9bdcff", bold = true }
+hovered = { fg = "#ffffff", bg = "#30485a", bold = true }
 preview_hovered = { underline = true }
-
-# Find
-find_keyword  = { fg = "#fde68a", bold = true, italic = true }
-find_position = { fg = "#c084fc", bg = "reset", bold = true }
-
-# Marker
-marker_selected = { fg = "#86efac", bg = "#86efac" }
-marker_copied   = { fg = "#fde68a", bg = "#fde68a" }
-marker_cut      = { fg = "#f87171", bg = "#f87171" }
-
-# Tab
-tab_active   = { fg = "#080512", bg = "#c084fc", bold = true }
-tab_inactive = { fg = "#b8a0d8", bg = "#18102c" }
-tab_width    = 1
-
-# Border
+find_keyword = { fg = "#9bdcff", bold = true, italic = true }
+find_position = { fg = "#9bdcff", bg = "reset", bold = true }
+marker_selected = { fg = "#b7e4f9", bg = "#b7e4f9" }
+marker_copied = { fg = "#9bdcff", bg = "#9bdcff" }
+marker_cut = { fg = "#ff8fa3", bg = "#ff8fa3" }
+tab_active = { fg = "#18202b", bg = "#9bdcff", bold = true }
+tab_inactive = { fg = "#9bb9cc", bg = "#243242" }
+tab_width = 1
 border_symbol = "│"
-border_style  = { fg = "#4c1d95" }
+border_style = { fg = "#426176" }
 
 [status]
-separator_open  = ""
+separator_open = ""
 separator_close = ""
-separator_style = { fg = "#18102c", bg = "#18102c" }
-
-# Mode
-mode_normal = { fg = "#080512", bg = "#c084fc", bold = true }
-mode_select = { fg = "#080512", bg = "#86efac", bold = true }
-mode_unset  = { fg = "#080512", bg = "#f87171", bold = true }
-
-# Progress
-progress_label  = { fg = "#ffffff", bold = true }
-progress_normal = { fg = "#c084fc", bg = "#18102c" }
-progress_error  = { fg = "#f87171", bg = "#18102c" }
-
-# Permissions
-permissions_t = { fg = "#818cf8" }
-permissions_r = { fg = "#fde68a" }
-permissions_w = { fg = "#f87171" }
-permissions_x = { fg = "#86efac" }
-permissions_s = { fg = "#a855f7" }
+separator_style = { fg = "#243242", bg = "#243242" }
+mode_normal = { fg = "#18202b", bg = "#9bdcff", bold = true }
+mode_select = { fg = "#18202b", bg = "#b7e4f9", bold = true }
+mode_unset = { fg = "#18202b", bg = "#ff8fa3", bold = true }
+progress_label = { fg = "#ffffff", bold = true }
+progress_normal = { fg = "#9bdcff", bg = "#243242" }
+progress_error = { fg = "#ff8fa3", bg = "#243242" }
+permissions_t = { fg = "#8fc8e8" }
+permissions_r = { fg = "#9bdcff" }
+permissions_w = { fg = "#ff8fa3" }
+permissions_x = { fg = "#b7e4f9" }
+permissions_s = { fg = "#d3869b" }
 
 [input]
-border   = { fg = "#c084fc" }
-title    = {}
-value    = {}
+border = { fg = "#9bdcff" }
+title = {}
+value = {}
 selected = { reversed = true }
 
 [select]
-border   = { fg = "#c084fc" }
-active   = { fg = "#d8b4fe", bold = true }
+border = { fg = "#9bdcff" }
+active = { fg = "#9bdcff", bold = true }
 inactive = {}
 
 [which]
-cols            = 3
-mask            = { bg = "#080512" }
-cand            = { fg = "#c084fc" }
-rest            = { fg = "#b8a0d8" }
-desc            = { fg = "#e9d5ff" }
-separator       = " ➜ "
-separator_style = { fg = "#4c1d95" }
+cols = 3
+mask = { bg = "#18202b" }
+cand = { fg = "#9bdcff" }
+rest = { fg = "#9bb9cc" }
+desc = { fg = "#d9f0ff" }
+separator = " ➜ "
+separator_style = { fg = "#426176" }

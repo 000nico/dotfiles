@@ -2,11 +2,11 @@
 	"mode": "dock",
 	"position": "top",
 	"layer": "top",
-	"height": 26,
+	"height": 30,
 	"margin-top": 4,
-	"margin-left": 6,
-	"margin-right": 6,
-	"spacing": 0,
+	"margin-left": 8,
+	"margin-right": 8,
+	"spacing": 2,
 	"reload_style_on_change": true,
 
 	"include": [

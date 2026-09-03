@@ -1,8 +1,8 @@
-/* Wofi - Sharp Square Aesthetic */
+/* Wofi - Gruvbox Dark Theme */
 window {
     margin: 0px;
-    border: 2px solid #7c3aed;
-    background-color: rgba(8, 5, 18, 0.96);
+    border: 2px solid #9bdcff;
+    background-color: rgba(29, 32, 33, 0.96);
     border-radius: 0px;
     font-family: "JetBrainsMono Nerd Font", monospace;
     font-size: 13px;
@@ -13,18 +13,18 @@ window {
     margin: 12px 12px 6px 12px;
     padding: 8px 12px;
     border: none;
-    border-bottom: 2px solid #4c1d95;
+    border-bottom: 2px solid #426176;
     border-radius: 0px;
-    color: #e9d5ff;
-    background-color: rgba(15, 10, 30, 0.6);
-    caret-color: #c084fc;
+    color: #d9f0ff;
+    background-color: rgba(40, 40, 40, 0.6);
+    caret-color: #9bdcff;
     font-weight: 500;
     font-family: "JetBrainsMono Nerd Font", monospace;
     font-size: 13px;
 }
 
 #input:focus {
-    border-bottom: 2px solid #c084fc;
+    border-bottom: 2px solid #9bdcff;
     box-shadow: none;
     outline: none;
 }
@@ -46,7 +46,7 @@ window {
 
 #text {
     margin: 2px 8px;
-    color: #b8a0d8;
+    color: #9bb9cc;
     font-weight: 400;
 }
 
@@ -64,17 +64,17 @@ window {
 }
 
 #entry:hover {
-    background-color: rgba(24, 16, 44, 0.8);
-    border-left: 3px solid #7c3aed;
+    background-color: rgba(50, 48, 47, 0.8);
+    border-left: 3px solid #9bdcff;
 }
 
 #entry:hover #text {
-    color: #d8b4fe;
+    color: #9bdcff;
 }
 
 #entry:selected {
-    background-color: rgba(35, 20, 65, 0.95);
-    border-left: 3px solid #c084fc;
+    background-color: rgba(60, 56, 54, 0.95);
+    border-left: 3px solid #9bdcff;
 }
 
 #entry:selected #text {

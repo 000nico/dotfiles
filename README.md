@@ -62,7 +62,7 @@ dotfiles/
 ├── .p10k.zsh                    # Powerlevel10k prompt config
 ├── .gitconfig                   # Git global settings
 │
-└── catto.jpg / L.jpg / L.webp  # Wallpapers
+└── assets/                      # Wallpapers & Assets (catto.jpg)
 ```
 
 ---

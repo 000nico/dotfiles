@@ -10,7 +10,6 @@
 @define-color gruv-muted        #a89984;
 
 @define-color gruv-yellow       #fabd2f;
-@define-color gruv-orange       #fe8019;
 @define-color gruv-red          #fb4934;
 @define-color gruv-green        #b8bb26;
 @define-color gruv-aqua         #8ec07c;
@@ -24,9 +23,9 @@
 @define-color active-background @gruv-bg-3;
 @define-color text              @gruv-fg;
 @define-color subtext           @gruv-subtext;
-@define-color borders           @gruv-yellow;
-@define-color focused           @gruv-orange;
-@define-color focused2          @gruv-yellow;
+@define-color borders           @gruv-aqua;
+@define-color focused           @gruv-aqua;
+@define-color focused2          @gruv-blue;
 @define-color color1            @gruv-purple;
 @define-color color2            @gruv-blue;
 @define-color color3            @gruv-green;

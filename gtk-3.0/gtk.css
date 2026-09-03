@@ -4,18 +4,18 @@
     -gtk-outline-radius: 0px;
 }
 
-/* Color Palette - Dark Purple Aesthetic */
-@define-color bg_color #080512;
-@define-color fg_color #e9d5ff;
-@define-color base_color #05030a;
-@define-color text_color #e9d5ff;
-@define-color selected_bg_color #7c3aed;
+/* Color Palette - Gruvbox Dark Aesthetic */
+@define-color bg_color #18202b;
+@define-color fg_color #d9f0ff;
+@define-color base_color #141617;
+@define-color text_color #d9f0ff;
+@define-color selected_bg_color #9bdcff;
 @define-color selected_fg_color #ffffff;
-@define-color tooltip_bg_color #0f0a1e;
-@define-color tooltip_fg_color #e9d5ff;
-@define-color border_color #3b1d6e;
-@define-color header_bg #0f0a1e;
-@define-color sidebar_bg #0c0818;
+@define-color tooltip_bg_color #243242;
+@define-color tooltip_fg_color #d9f0ff;
+@define-color border_color #426176;
+@define-color header_bg #243242;
+@define-color sidebar_bg #202324;
 
 window, window.background {
     background-color: @bg_color;
@@ -36,7 +36,7 @@ headerbar, .titlebar {
 }
 
 button {
-    background-color: #18102c;
+    background-color: #243242;
     color: @fg_color;
     border: 1px solid @border_color;
     padding: 6px 12px;
@@ -44,34 +44,34 @@ button {
 }
 
 button:hover {
-    background-color: #241642;
-    border-color: #c084fc;
+    background-color: #30485a;
+    border-color: #9bdcff;
     color: #ffffff;
 }
 
 button:checked, button:active {
     background-color: @selected_bg_color;
     color: @selected_fg_color;
-    border-color: #c084fc;
+    border-color: #9bdcff;
 }
 
 entry {
-    background-color: #0f0a1e;
+    background-color: #243242;
     color: @fg_color;
     border: 1px solid @border_color;
     padding: 6px 10px;
 }
 
 entry:focus {
-    border-color: #c084fc;
+    border-color: #9bdcff;
 }
 
 scrollbar slider {
-    background-color: rgba(124, 58, 237, 0.4);
+    background-color: rgba(142, 192, 124, 0.4);
     min-width: 6px;
     min-height: 6px;
 }
 
 scrollbar slider:hover {
-    background-color: rgba(192, 132, 252, 0.8);
+    background-color: rgba(142, 192, 124, 0.8);
 }
