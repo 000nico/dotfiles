@@ -213,6 +213,7 @@
     cargo
     rustc
     git
+    gh
     neovim
     vscodium
     jetbrains.idea
