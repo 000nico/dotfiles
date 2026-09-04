@@ -191,7 +191,7 @@ binds {
     Mod+T      hotkey-overlay-title="Text Editor" { spawn "kitty" "-e" "nvim"; }
     Mod+S      hotkey-overlay-title="Spotify TUI" { spawn "kitty" "--class" "spotify-tui" "-e" "spt"; }
     Mod+Shift+T hotkey-overlay-title="Theme Switcher" { spawn "/home/nico/.config/waybar/scripts/theme-switcher.sh" "menu"; }
-    Mod+Shift+W hotkey-overlay-title="Wallpaper Switcher" { spawn "/home/nico/.config/scripts/wallpicker.sh" "menu"; }
+    Shift+W hotkey-overlay-title="Wallpaper Switcher" { spawn "/home/nico/.config/scripts/wallpicker.sh" "menu"; }
     Ctrl+Shift+Escape hotkey-overlay-title="Task Manager" { spawn "kitty" "-e" "btop"; }
     Mod+X      hotkey-overlay-title="Power Menu" { spawn "/home/nico/.config/waybar/scripts/wofi-power.sh"; }
     Mod+L      hotkey-overlay-title="Lock Session" { spawn "loginctl" "lock-session"; }
