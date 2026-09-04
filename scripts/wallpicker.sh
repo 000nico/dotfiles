@@ -10,10 +10,7 @@ readonly STYLE_FILE="$HOME/.config/wofi/wallpaper.css"
 
 mkdir -p "$CACHE_DIR" "$(dirname "$CURRENT_FILE")"
 
-if ! command -v magick >/dev/null 2>&1; then
-    printf '%s\n' "ImageMagick is required to create wallpaper thumbnails." >&2
-    exit 1
-fi
+magick_cmd="$(command -v magick 2>/dev/null || true)"
 
 wallpapers=()
 wallpaper_source="$WALLPAPER_DIR"
@@ -50,7 +47,11 @@ thumbnail_for() {
     signature="$(stat -c '%Y:%s' "$wallpaper")"
 
     if [[ ! -f "$thumbnail" || ! -f "$metadata" || "$(cat "$metadata")" != "$signature" ]]; then
-        magick "$wallpaper[0]" \
+        [[ -n "$magick_cmd" ]] || {
+            printf '%s\n' "ImageMagick is required to create wallpaper thumbnails." >&2
+            return 1
+        }
+        "$magick_cmd" "$wallpaper[0]" \
             -thumbnail '320x180^' \
             -gravity center \
             -extent 320x180 \
@@ -104,8 +105,12 @@ fi
 
 entries=()
 for wallpaper in "${wallpapers[@]}"; do
-    thumbnail="$(thumbnail_for "$wallpaper")"
-    entries+=("$(basename "$wallpaper")\\0icon\\x1f$thumbnail")
+    thumbnail="$(thumbnail_for "$wallpaper" 2>/dev/null || true)"
+    if [[ -n "$thumbnail" ]]; then
+        entries+=("$(basename "$wallpaper")\\0icon\\x1f$thumbnail")
+    else
+        entries+=("$(basename "$wallpaper")")
+    fi
 done
 
 selected="$(

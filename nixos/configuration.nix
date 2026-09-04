@@ -226,6 +226,7 @@
     nautilus
     ncspot
     mpv
+    imagemagick
 
     # Wayland & Desktop Utilities
     quickshell
