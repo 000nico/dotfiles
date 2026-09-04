@@ -62,16 +62,25 @@ blur {
 }
 
 window-rule {
-    match app-id=r#"^(kitty|kitty-yazi|firefox|librewolf|vesktop|codium|VSCodium|spotify|spotify-tui|org\.gnome\.Nautilus|nautilus|org\.pwmt\.zathura|pavucontrol|blueman-manager)$"#
-    opacity 0.92
+    match app-id=r#"^(kitty|kitty-yazi|vesktop|codium|VSCodium|spotify|spotify-tui|org\.gnome\.Nautilus|nautilus|org\.pwmt\.zathura|pavucontrol|blueman-manager)$"#
+    opacity 0.70
     background-effect {
         blur true
     }
 }
 
 window-rule {
+    match app-id=r#"^(firefox|librewolf)$"#
+    opacity 0.93
+    background-effect {
+        blur true
+        saturation 1.05
+    }
+}
+
+window-rule {
     match app-id=r#"^fuzzel$"#
-    opacity 0.82
+    opacity 0.75
     background-effect {
         blur true
     }
@@ -79,7 +88,7 @@ window-rule {
 
 layer-rule {
     match namespace="^fuzzel$"
-    opacity 0.82
+    opacity 0.75
     shadow {
         on
         softness 30
@@ -96,9 +105,8 @@ layer-rule {
 }
 
 // Autostart processes
-spawn-at-startup "waybar"
-spawn-at-startup "mako"
-spawn-at-startup "swaybg" "-i" "/home/nico/dotfiles/assets/catto.jpg" "-m" "fill"
+spawn-at-startup "quickshell" "--path" "/home/nico/dotfiles/quickshell"
+spawn-at-startup "/home/nico/.config/niri/wallpaper-by-theme.sh"
 spawn-at-startup "/home/nico/.config/niri/clipboard-watch.sh"
 spawn-sh-at-startup "dbus-update-activation-environment --systemd --all"
 spawn-sh-at-startup "xhost +SI:localuser:root 2>/dev/null || true"

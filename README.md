@@ -22,9 +22,9 @@
 | Terminal          | Kitty                   |
 | Shell             | Zsh + Powerlevel10k     |
 | Editor            | Neovim (LazyVim)        |
-| Bar               | Waybar                  |
-| Launcher          | Wofi                    |
-| Notifications     | Mako                    |
+| Shell / Bar       | Quickshell              |
+| Launcher          | Fuzzel                  |
+| Notifications     | Quickshell              |
 | Wallpaper         | swaybg                  |
 | File Manager      | Yazi + Nautilus         |
 | Browser           | Librewolf               |
@@ -48,10 +48,11 @@ dotfiles/
 │   └── hardware-configuration.nix
 │
 ├── niri/config.kdl              # Niri WM keybinds, layout, rules
+├── quickshell/shell.qml         # Transparent shell, menus & notifications
 ├── kitty/kitty.conf             # Terminal config (amber theme)
-├── waybar/                      # Bar config + modules + scripts
+├── waybar/                      # Legacy bar config and scripts
 ├── wofi/                        # App launcher styles
-├── mako/config                  # Notification daemon config
+├── mako/config                  # Legacy notification daemon config
 ├── fastfetch/config.jsonc       # System info display
 ├── btop/btop.conf               # System monitor
 ├── cava/config                  # Audio visualizer
@@ -68,6 +69,20 @@ dotfiles/
 ---
 
 ## Installation
+
+The NixOS configuration is the source of truth for system packages,
+Quickshell, and the Minecraft-inspired default font:
+
+```bash
+sudo nixos-rebuild switch --flake ~/dotfiles#nixos
+```
+
+Tracked desktop configuration is linked from `~/.config`; private application
+data remains outside the repository. Quickshell is started by Niri from
+`quickshell/shell.qml` and provides the transparent panel, theme and wallpaper
+controls, workspace switcher, power menu, settings view, and notification
+popups.
+
 ## 🎨 Theme: Amber Dark
 
 Orange/amber accent colors on a deep dark background (`#0a0704`).

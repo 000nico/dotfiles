@@ -9,6 +9,7 @@ THEME_FILE="$HOME/.cache/current_system_theme"
 CONFIG_DIR="$HOME/.config"
 DOTFILES_DIR="$HOME/dotfiles"
 PALETTE_DIR="$CONFIG_DIR/theme-palette"
+GRUVBOX_WALLPAPER="$DOTFILES_DIR/assets/catto.jpg"
 PASTEL_BLUE_WALLPAPER="$DOTFILES_DIR/assets/wallpapers/city.png"
 PURPLE_WALLPAPER="$DOTFILES_DIR/assets/wallpapers/purple.jpg"
 ORANGE_WALLPAPER="$DOTFILES_DIR/assets/wallpapers/orange.jpg"
@@ -31,8 +32,14 @@ set_wallpaper() {
         echo "Wallpaper not found: $wallpaper" >&2
         return 0
     fi
-    pkill -x swaybg 2>/dev/null || true
+    if [[ -f "$HOME/.cache/swaybg.pid" ]]; then
+        read -r pid < "$HOME/.cache/swaybg.pid" || true
+        [[ "$pid" =~ ^[0-9]+$ ]] && kill "$pid" 2>/dev/null || true
+    fi
+    pgrep -x swaybg 2>/dev/null | while read -r pid; do kill "$pid" 2>/dev/null || true; done
+    sleep 1
     swaybg -i "$wallpaper" -m fill >/dev/null 2>&1 &
+    echo $! > "$HOME/.cache/swaybg.pid"
 }
 
 update_niri_border() {
@@ -1968,16 +1975,11 @@ SPT
         sync_file "$target"
     done
 
-    # 14. Wallpaper
-    set_wallpaper "$GRUVBOX_WALLPAPER"
 }
 
 reload_all() {
     local theme_name="$1"
     local icon="$2"
-
-    # Reload Niri
-    niri msg action load-config-file 2>/dev/null || true
 
     # Reload Waybar
     pkill -SIGUSR2 waybar 2>/dev/null || true
@@ -2009,6 +2011,11 @@ apply_theme() {
             apply_purple
             reload_all "Purple Dark" "󰏘"
             ;;
+    esac
+
+    case "$theme" in
+        "pastel-blue") set_wallpaper "$PASTEL_BLUE_WALLPAPER" ;;
+        *)             set_wallpaper "$GRUVBOX_WALLPAPER" ;;
     esac
 }
 

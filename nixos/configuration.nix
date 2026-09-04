@@ -102,6 +102,7 @@
   # ==========================================
   time.timeZone = "America/Argentina/Buenos_Aires";
   time.hardwareClockInLocalTime = true;
+  environment.sessionVariables.TZ = "America/Argentina/Buenos_Aires";
   i18n.defaultLocale = "en_US.UTF-8";
   i18n.extraLocaleSettings = {
     LC_ADDRESS = "es_AR.UTF-8";
@@ -165,6 +166,7 @@
   # ==========================================
   fonts = {
     packages = with pkgs; [
+      (callPackage ./minecraft-font.nix {})
       nerd-fonts.jetbrains-mono
       noto-fonts
       noto-fonts-cjk-sans
@@ -172,9 +174,9 @@
     ];
     fontconfig = {
       defaultFonts = {
-        monospace = [ "JetBrainsMono Nerd Font" ];
-        sansSerif = [ "Noto Sans" ];
-        serif = [ "Noto Serif" ];
+        monospace = [ "Minecraft" "JetBrainsMono Nerd Font" ];
+        sansSerif = [ "Minecraft" "Noto Sans" ];
+        serif = [ "Minecraft" "Noto Serif" ];
         emoji = [ "Noto Color Emoji" ];
       };
     };
@@ -221,11 +223,11 @@
     librewolf
     vesktop
     nautilus
-    spotify-tui
     ncspot
     mpv
 
     # Wayland & Desktop Utilities
+    quickshell
     waybar
     wofi
     fuzzel
