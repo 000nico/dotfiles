@@ -1,7 +1,7 @@
 /* Wofi Power - Gruvbox Dark Theme */
 window {
     margin: 0px;
-    border: 2px solid #9bdcff;
+    border: 2px solid #8fc8e8;
     background-color: rgba(29, 32, 33, 0.97);
     border-radius: 0px;
     font-family: "JetBrainsMono Nerd Font", monospace;
@@ -13,17 +13,17 @@ window {
     margin: 10px 10px 4px 10px;
     padding: 6px 10px;
     border: none;
-    border-bottom: 2px solid #426176;
+    border-bottom: 2px solid #504945;
     border-radius: 0px;
-    color: #9bdcff;
+    color: #8fc8e8;
     background-color: rgba(40, 40, 40, 0.5);
-    caret-color: #9bdcff;
+    caret-color: #8fc8e8;
     font-weight: 400;
     font-family: "JetBrainsMono Nerd Font", monospace;
 }
 
 #input:focus {
-    border-bottom: 2px solid #9bdcff;
+    border-bottom: 2px solid #8fc8e8;
     box-shadow: none;
     outline: none;
 }
@@ -45,7 +45,7 @@ window {
 
 #text {
     margin: 2px 6px;
-    color: #9bdcff;
+    color: #8fc8e8;
     font-weight: 400;
 }
 
@@ -59,13 +59,13 @@ window {
 
 #entry:hover {
     background-color: rgba(50, 48, 47, 0.8);
-    border-left: 3px solid #9bdcff;
+    border-left: 3px solid #8fc8e8;
 }
 
 #entry:selected {
     background-color: rgba(60, 56, 54, 0.95);
-    border-left: 3px solid #9bdcff;
-    color: #9bdcff;
+    border-left: 3px solid #8fc8e8;
+    color: #8fc8e8;
 }
 
 #entry:selected #text {

@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Complete Theme Switcher Script for Niri Rice
 # Synchronizes colors across: Niri, Waybar, Nautilus / GTK 4, GTK 3, Kitty, Mako, Wofi, Fuzzel, Yazi, Btop, Cava, ncspot, spotify-tui, Wallpaper
-# Supported Themes: purple, orange, gruvbox
+# Supported Themes: purple, pastel-blue, cute-pink
 
 set -e
 
@@ -40,6 +40,7 @@ set_wallpaper() {
     sleep 1
     swaybg -i "$wallpaper" -m fill >/dev/null 2>&1 &
     echo $! > "$HOME/.cache/swaybg.pid"
+    printf '%s\n' "$wallpaper" > "$HOME/.cache/current_wallpaper"
 }
 
 update_niri_border() {
@@ -415,6 +416,7 @@ window {
 #inner-box {
     margin: 4px 8px 10px 8px;
     background-color: transparent;
+    orientation: horizontal;
 }
 
 #outer-box {
@@ -436,12 +438,15 @@ window {
 #img {
     margin-right: 8px;
     border-radius: 0px;
+    min-width: 180px;
+    min-height: 100px;
 }
 
 #entry {
     padding: 8px 12px;
     border-radius: 0px;
     margin: 2px 0px;
+    min-width: 220px;
     border-left: 3px solid transparent;
     transition: all 0.15s ease;
 }
@@ -548,7 +553,7 @@ WOFIP
     # 8. Fuzzel
     cat << 'FUZZEL' > "$CONFIG_DIR/fuzzel/fuzzel.ini"
 font=JetBrainsMono Nerd Font:size=11
-prompt="nico@nixos:~$ "
+prompt=""
 icon-theme=Papirus-Dark
 icons-enabled=no
 terminal=kitty -e
@@ -1032,6 +1037,7 @@ window {
 #inner-box {
     margin: 4px 8px 10px 8px;
     background-color: transparent;
+    orientation: horizontal;
 }
 
 #outer-box {
@@ -1053,12 +1059,15 @@ window {
 #img {
     margin-right: 8px;
     border-radius: 0px;
+    min-width: 180px;
+    min-height: 100px;
 }
 
 #entry {
     padding: 8px 12px;
     border-radius: 0px;
     margin: 2px 0px;
+    min-width: 220px;
     border-left: 3px solid transparent;
     transition: all 0.15s ease;
 }
@@ -1165,7 +1174,7 @@ WOFIP
     # 8. Fuzzel
     cat << 'FUZZEL' > "$CONFIG_DIR/fuzzel/fuzzel.ini"
 font=JetBrainsMono Nerd Font:size=11
-prompt="nico@nixos:~$ "
+prompt=""
 icon-theme=Papirus-Dark
 icons-enabled=no
 terminal=kitty -e
@@ -1669,6 +1678,7 @@ window {
 #inner-box {
     margin: 4px 8px 10px 8px;
     background-color: transparent;
+    orientation: horizontal;
 }
 
 #outer-box {
@@ -1690,12 +1700,15 @@ window {
 #img {
     margin-right: 8px;
     border-radius: 0px;
+    min-width: 180px;
+    min-height: 100px;
 }
 
 #entry {
     padding: 8px 12px;
     border-radius: 0px;
     margin: 2px 0px;
+    min-width: 220px;
     border-left: 3px solid transparent;
     transition: all 0.15s ease;
 }
@@ -1802,7 +1815,7 @@ WOFIP
     # 8. Fuzzel
     cat << 'FUZZEL' > "$CONFIG_DIR/fuzzel/fuzzel.ini"
 font=JetBrainsMono Nerd Font:size=11
-prompt="nico@nixos:~$ "
+prompt=""
 icon-theme=Papirus-Dark
 icons-enabled=no
 terminal=kitty -e
@@ -1977,6 +1990,202 @@ SPT
 
 }
 
+recolor_theme_files() {
+    local theme="$1"
+    local target
+    local -a targets=(
+        "$CONFIG_DIR/gtk-3.0/gtk.css"
+        "$CONFIG_DIR/gtk-4.0/gtk.css"
+        "$CONFIG_DIR/wofi/style.css"
+        "$CONFIG_DIR/wofi/power.css"
+        "$CONFIG_DIR/mako/config"
+        "$CONFIG_DIR/fuzzel/fuzzel.ini"
+        "$CONFIG_DIR/yazi/theme.toml"
+        "$CONFIG_DIR/ncspot/config.toml"
+        "$CONFIG_DIR/spotify-tui/config.yml"
+        "$CONFIG_DIR/cava/config"
+    )
+
+    for target in "${targets[@]}"; do
+        [[ -f "$target" ]] || continue
+        if [[ "$theme" == "pastel-blue" ]]; then
+            sed -i \
+                -e 's/#141617/#18202b/g' -e 's/#1d2021/#18202b/g' \
+                -e 's/#282828/#243242/g' -e 's/#32302f/#30485a/g' \
+                -e 's/#3c3836/#426176/g' -e 's/#ebdbb2/#d9f0ff/g' \
+                -e 's/#d5c4a1/#b7e4f9/g' -e 's/#a89984/#9bb9cc/g' \
+                -e 's/#fabd2f/#9bdcff/g' -e 's/#fb4934/#ff8fa3/g' \
+                -e 's/#b8bb26/#a9e6cf/g' -e 's/#8ec07c/#8fc8e8/g' \
+                -e 's/#83a598/#b7e4f9/g' -e 's/#d3869b/#9bdcff/g' \
+                -e 's/#689d6a/#426176/g' "$target"
+        else
+            sed -i \
+                -e 's/#141617/#241b29/g' -e 's/#1d2021/#261b29/g' \
+                -e 's/#282828/#38243b/g' -e 's/#32302f/#49304a/g' \
+                -e 's/#3c3836/#543553/g' -e 's/#ebdbb2/#ffe8f3/g' \
+                -e 's/#d5c4a1/#f2c9dc/g' -e 's/#a89984/#d8b4c7/g' \
+                -e 's/#fabd2f/#ffafd0/g' -e 's/#fb4934/#ff759f/g' \
+                -e 's/#b8bb26/#b8f2e6/g' -e 's/#8ec07c/#f5a6c8/g' \
+                -e 's/#83a598/#e7b7ff/g' -e 's/#d3869b/#f3a8c8/g' \
+                -e 's/#689d6a/#70476d/g' "$target"
+        fi
+        sync_file "$target"
+    done
+}
+
+write_wofi_launcher_style() {
+    local theme="$1"
+    local background surface hover accent text muted
+    local window_bg input_bg hover_bg selected_bg
+
+    case "$theme" in
+        purple)
+            background="#080512"; surface="#18102c"; hover="#261646"
+            accent="#c084fc"; text="#e9d5ff"; muted="#b8a0d8"
+            window_bg="rgba(8, 5, 18, 0.92)"; input_bg="rgba(24, 16, 44, 0.86)"
+            hover_bg="rgba(38, 22, 70, 0.88)"; selected_bg="rgba(24, 16, 44, 0.92)"
+            ;;
+        pastel-blue)
+            background="#18202b"; surface="#243242"; hover="#30485a"
+            accent="#9bdcff"; text="#d9f0ff"; muted="#9bb9cc"
+            window_bg="rgba(24, 32, 43, 0.92)"; input_bg="rgba(36, 50, 66, 0.86)"
+            hover_bg="rgba(48, 72, 90, 0.88)"; selected_bg="rgba(36, 50, 66, 0.92)"
+            ;;
+        cute-pink)
+            background="#261b29"; surface="#38243b"; hover="#543553"
+            accent="#ffafd0"; text="#ffe8f3"; muted="#d8b4c7"
+            window_bg="rgba(38, 27, 41, 0.92)"; input_bg="rgba(56, 36, 59, 0.86)"
+            hover_bg="rgba(84, 53, 83, 0.88)"; selected_bg="rgba(56, 36, 59, 0.92)"
+            ;;
+        *)
+            echo "Unknown Wofi theme: $theme" >&2
+            return 2
+            ;;
+    esac
+
+    cat > "$CONFIG_DIR/wofi/style.css" <<CSS
+window {
+    margin: 0px;
+    border: 2px solid $accent;
+    background-color: $window_bg;
+    border-radius: 0px;
+    font-family: "JetBrainsMono Nerd Font", monospace;
+    font-size: 14px;
+    box-shadow: 0 10px 35px rgba(0, 0, 0, 0.55);
+}
+
+#input {
+    margin: 12px 14px 8px 14px;
+    padding: 10px 12px;
+    border: 1px solid $surface;
+    border-radius: 0px;
+    color: $text;
+    background-color: $input_bg;
+    caret-color: $accent;
+    font-family: "JetBrainsMono Nerd Font", monospace;
+    font-size: 14px;
+}
+
+#input:focus {
+    border-color: $accent;
+    box-shadow: none;
+    outline: none;
+}
+
+#inner-box {
+    margin: 4px 14px 12px 14px;
+    background-color: transparent;
+}
+
+#outer-box,
+#scroll {
+    margin: 0px;
+    border: none;
+    background-color: transparent;
+}
+
+#text {
+    margin: 3px 12px;
+    color: $muted;
+}
+
+#entry {
+    padding: 9px 12px;
+    margin: 2px 0px;
+    border: 1px solid transparent;
+    border-radius: 0px;
+}
+
+#entry:hover {
+    background-color: $hover_bg;
+    border-color: $accent;
+}
+
+#entry:hover #text,
+#entry:selected #text {
+    color: $text;
+}
+
+#entry:selected {
+    background-color: $selected_bg;
+    border-color: $accent;
+}
+CSS
+    sync_file "$CONFIG_DIR/wofi/style.css"
+}
+
+apply_pastel_blue() {
+    apply_gruvbox
+    update_niri_border "#8fc8e8" "#8fc8e8" "#30485aaa" "#ff8fa3"
+    cat << 'WAYBAR' > "$CONFIG_DIR/waybar/colors.css"
+@define-color background #18202b;
+@define-color second-background #243242;
+@define-color hover-background #30485a;
+@define-color active-background #426176;
+@define-color text #d9f0ff;
+@define-color subtext #9bb9cc;
+@define-color borders #9bdcff;
+@define-color focused #8fc8e8;
+@define-color focused2 #b7e4f9;
+@define-color color1 #8fc8e8;
+@define-color color2 #b7e4f9;
+@define-color color3 #a9e6cf;
+@define-color urgent #ff8fa3;
+WAYBAR
+    sync_file "$CONFIG_DIR/waybar/colors.css"
+    recolor_theme_files pastel-blue
+    sed -i 's/color_theme = .*/color_theme = "Default"/' "$CONFIG_DIR/btop/btop.conf"
+    sed -i 's|include themes/.*|include themes/pastel-blue.conf|' "$CONFIG_DIR/kitty/kitty.conf"
+    kitty @ set-colors --all "$CONFIG_DIR/kitty/themes/pastel-blue.conf" 2>/dev/null || true
+    sync_file "$CONFIG_DIR/kitty/kitty.conf"
+}
+
+apply_cute_pink() {
+    apply_gruvbox
+    update_niri_border "#ffafd0" "#ffafd0" "#543553aa" "#ff759f"
+    cat << 'WAYBAR' > "$CONFIG_DIR/waybar/colors.css"
+@define-color background #261b29;
+@define-color second-background #38243b;
+@define-color hover-background #543553;
+@define-color active-background #70476d;
+@define-color text #ffe8f3;
+@define-color subtext #d8b4c7;
+@define-color borders #f3a8c8;
+@define-color focused #ffafd0;
+@define-color focused2 #ffd1e3;
+@define-color color1 #f5a6c8;
+@define-color color2 #e7b7ff;
+@define-color color3 #b8f2e6;
+@define-color urgent #ff759f;
+WAYBAR
+    sync_file "$CONFIG_DIR/waybar/colors.css"
+    sed -i 's/color_theme = .*/color_theme = "Default"/' "$CONFIG_DIR/btop/btop.conf"
+    recolor_theme_files cute-pink
+    sed -i 's|include themes/.*|include themes/cute-pink.conf|' "$CONFIG_DIR/kitty/kitty.conf"
+    kitty @ set-colors --all "$CONFIG_DIR/kitty/themes/cute-pink.conf" 2>/dev/null || true
+    sync_file "$CONFIG_DIR/kitty/kitty.conf"
+}
+
 reload_all() {
     local theme_name="$1"
     local icon="$2"
@@ -1996,22 +2205,30 @@ reload_all() {
 
 apply_theme() {
     local theme="$1"
-    echo "$theme" > "$THEME_FILE"
 
     case "$theme" in
-        "gruvbox")
-            apply_gruvbox
-            reload_all "Gruvbox Dark" "󰄛"
+        "pastel-blue")
+            apply_pastel_blue
+            echo "$theme" > "$THEME_FILE"
+            reload_all "Pastel Blue" "󰔏"
             ;;
-        "orange"|"amber")
-            apply_orange
-            reload_all "Amber Orange" "󱐋"
-            ;;
-        "purple"|*)
+        "purple")
             apply_purple
+            echo "$theme" > "$THEME_FILE"
             reload_all "Purple Dark" "󰏘"
             ;;
+        "cute-pink")
+            apply_cute_pink
+            echo "$theme" > "$THEME_FILE"
+            reload_all "Cute Pink" "󰏘"
+            ;;
+        *)
+            echo "Unknown theme: $theme" >&2
+            return 2
+            ;;
     esac
+
+    write_wofi_launcher_style "$theme"
 
     case "$theme" in
         "pastel-blue") set_wallpaper "$PASTEL_BLUE_WALLPAPER" ;;
@@ -2027,27 +2244,27 @@ case "${1:-menu}" in
     "purple")
         apply_theme "purple"
         ;;
-    "orange"|"amber")
-        apply_theme "orange"
+    "pastel-blue"|"blue")
+        apply_theme "pastel-blue"
         ;;
-    "gruvbox")
-        apply_theme "gruvbox"
+    "cute-pink"|"pink")
+        apply_theme "cute-pink"
         ;;
     "toggle"|"next")
         curr=$(get_current_theme)
         case "$curr" in
-            "purple") apply_theme "gruvbox" ;;
-            "gruvbox") apply_theme "orange" ;;
+            "purple") apply_theme "pastel-blue" ;;
+            "pastel-blue") apply_theme "cute-pink" ;;
             *) apply_theme "purple" ;;
         esac
         ;;
     "menu"|*)
-        options="󰏘 Purple Dark\n󰄛 Gruvbox Dark\n󱐋 Amber Orange"
+        options="󰏘 Purple Dark\n󰔏 Pastel Blue\n󰏘 Cute Pink"
         chosen=$(echo -e "$options" | wofi --dmenu --prompt "  Select Theme" --insensitive --width 250 --height 180)
         case "$chosen" in
             *"Purple"*)  apply_theme "purple" ;;
-            *"Gruvbox"*) apply_theme "gruvbox" ;;
-            *"Amber"*)   apply_theme "orange" ;;
+            *"Pastel Blue"*) apply_theme "pastel-blue" ;;
+            *"Cute Pink"*) apply_theme "cute-pink" ;;
         esac
         ;;
 esac

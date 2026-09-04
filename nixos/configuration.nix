@@ -174,9 +174,9 @@
     ];
     fontconfig = {
       defaultFonts = {
-        monospace = [ "Minecraft" "JetBrainsMono Nerd Font" ];
-        sansSerif = [ "Minecraft" "Noto Sans" ];
-        serif = [ "Minecraft" "Noto Serif" ];
+        monospace = [ "JetBrainsMono Nerd Font" ];
+        sansSerif = [ "Noto Sans" ];
+        serif = [ "Noto Serif" ];
         emoji = [ "Noto Color Emoji" ];
       };
     };

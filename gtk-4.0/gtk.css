@@ -5,27 +5,27 @@
 }
 
 /* Colors */
-@define-color accent_color #9bdcff;
-@define-color accent_bg_color #689d6a;
+@define-color accent_color #8fc8e8;
+@define-color accent_bg_color #426176;
 @define-color accent_fg_color #ffffff;
 
 @define-color window_bg_color #18202b;
 @define-color window_fg_color #d9f0ff;
 
-@define-color view_bg_color #141617;
+@define-color view_bg_color #18202b;
 @define-color view_fg_color #d9f0ff;
 
 @define-color headerbar_bg_color #243242;
 @define-color headerbar_fg_color #d9f0ff;
-@define-color headerbar_border_color #30485a;
+@define-color headerbar_border_color #426176;
 
 @define-color card_bg_color #243242;
 @define-color card_fg_color #d9f0ff;
-@define-color card_border_color #426176;
+@define-color card_border_color #504945;
 
 @define-color sidebar_bg_color #202324;
 @define-color sidebar_fg_color #d9f0ff;
-@define-color sidebar_border_color #30485a;
+@define-color sidebar_border_color #426176;
 
 @define-color popover_bg_color #243242;
 @define-color popover_fg_color #d9f0ff;
@@ -69,7 +69,7 @@ window.background, .background {
 
 .navigation-sidebar row:selected {
     background-color: rgba(142, 192, 124, 0.25);
-    border-left: 2px solid #9bdcff;
+    border-left: 2px solid #8fc8e8;
     color: #ffffff;
 }
 
@@ -93,7 +93,7 @@ headerbar {
 /* Floating bar (status info in nautilus) */
 .floating-bar {
     background-color: rgba(40, 40, 40, 0.9);
-    border: 1px solid #9bdcff;
+    border: 1px solid #8fc8e8;
     color: #d9f0ff;
     padding: 4px 10px;
 }
@@ -101,32 +101,32 @@ headerbar {
 /* Buttons */
 button {
     background-color: #243242;
-    border: 1px solid #30485a;
+    border: 1px solid #426176;
     color: @window_fg_color;
     padding: 6px 12px;
 }
 
 button:hover {
-    background-color: #30485a;
-    border-color: #9bdcff;
+    background-color: #426176;
+    border-color: #8fc8e8;
     color: #ffffff;
 }
 
 button:active, button:checked {
     background-color: @accent_bg_color;
     color: @accent_fg_color;
-    border-color: #9bdcff;
+    border-color: #8fc8e8;
 }
 
 /* Search bar and text entries */
 entry, searchbar {
     background-color: #242728;
-    border: 1px solid #426176;
+    border: 1px solid #504945;
     color: @window_fg_color;
 }
 
 entry:focus {
-    border-color: #9bdcff;
+    border-color: #8fc8e8;
 }
 
 /* Scrollbars */

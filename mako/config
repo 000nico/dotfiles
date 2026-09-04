@@ -16,8 +16,8 @@ icon-location=left
 font=JetBrainsMono Nerd Font 10
 background-color=#18202bf2
 text-color=#d9f0ff
-border-color=#9bdcff
-progress-color=source #9bdcff
+border-color=#8fc8e8
+progress-color=source #8fc8e8
 
 default-timeout=4000
 ignore-timeout=1
@@ -28,17 +28,17 @@ on-button-right=dismiss-all
 on-touch=dismiss
 
 [actionable]
-border-color=#9bdcff
+border-color=#8fc8e8
 
 [urgency=low]
 background-color=#18202bea
-border-color=#426176
+border-color=#504945
 text-color=#9bb9cc
 default-timeout=2500
 
 [urgency=normal]
 background-color=#18202bf2
-border-color=#9bdcff
+border-color=#8fc8e8
 text-color=#d9f0ff
 default-timeout=4000
 

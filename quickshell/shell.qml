@@ -82,7 +82,7 @@ ShellRoot {
                     anchors.verticalCenter: parent.verticalCenter
                     text: "⛏"
                     color: shell.accent
-                    font.family: "Minecraft"
+                    font.family: "JetBrainsMono Nerd Font"
                     font.pixelSize: 22
                     horizontalAlignment: Text.AlignHCenter
                 }
@@ -108,7 +108,7 @@ ShellRoot {
                             anchors.centerIn: parent
                             text: index + 1
                             color: shell.text
-                            font.family: "Minecraft"
+                            font.family: "JetBrainsMono Nerd Font"
                             font.pixelSize: 12
                         }
 
@@ -127,7 +127,7 @@ ShellRoot {
                     anchors.verticalCenter: parent.verticalCenter
                     text: "NICO // NIRI"
                     color: shell.muted
-                    font.family: "Minecraft"
+                    font.family: "JetBrainsMono Nerd Font"
                     font.pixelSize: 12
                     MouseArea {
                         anchors.fill: parent
@@ -141,7 +141,7 @@ ShellRoot {
                     anchors.verticalCenter: parent.verticalCenter
                     text: Qt.formatDateTime(new Date(), "ddd dd MMM  •  HH:mm")
                     color: shell.text
-                    font.family: "Minecraft"
+                    font.family: "JetBrainsMono Nerd Font"
                     font.pixelSize: 12
                 }
 
@@ -220,13 +220,13 @@ ShellRoot {
                 Text {
                     text: shell.latestNotification ? shell.latestNotification.appName : ""
                     color: shell.accent
-                    font.family: "Minecraft"
+                    font.family: "JetBrainsMono Nerd Font"
                     font.pixelSize: 11
                 }
                 Text {
                     text: shell.latestNotification ? shell.latestNotification.summary : ""
                     color: shell.text
-                    font.family: "Minecraft"
+                    font.family: "JetBrainsMono Nerd Font"
                     font.pixelSize: 14
                     elide: Text.ElideRight
                     width: parent.width
@@ -234,7 +234,7 @@ ShellRoot {
                 Text {
                     text: shell.latestNotification ? shell.latestNotification.body : ""
                     color: shell.muted
-                    font.family: "Minecraft"
+                    font.family: "JetBrainsMono Nerd Font"
                     font.pixelSize: 11
                     elide: Text.ElideRight
                     width: parent.width
@@ -278,7 +278,7 @@ ShellRoot {
                     Text {
                         text: shell.settingsOpen ? "SYSTEM SETTINGS" : shell.powerOpen ? "SESSION CONTROL" : "DESKTOP CONTROL"
                         color: shell.accent
-                        font.family: "Minecraft"
+                        font.family: "JetBrainsMono Nerd Font"
                         font.pixelSize: 18
                     }
                     Item { width: parent.width - 180; height: 1 }
@@ -301,7 +301,7 @@ ShellRoot {
                     visible: shell.settingsOpen
                     text: "THEMES"
                     color: shell.muted
-                    font.family: "Minecraft"
+                    font.family: "JetBrainsMono Nerd Font"
                     font.pixelSize: 12
                 }
 
@@ -320,7 +320,7 @@ ShellRoot {
                                 anchors.centerIn: parent
                                 text: modelData.toUpperCase()
                                 color: shell.text
-                                font.family: "Minecraft"
+                                font.family: "JetBrainsMono Nerd Font"
                                 font.pixelSize: 12
                             }
                             MouseArea {
@@ -335,7 +335,7 @@ ShellRoot {
                     visible: shell.settingsOpen
                     text: "WALLPAPER / DESKTOP"
                     color: shell.muted
-                    font.family: "Minecraft"
+                    font.family: "JetBrainsMono Nerd Font"
                     font.pixelSize: 12
                 }
 
@@ -352,7 +352,7 @@ ShellRoot {
                             anchors.centerIn: parent
                             text: "CITY // PASTEL BLUE"
                             color: shell.text
-                            font.family: "Minecraft"
+                            font.family: "JetBrainsMono Nerd Font"
                             font.pixelSize: 11
                         }
                         MouseArea {
@@ -370,7 +370,7 @@ ShellRoot {
                             anchors.centerIn: parent
                             text: "WORKSPACE OVERVIEW"
                             color: shell.text
-                            font.family: "Minecraft"
+                            font.family: "JetBrainsMono Nerd Font"
                             font.pixelSize: 11
                         }
                         MouseArea {
@@ -384,7 +384,7 @@ ShellRoot {
                     visible: shell.menuOpen && !shell.settingsOpen && !shell.powerOpen
                     text: "THEME SWITCHER"
                     color: shell.muted
-                    font.family: "Minecraft"
+                    font.family: "JetBrainsMono Nerd Font"
                     font.pixelSize: 12
                 }
 
@@ -401,7 +401,7 @@ ShellRoot {
                             anchors.centerIn: parent
                             text: "APPLY " + modelData.toUpperCase()
                             color: shell.text
-                            font.family: "Minecraft"
+                            font.family: "JetBrainsMono Nerd Font"
                             font.pixelSize: 12
                         }
                         MouseArea {
@@ -432,7 +432,7 @@ ShellRoot {
                                 anchors.centerIn: parent
                                 text: modelData[0]
                                 color: shell.text
-                                font.family: "Minecraft"
+                                font.family: "JetBrainsMono Nerd Font"
                                 font.pixelSize: 12
                             }
                             MouseArea {

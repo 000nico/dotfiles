@@ -1,50 +1,50 @@
 [mgr]
-cwd = { fg = "#9bdcff", bold = true }
-hovered = { fg = "#ffffff", bg = "#30485a", bold = true }
+cwd = { fg = "#8fc8e8", bold = true }
+hovered = { fg = "#ffffff", bg = "#426176", bold = true }
 preview_hovered = { underline = true }
-find_keyword = { fg = "#9bdcff", bold = true, italic = true }
-find_position = { fg = "#9bdcff", bg = "reset", bold = true }
-marker_selected = { fg = "#b7e4f9", bg = "#b7e4f9" }
-marker_copied = { fg = "#9bdcff", bg = "#9bdcff" }
+find_keyword = { fg = "#8fc8e8", bold = true, italic = true }
+find_position = { fg = "#8fc8e8", bg = "reset", bold = true }
+marker_selected = { fg = "#a9e6cf", bg = "#a9e6cf" }
+marker_copied = { fg = "#8fc8e8", bg = "#8fc8e8" }
 marker_cut = { fg = "#ff8fa3", bg = "#ff8fa3" }
-tab_active = { fg = "#18202b", bg = "#9bdcff", bold = true }
+tab_active = { fg = "#18202b", bg = "#8fc8e8", bold = true }
 tab_inactive = { fg = "#9bb9cc", bg = "#243242" }
 tab_width = 1
 border_symbol = "│"
-border_style = { fg = "#426176" }
+border_style = { fg = "#504945" }
 
 [status]
 separator_open = ""
 separator_close = ""
 separator_style = { fg = "#243242", bg = "#243242" }
-mode_normal = { fg = "#18202b", bg = "#9bdcff", bold = true }
-mode_select = { fg = "#18202b", bg = "#b7e4f9", bold = true }
+mode_normal = { fg = "#18202b", bg = "#8fc8e8", bold = true }
+mode_select = { fg = "#18202b", bg = "#a9e6cf", bold = true }
 mode_unset = { fg = "#18202b", bg = "#ff8fa3", bold = true }
 progress_label = { fg = "#ffffff", bold = true }
-progress_normal = { fg = "#9bdcff", bg = "#243242" }
+progress_normal = { fg = "#8fc8e8", bg = "#243242" }
 progress_error = { fg = "#ff8fa3", bg = "#243242" }
-permissions_t = { fg = "#8fc8e8" }
-permissions_r = { fg = "#9bdcff" }
+permissions_t = { fg = "#b7e4f9" }
+permissions_r = { fg = "#8fc8e8" }
 permissions_w = { fg = "#ff8fa3" }
-permissions_x = { fg = "#b7e4f9" }
-permissions_s = { fg = "#d3869b" }
+permissions_x = { fg = "#a9e6cf" }
+permissions_s = { fg = "#9bdcff" }
 
 [input]
-border = { fg = "#9bdcff" }
+border = { fg = "#8fc8e8" }
 title = {}
 value = {}
 selected = { reversed = true }
 
 [select]
-border = { fg = "#9bdcff" }
-active = { fg = "#9bdcff", bold = true }
+border = { fg = "#8fc8e8" }
+active = { fg = "#8fc8e8", bold = true }
 inactive = {}
 
 [which]
 cols = 3
 mask = { bg = "#18202b" }
-cand = { fg = "#9bdcff" }
+cand = { fg = "#8fc8e8" }
 rest = { fg = "#9bb9cc" }
 desc = { fg = "#d9f0ff" }
 separator = " ➜ "
-separator_style = { fg = "#426176" }
+separator_style = { fg = "#504945" }

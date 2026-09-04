@@ -7,13 +7,13 @@
 /* Color Palette - Gruvbox Dark Aesthetic */
 @define-color bg_color #18202b;
 @define-color fg_color #d9f0ff;
-@define-color base_color #141617;
+@define-color base_color #18202b;
 @define-color text_color #d9f0ff;
-@define-color selected_bg_color #9bdcff;
+@define-color selected_bg_color #8fc8e8;
 @define-color selected_fg_color #ffffff;
 @define-color tooltip_bg_color #243242;
 @define-color tooltip_fg_color #d9f0ff;
-@define-color border_color #426176;
+@define-color border_color #504945;
 @define-color header_bg #243242;
 @define-color sidebar_bg #202324;
 
@@ -44,15 +44,15 @@ button {
 }
 
 button:hover {
-    background-color: #30485a;
-    border-color: #9bdcff;
+    background-color: #426176;
+    border-color: #8fc8e8;
     color: #ffffff;
 }
 
 button:checked, button:active {
     background-color: @selected_bg_color;
     color: @selected_fg_color;
-    border-color: #9bdcff;
+    border-color: #8fc8e8;
 }
 
 entry {
@@ -63,7 +63,7 @@ entry {
 }
 
 entry:focus {
-    border-color: #9bdcff;
+    border-color: #8fc8e8;
 }
 
 scrollbar slider {

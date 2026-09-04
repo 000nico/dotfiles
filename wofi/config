@@ -1,8 +1,8 @@
 width=520
-height=380
+height=320
 location=center
 show=drun
-prompt=  run
+prompt=
 filter_rate=100
 allow_markup=true
 no_actions=true
@@ -13,4 +13,3 @@ insensitive=true
 allow_images=true
 image_size=26
 hide_scroll=true
-

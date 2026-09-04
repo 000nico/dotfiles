@@ -23,8 +23,8 @@ window#waybar.hidden {
 .modules-left {
   margin: 4px 0 0 0;
   padding: 0px 12px;
-  background-color: alpha(@background, 0.82);
-  border: 1px solid alpha(@borders, 0.72);
+  background-color: alpha(@background, 0.55);
+  border: 1px solid alpha(@borders, 0.55);
   border-radius: 0px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
 }
@@ -32,8 +32,8 @@ window#waybar.hidden {
 .modules-center {
   margin: 4px 0 0 0;
   padding: 0px 8px;
-  background-color: alpha(@background, 0.82);
-  border: 1px solid alpha(@borders, 0.72);
+  background-color: alpha(@background, 0.55);
+  border: 1px solid alpha(@borders, 0.55);
   border-radius: 0px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
 }
@@ -41,8 +41,8 @@ window#waybar.hidden {
 .modules-right {
   margin: 4px 0 0 0;
   padding: 0px 4px;
-  background-color: alpha(@background, 0.82);
-  border: 1px solid alpha(@borders, 0.72);
+  background-color: alpha(@background, 0.55);
+  border: 1px solid alpha(@borders, 0.55);
   border-radius: 0px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
 }

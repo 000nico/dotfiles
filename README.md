@@ -2,7 +2,7 @@
 
 # nico dotfiles
 
-**NixOS · Niri · Amber Dark Theme**
+**NixOS · Niri · Personal Desktop**
 
 ![NixOS](https://img.shields.io/badge/NixOS-unstable-5277C3?style=for-the-badge&logo=nixos&logoColor=white)
 ![Niri](https://img.shields.io/badge/Niri-WM-ffc060?style=for-the-badge)
@@ -22,10 +22,10 @@
 | Terminal          | Kitty                   |
 | Shell             | Zsh + Powerlevel10k     |
 | Editor            | Neovim (LazyVim)        |
-| Shell / Bar       | Quickshell              |
-| Launcher          | Fuzzel                  |
-| Notifications     | Quickshell              |
-| Wallpaper         | swaybg                  |
+| Shell / Bar       | Waybar                  |
+| Launcher          | Wofi                    |
+| Notifications     | Mako                    |
+| Wallpaper         | swww / theme script     |
 | File Manager      | Yazi + Nautilus         |
 | Browser           | Librewolf               |
 | Chat              | Vesktop (Discord)       |
@@ -48,11 +48,11 @@ dotfiles/
 │   └── hardware-configuration.nix
 │
 ├── niri/config.kdl              # Niri WM keybinds, layout, rules
-├── quickshell/shell.qml         # Transparent shell, menus & notifications
-├── kitty/kitty.conf             # Terminal config (amber theme)
-├── waybar/                      # Legacy bar config and scripts
-├── wofi/                        # App launcher styles
-├── mako/config                  # Legacy notification daemon config
+├── quickshell/shell.qml         # Optional shell UI
+├── kitty/kitty.conf             # Terminal configuration
+├── waybar/                      # Bar configuration and scripts
+├── wofi/                        # App launcher configuration
+├── mako/config                  # Notification daemon configuration
 ├── fastfetch/config.jsonc       # System info display
 ├── btop/btop.conf               # System monitor
 ├── cava/config                  # Audio visualizer
@@ -63,7 +63,8 @@ dotfiles/
 ├── .p10k.zsh                    # Powerlevel10k prompt config
 ├── .gitconfig                   # Git global settings
 │
-└── assets/                      # Wallpapers & Assets (catto.jpg)
+├── assets/                      # Wallpapers and other assets
+└── install.sh                   # Recreate the ~/.config symlinks
 ```
 
 ---
@@ -78,22 +79,13 @@ sudo nixos-rebuild switch --flake ~/dotfiles#nixos
 ```
 
 Tracked desktop configuration is linked from `~/.config`; private application
-data remains outside the repository. Quickshell is started by Niri from
-`quickshell/shell.qml` and provides the transparent panel, theme and wallpaper
-controls, workspace switcher, power menu, settings view, and notification
-popups.
+data remains outside the repository. Run `./install.sh` after cloning to recreate
+the links for the desktop configuration and home dotfiles.
 
-## 🎨 Theme: Amber Dark
+## 🎨 Themes
 
-Orange/amber accent colors on a deep dark background (`#0a0704`).
-
-| Color    | Hex       |
-|----------|-----------|
-| Accent 1 | `#ffc060` |
-| Accent 2 | `#e07020` |
-| Border   | `#ffb040` |
-| BG       | `#0a0704` |
-| Text     | `#f5dfc8` |
+The setup includes purple, pastel blue, and cute pink theme palettes. The
+Waybar theme switcher updates the supported desktop components together.
 
 ---
 
@@ -102,7 +94,7 @@ Orange/amber accent colors on a deep dark background (`#0a0704`).
 | Shortcut        | Action               |
 |-----------------|----------------------|
 | `Mod+Return`    | Open terminal        |
-| `Mod+R / D`     | App launcher (Wofi)  |
+| `Mod+R`        | App launcher (Wofi)  |
 | `Mod+W`         | Librewolf            |
 | `Mod+E`         | Yazi file manager    |
 | `Mod+C`         | Close window         |
@@ -119,5 +111,5 @@ Orange/amber accent colors on a deep dark background (`#0a0704`).
 ---
 
 <div align="center">
-<sub>Built for NixOS + Niri — forked from CachyOS/Hyprland origins 🐉</sub>
+<sub>Built for NixOS + Niri.</sub>
 </div>

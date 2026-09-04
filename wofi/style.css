@@ -1,7 +1,7 @@
 /* Wofi - Gruvbox Dark Theme */
 window {
     margin: 0px;
-    border: 2px solid #9bdcff;
+    border: 2px solid #8fc8e8;
     background-color: rgba(29, 32, 33, 0.96);
     border-radius: 0px;
     font-family: "JetBrainsMono Nerd Font", monospace;
@@ -13,18 +13,18 @@ window {
     margin: 12px 12px 6px 12px;
     padding: 8px 12px;
     border: none;
-    border-bottom: 2px solid #426176;
+    border-bottom: 2px solid #504945;
     border-radius: 0px;
     color: #d9f0ff;
     background-color: rgba(40, 40, 40, 0.6);
-    caret-color: #9bdcff;
+    caret-color: #8fc8e8;
     font-weight: 500;
     font-family: "JetBrainsMono Nerd Font", monospace;
     font-size: 13px;
 }
 
 #input:focus {
-    border-bottom: 2px solid #9bdcff;
+    border-bottom: 2px solid #8fc8e8;
     box-shadow: none;
     outline: none;
 }
@@ -32,6 +32,7 @@ window {
 #inner-box {
     margin: 4px 8px 10px 8px;
     background-color: transparent;
+    orientation: vertical;
 }
 
 #outer-box {
@@ -53,28 +54,33 @@ window {
 #img {
     margin-right: 8px;
     border-radius: 0px;
+    min-width: 26px;
+    min-height: 26px;
+    max-width: 26px;
+    max-height: 26px;
 }
 
 #entry {
-    padding: 8px 12px;
+    padding: 4px 8px;
     border-radius: 0px;
-    margin: 2px 0px;
+    margin: 1px 0px;
+    min-height: 26px;
     border-left: 3px solid transparent;
     transition: all 0.15s ease;
 }
 
 #entry:hover {
     background-color: rgba(50, 48, 47, 0.8);
-    border-left: 3px solid #9bdcff;
+    border-left: 3px solid #8fc8e8;
 }
 
 #entry:hover #text {
-    color: #9bdcff;
+    color: #8fc8e8;
 }
 
 #entry:selected {
     background-color: rgba(60, 56, 54, 0.95);
-    border-left: 3px solid #9bdcff;
+    border-left: 3px solid #8fc8e8;
 }
 
 #entry:selected #text {

@@ -1,4 +1,3 @@
-/* Waybar Gruvbox Dark Theme */
 @define-color background #18202b;
 @define-color second-background #243242;
 @define-color hover-background #30485a;
@@ -6,9 +5,9 @@
 @define-color text #d9f0ff;
 @define-color subtext #9bb9cc;
 @define-color borders #9bdcff;
-@define-color focused #9bdcff;
-@define-color focused2 #8fc8e8;
-@define-color color1 #9bdcff;
-@define-color color2 #8fc8e8;
-@define-color color3 #b7e4f9;
+@define-color focused #8fc8e8;
+@define-color focused2 #b7e4f9;
+@define-color color1 #8fc8e8;
+@define-color color2 #b7e4f9;
+@define-color color3 #a9e6cf;
 @define-color urgent #ff8fa3;
