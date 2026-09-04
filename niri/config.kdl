@@ -105,7 +105,8 @@ layer-rule {
 }
 
 // Autostart processes
-spawn-at-startup "quickshell" "--path" "/home/nico/dotfiles/quickshell"
+spawn-at-startup "waybar"
+spawn-at-startup "mako"
 spawn-at-startup "/home/nico/.config/niri/wallpaper-by-theme.sh"
 spawn-at-startup "/home/nico/.config/niri/clipboard-watch.sh"
 spawn-sh-at-startup "dbus-update-activation-environment --systemd --all"
