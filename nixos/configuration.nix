@@ -235,6 +235,7 @@
     mako
     libnotify
     swaybg
+    swww
     grim
     slurp
     satty

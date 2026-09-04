@@ -82,9 +82,9 @@ apply_wallpaper() {
     fi
 
     swww img "$wallpaper" \
-        --transition-type wipe \
+        --transition-type fade \
         --transition-fps 60 \
-        --transition-duration 1.5
+        --transition-duration 0.7
     printf '%s\n' "$wallpaper" > "$CURRENT_FILE"
 }
 
@@ -111,9 +111,8 @@ done
 selected="$(
     printf '%b\n' "${entries[@]}" |
         wofi --show dmenu --allow-images -I \
-            --parse-search \
-            --define orientation=horizontal \
-            --width 1100 --height 300 \
+            --prompt "Select Wallpaper" \
+            --width 650 --height 420 \
             --style "$STYLE_FILE" \
             --cache-file /dev/null
 )" || true
