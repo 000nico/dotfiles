@@ -1,17 +1,3 @@
-# Nico's MangoWM dotfiles
-
-This repository contains the current MangoWM desktop configuration and the utility scripts used by the session.
-
-## Included
-
-- MangoWM configuration and keybindings, including `Super+Space` for the utility menu.
-- `~/.local/bin/menu` with Rofi submenus, screenshots, recordings, updates, maintenance, connectivity, Cava, and wallpaper selection.
-- The Mango screensaver scripts and their `swayidle` user service.
-- Kitty, Waybar, Mako, Rofi, and Cava configuration.
-- System-wide Fontconfig defaults for JetBrains Mono Nerd Font.
-
-Personal files are intentionally not included: wallpapers, browser profiles, cookies, dconf databases, caches, and runtime state are excluded.
-
 ## Install
 
 Run these commands from the repository directory:
@@ -56,10 +42,7 @@ sudo pacman -S --needed swaylock tty-clock
 
 ## Notes
 
-- `Super+Space` launches `/home/nico/.local/bin/menu`.
+- `super+Space` launches `/home/nico/.local/bin/menu`.
 - The menu uses `kitty --class menu-float` for terminal TUIs. Add a Mango rule for the `menu-float` app ID after checking the exact rule syntax for the installed Mango version.
 - The wallpaper menu reads images from `$HOME/Pictures/wallpapers`. That directory is intentionally not part of this repository.
 - The menu stores the selected wallpaper in `$HOME/.config/mango/last-wallpaper`, which is runtime state and is intentionally not included.
-- The Btrfs snapshot action requires `sudo` and creates read-only snapshots of `/` under `/.snapshots`.
-- Verify Mango's current reload and window-rule syntax in the official wiki before adding or changing those rules:
-  <https://github.com/mangowm/mango/wiki>
