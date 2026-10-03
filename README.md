@@ -1,7 +1,3 @@
-# Nico's MangoWM dotfiles
-
-This repository contains the current MangoWM desktop configuration and the utility scripts used by the session.
-
 ## Included
 
 - MangoWM configuration and keybindings, including `Super+Space` for the utility menu.
