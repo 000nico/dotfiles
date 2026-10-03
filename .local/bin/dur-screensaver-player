@@ -1,0 +1,98 @@
+#!/usr/bin/env python3
+"""Play a Ly/community DurMovie v7 animation in a terminal."""
+
+import gzip
+import json
+import os
+import signal
+import sys
+import time
+from pathlib import Path
+
+ANIMATION = Path("/etc/ly/blackhole.dur")
+BLOCK = "█"
+running = True
+
+
+def stop(_signum, _frame):
+    global running
+    running = False
+
+
+def load_movie():
+    with gzip.open(ANIMATION, "rt", encoding="utf-8") as stream:
+        movie = json.load(stream)["DurMovie"]
+    if movie.get("formatVersion") != 7:
+        raise ValueError(f"unsupported DurMovie format: {movie.get('formatVersion')!r}")
+    if movie.get("columns") != 240 or movie.get("lines") != 67:
+        raise ValueError("the animation is not the expected 240x67 size")
+    frames = movie.get("frames")
+    if not isinstance(frames, list) or not frames:
+        raise ValueError("DurMovie has no frames")
+    return movie, frames
+
+
+def draw(frame, columns, lines):
+    contents = frame.get("contents", [])
+    color_map = frame.get("colorMap", [])
+    try:
+        terminal_size = os.get_terminal_size()
+        terminal_columns, terminal_lines = terminal_size.columns, terminal_size.lines
+    except (AttributeError, OSError, ValueError):
+        terminal_columns, terminal_lines = columns, lines
+    offset_x = max(0, (terminal_columns - columns) // 2)
+    offset_y = max(0, (terminal_lines - lines) // 2)
+    output = ["\x1b[2J\x1b[H", f"\x1b[{offset_y + 1};{offset_x + 1}H"]
+    for row in range(lines):
+        text = contents[row] if row < len(contents) else ""
+        previous_color = None
+        for column in range(columns):
+            char = text[column] if column < len(text) else " "
+            if char.isspace():
+                output.append(" ")
+                previous_color = None
+                continue
+            color = 0
+            if column < len(color_map) and row < len(color_map[column]):
+                color = int(color_map[column][row][0])
+            if color != previous_color:
+                output.append(f"\x1b[38;5;{color}m")
+                previous_color = color
+            output.append(BLOCK)
+        if row != lines - 1:
+            output.append("\n")
+    output.append("\x1b[0m")
+    sys.stdout.write("".join(output))
+    sys.stdout.flush()
+
+
+def main():
+    global running
+    movie, frames = load_movie()
+    frame_delay = 1.0 / float(movie.get("framerate") or 12.0)
+    sys.stdout.write("\x1b[?25l\x1b[2J")
+    sys.stdout.flush()
+    signal.signal(signal.SIGTERM, stop)
+    signal.signal(signal.SIGINT, stop)
+    try:
+        while running:
+            started = time.monotonic()
+            for frame in frames:
+                if not running:
+                    break
+                draw(frame, movie["columns"], movie["lines"])
+                remaining = frame_delay - (time.monotonic() - started)
+                if remaining > 0:
+                    time.sleep(remaining)
+                started = time.monotonic()
+    finally:
+        sys.stdout.write("\x1b[?25h\x1b[2J\x1b[H")
+        sys.stdout.flush()
+
+
+if __name__ == "__main__":
+    try:
+        main()
+    except (OSError, KeyError, TypeError, ValueError, json.JSONDecodeError) as error:
+        print(f"dur-screensaver: {error}", file=sys.stderr)
+        sys.exit(1)

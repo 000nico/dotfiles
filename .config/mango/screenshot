@@ -1,0 +1,41 @@
+#!/usr/bin/env bash
+# Screenshots with grim + slurp.
+#
+#   screenshot full   -> whole output
+#   screenshot area   -> drag a rectangle with slurp (default)
+#
+# Also copies the PNG to the clipboard when wl-copy is available.
+set -u
+
+DIR="${SCREENSHOT_DIR:-$HOME/Pictures/Screenshots}"
+STAMP="$(date +%Y-%m-%d_%H-%M-%S)"
+FILE="$DIR/$STAMP.png"
+
+mkdir -p "$DIR" || exit 1
+
+save() {
+    [ -s "$1" ] || { echo "screenshot: no output produced" >&2; return 1; }
+    echo "$1"
+    command -v wl-copy >/dev/null 2>&1 && wl-copy <"$1"
+    if command -v notify-send >/dev/null 2>&1; then
+        notify-send -i "$1" "Screenshot saved" "$1"
+    fi
+}
+
+case "${1:-area}" in
+    full)
+        grim "$FILE" || exit 1
+        save "$FILE"
+        ;;
+    area)
+        # slurp exits non-zero when the selection is cancelled with Esc.
+        region="$(slurp)" || exit 0
+        [ -n "$region" ] || exit 0
+        grim -g "$region" "$FILE" || exit 1
+        save "$FILE"
+        ;;
+    *)
+        echo "usage: $(basename "$0") [full|area]" >&2
+        exit 2
+        ;;
+esac

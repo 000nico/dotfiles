@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+set -u
+
+PIDFILE="/run/user/$(id -u)/dur-screensaver-kitty.pid"
+
+if [ -r "$PIDFILE" ]; then
+    pid="$(cat "$PIDFILE")"
+    case "$pid" in
+        ''|*[!0-9]*) ;;
+        *) kill "$pid" 2>/dev/null || true ;;
+    esac
+    rm -f "$PIDFILE"
+fi

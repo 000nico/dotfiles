@@ -1,0 +1,10 @@
+[Unit]
+Description=Idle screensaver for Mango
+PartOf=graphical-session.target
+
+[Service]
+ExecStart=/usr/bin/swayidle -w timeout 60 /home/nico/.local/bin/dur-screensaver-start resume /home/nico/.local/bin/dur-screensaver-stop
+Restart=on-failure
+
+[Install]
+WantedBy=graphical-session.target

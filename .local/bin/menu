@@ -1,0 +1,195 @@
+#!/usr/bin/env bash
+
+set -u
+
+readonly RUNTIME_DIR="${XDG_RUNTIME_DIR:-/run/user/$(id -u)}"
+readonly RECORDING_PID="$RUNTIME_DIR/menu-wf-recorder.pid"
+readonly SCREENSHOT_DIR="$HOME/Pictures/Screenshots"
+readonly RECORDING_DIR="$HOME/Videos"
+readonly WALLPAPER_DIR="$HOME/Pictures/wallpapers"
+readonly WALLPAPER_STATE="$HOME/.config/mango/last-wallpaper"
+readonly ROFI_COMPACT_THEME='window { width: 18em; height: 22em; } listview { lines: 8; fixed-height: true; spacing: 0px; } element { padding: 1px 4px; } element-text { font: "JetBrainsMono Nerd Font 11"; } textbox-prompt { padding: 2px 4px; font: "JetBrainsMono Nerd Font 11"; }'
+
+menu() {
+    local prompt="$1"
+    shift
+    printf '%s\n' "$@" |
+        rofi -dmenu -i -no-custom -lines 8 -p "$prompt" -theme-str "$ROFI_COMPACT_THEME"
+}
+
+kitty_cmd() {
+    kitty --class menu-float -e "$@"
+}
+
+confirm() {
+    [[ "$(printf '%s\n' 'Yes' 'No' |
+        rofi -dmenu -i -no-custom -p "$1" -lines 2 -theme-str "$ROFI_COMPACT_THEME")" == Yes ]]
+}
+
+system_menu() {
+    local choice
+    while choice="$(menu System 'Power off' 'Reboot' 'Suspend' 'Exit Mango' 'Back')"; do
+        case "$choice" in
+            'Power off') confirm 'Power off?' && systemctl poweroff ;;
+            'Reboot') confirm 'Reboot?' && systemctl reboot ;;
+            'Suspend') systemctl suspend ;;
+            'Exit Mango') mmsg -q ;;
+            'Back'|'') return ;;
+        esac
+    done
+}
+
+update_menu() {
+    local choice
+    while choice="$(menu Update 'yay -Syu (official + AUR)' 'pacman -Syu (official only)' 'Back')"; do
+        case "$choice" in
+            'yay -Syu (official + AUR)')
+                kitty --class menu-float -e bash -lc 'yay -Syu; printf "\nPress Enter to close... "; read -r'
+                ;;
+            'pacman -Syu (official only)')
+                kitty --class menu-float -e bash -lc 'sudo pacman -Syu; printf "\nPress Enter to close... "; read -r'
+                ;;
+            'Back'|'') return ;;
+        esac
+    done
+}
+
+maintenance_menu() {
+    local choice
+    while choice="$(menu Maintenance 'Clean pacman cache' 'Create read-only root snapshot' 'Back')"; do
+        case "$choice" in
+            'Clean pacman cache')
+                kitty --class menu-float -e bash -lc 'sudo paccache -r; printf "\nPress Enter to close... "; read -r'
+                ;;
+            'Create read-only root snapshot')
+                kitty --class menu-float -e bash -lc '
+                    set -u
+                    stamp="$(date +%Y-%m-%d_%H-%M-%S)"
+                    sudo install -d -m 0755 /.snapshots
+                    sudo btrfs subvolume snapshot -r / "/.snapshots/root-$stamp"
+                    printf "\nPress Enter to close... "
+                    read -r
+                '
+                ;;
+            'Back'|'') return ;;
+        esac
+    done
+}
+
+screenshot_menu() {
+    local choice geometry stamp file
+    while choice="$(menu Screenshot 'Region to clipboard' 'Region to file' 'Region in satty' 'Full screen to clipboard' 'Full screen to file' 'Back')"; do
+        case "$choice" in
+            'Region to clipboard')
+                geometry="$(slurp)" || continue
+                grim -g "$geometry" - | wl-copy
+                ;;
+            'Region to file')
+                geometry="$(slurp)" || continue
+                mkdir -p "$SCREENSHOT_DIR"
+                stamp="$(date +%Y-%m-%d_%H-%M-%S)"
+                grim -g "$geometry" "$SCREENSHOT_DIR/screenshot-$stamp.png"
+                ;;
+            'Region in satty')
+                geometry="$(slurp)" || continue
+                grim -g "$geometry" - | satty --filename -
+                ;;
+            'Full screen to clipboard') grim - | wl-copy ;;
+            'Full screen to file')
+                mkdir -p "$SCREENSHOT_DIR"
+                stamp="$(date +%Y-%m-%d_%H-%M-%S)"
+                file="$SCREENSHOT_DIR/screenshot-$stamp.png"
+                grim "$file"
+                ;;
+            'Back'|'') return ;;
+        esac
+    done
+}
+
+recording_menu() {
+    local choice geometry stamp file pid
+    if [[ -r "$RECORDING_PID" ]] && kill -0 "$(cat "$RECORDING_PID")" 2>/dev/null; then
+        choice="$(menu Recording 'Stop recording' 'Back')"
+        [[ "$choice" == 'Stop recording' ]] || return
+        pid="$(cat "$RECORDING_PID")"
+        kill -INT "$pid" 2>/dev/null || true
+        rm -f "$RECORDING_PID"
+        return
+    fi
+
+    choice="$(menu Recording 'Record region without audio' 'Record region with audio' 'Back')"
+    [[ "$choice" != Back && -n "$choice" ]] || return
+    geometry="$(slurp)" || return
+    mkdir -p "$RECORDING_DIR"
+    stamp="$(date +%Y-%m-%d_%H-%M-%S)"
+    file="$RECORDING_DIR/recording-$stamp.mp4"
+    if [[ "$choice" == 'Record region with audio' ]]; then
+        wf-recorder --audio -g "$geometry" -f "$file" &
+    else
+        wf-recorder -g "$geometry" -f "$file" &
+    fi
+    printf '%s\n' "$!" > "$RECORDING_PID"
+}
+
+wallpaper_menu() {
+    local selected path
+    [[ -d "$WALLPAPER_DIR" ]] || return
+    selected="$(
+        find "$WALLPAPER_DIR" -maxdepth 1 -type f \
+            \( -iname '*.png' -o -iname '*.jpg' -o -iname '*.jpeg' -o -iname '*.webp' \) \
+            -printf '%f\n' |
+            sort |
+            rofi -dmenu -i -show-icons -lines 8 -p Wallpaper -theme-str "$ROFI_COMPACT_THEME"
+    )"
+    [[ -n "$selected" ]] || return
+    path="$WALLPAPER_DIR/$selected"
+    pkill -x swaybg 2>/dev/null || true
+    swaybg -i "$path" -m fill >/dev/null 2>&1 &
+    mkdir -p "$(dirname "$WALLPAPER_STATE")"
+    printf '%s\n' "$path" > "$WALLPAPER_STATE"
+}
+
+connectivity_menu() {
+    local choice
+    while choice="$(menu Connectivity 'Wi-Fi (nmtui)' 'Bluetooth (bluetui)' 'Audio mixer (wiremix)' 'Back')"; do
+        case "$choice" in
+            'Wi-Fi (nmtui)') kitty_cmd nmtui ;;
+            'Bluetooth (bluetui)') kitty_cmd bluetui ;;
+            'Audio mixer (wiremix)') kitty_cmd wiremix ;;
+            'Back'|'') return ;;
+        esac
+    done
+}
+
+reload_menu() {
+    local choice
+    while choice="$(menu Reload 'Waybar' 'Mako' 'Kitty' 'Back')"; do
+        case "$choice" in
+            Waybar) pkill -SIGUSR2 -x waybar 2>/dev/null || true ;;
+            Mako) makoctl reload ;;
+            Kitty) pkill -USR1 -x kitty 2>/dev/null || true ;;
+            'Back'|'') return ;;
+        esac
+    done
+}
+
+main() {
+    local choice
+    while choice="$(menu Utilities System 'Update' 'Maintenance' 'Screenshot' 'Screen recording' 'Change wallpaper' 'Reload configuration' 'Connectivity' 'Clock' 'Cava' 'Exit')"; do
+        case "$choice" in
+            System) system_menu ;;
+            Update) update_menu ;;
+            Maintenance) maintenance_menu ;;
+            Screenshot) screenshot_menu ;;
+            'Screen recording') recording_menu ;;
+            'Change wallpaper') wallpaper_menu ;;
+            'Reload configuration') reload_menu ;;
+            Connectivity) connectivity_menu ;;
+            Clock) kitty_cmd tty-clock -c -s ;;
+            Cava) kitty_cmd cava ;;
+            Exit|'') return ;;
+        esac
+    done
+}
+
+main

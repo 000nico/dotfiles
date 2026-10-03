@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+set -u
+
+PIDFILE="/run/user/$(id -u)/dur-screensaver-kitty.pid"
+PLAYER="/home/nico/.local/bin/dur-screensaver-player"
+
+if /usr/bin/playerctl -a status 2>/dev/null | /usr/bin/grep -qx 'Playing'; then
+    exit 0
+fi
+
+if [ -r "$PIDFILE" ]; then
+    old_pid="$(cat "$PIDFILE")"
+    if [ -n "$old_pid" ] && kill -0 "$old_pid" 2>/dev/null; then
+        exit 0
+    fi
+    rm -f "$PIDFILE"
+fi
+
+/usr/bin/kitty \
+    --single-instance=no \
+    --class LyDurScreensaver \
+    --title LyDurScreensaver \
+    --start-as=fullscreen \
+    --override font_family='JetBrainsMono Nerd Font' \
+    --override bold_font='JetBrainsMono Nerd Font' \
+    --override font_size=9.7 \
+    --override window_padding_width=0 \
+    --override background_opacity=1 \
+    "$PLAYER" &
+printf '%s\n' "$!" >"$PIDFILE"

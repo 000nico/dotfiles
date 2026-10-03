@@ -1,0 +1,74 @@
+/* ~/.config/waybar/style.css
+   Three floating islands for mango. */
+
+* {
+    font-family: "JetBrainsMono Nerd Font", "DejaVu Sans", sans-serif;
+    font-size: 10px;
+    min-height: 0;
+    border: none;
+    border-radius: 0;
+}
+
+@import url("colors.css");
+
+window#waybar {
+    background: transparent;
+    border: none;
+    padding: 6px 10px 0 10px;
+}
+
+.modules-left,
+.modules-center,
+.modules-right {
+    background-color: @surface;
+    border: 1px solid @outline;
+    border-radius: 0px;
+    padding: 0 6px;
+}
+
+.modules-left {
+    margin-right: 8px;
+}
+
+.modules-center {
+    margin: 0 8px;
+}
+
+.modules-right {
+    margin-left: 8px;
+}
+
+#custom-power {
+    color: @on_surface;
+    padding: 0 8px;
+    border-radius: 0px 0 0 0px;
+}
+
+#custom-power:hover {
+    background-color: @surface_variant;
+}
+
+#custom-mango-tags {
+    color: @on_surface_variant;
+    padding: 0 8px;
+    border-radius: 0 0px 0px 0;
+}
+
+#custom-date {
+    color: @on_surface;
+    padding: 0 10px;
+    font-weight: 600;
+}
+
+#cpu,
+#memory,
+#battery,
+#custom-notifications,
+#tray {
+    color: @on_surface_variant;
+    padding: 0 8px;
+}
+
+#tray {
+    padding: 0 4px;
+}

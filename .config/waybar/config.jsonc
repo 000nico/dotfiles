@@ -1,0 +1,66 @@
+// ~/.config/waybar/config.jsonc
+// Three floating islands: left (workspaces+power), center (date), right (cpu/mem/battery)
+
+{
+    "layer": "top",
+    "position": "top",
+    "height": 32,
+    "margin": "4px 6px 0 6px",
+
+    "modules-left": ["custom/power", "custom/mango-tags"],
+    "modules-center": ["custom/date"],
+    "modules-right": ["cpu", "memory", "battery", "custom/notifications", "tray"],
+
+    // --- Left island ---
+    "custom/power": {
+        "format": "",
+        "tooltip": false,
+        "on-click": "~/.config/waybar/powermenu"
+    },
+    // Sin "interval": waybar lo trata como módulo continuo y el script
+    // (mango-state) empuja una línea sólo cuando cambia el estado.
+    "custom/mango-tags": {
+        "exec": "/home/nico/.config/waybar/mango-state",
+        "restart-interval": 3,
+        "format": "{}",
+        "pango-markup": true,
+        "tooltip": false
+    },
+
+    // --- Center island ---
+    "custom/date": {
+        "format": "{}",
+        "interval": 1,
+        "exec": "date +'%A %d, %B'"
+    },
+
+    // --- Right island ---
+    "cpu": {
+        "interval": 2,
+        "format": " {usage}%",
+        "max-length": 20
+    },
+    "memory": {
+        "interval": 5,
+        "format": "󰍛 {percentage}%",
+        "max-length": 20
+    },
+    "battery": {
+        "interval": 30,
+        "states": {
+            "warning": 20,
+            "critical": 10
+        },
+        "format": "{icon} {capacity}%",
+        "format-icons": ["", "", "", "", ""],
+        "tooltip": false
+    },
+    "custom/notifications": {
+        "format": "󱅫",
+        "tooltip": false,
+        "on-click": "makoctl dismiss -a"
+    },
+    "tray": {
+        "spacing": 8
+    }
+}

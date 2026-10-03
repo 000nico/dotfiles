@@ -1,0 +1,94 @@
+@import "~/.config/rofi/colors.rasi"
+
+configuration {
+    modi: "drun";
+    show-icons: true;
+    icon-theme: "Adwaita";
+    drun-display-format: "{name}";
+    drun-match-fields: "name,exec";
+    drun-exclude-categories: "";
+    drun-show-actions: false;
+    drun-url-launcher: "xdg-open";
+    display-drun: "";
+    matching: "fuzzy";
+    sort: true;
+    sorting-method: "fzf";
+    case-smart: true;
+    show-input: true;
+    hide-input: false;
+    filter: "";
+    kb-cancel: "Escape,Control+g";
+}
+
+window {
+    background-color: transparent;
+    width: 520px;
+    height: 600px;
+    location: center;
+    anchor: center;
+}
+
+mainbox {
+    background-color: @surface;
+    border: 1px;
+    border-color: @outline;
+    border-radius: 0px;
+    padding: 12px;
+    children: [ inputbar, listview ];
+}
+
+inputbar {
+    background-color: @surface-variant;
+    text-color: @on-surface;
+    padding: 8px 10px;
+    spacing: 8px;
+    border-radius: 0px;
+    children: [ entry ];
+    margin: 0px 0px 8px 0px;
+}
+
+entry {
+    text-color: @on-surface;
+    placeholder: "Search applications...";
+    placeholder-color: @on-surface-variant;
+}
+
+listview {
+    background-color: transparent;
+    lines: 12;
+    fixed-height: true;
+    spacing: 4px;
+    cycle: false;
+    scrollbar: false;
+}
+
+element {
+    border: 0;
+    padding: 6px 8px;
+    spacing: 8px;
+    border-radius: 0px;
+}
+
+element normal.normal,
+element alternate.normal,
+element normal.active,
+element alternate.active {
+    background-color: transparent;
+    text-color: @on-surface;
+}
+
+element selected.normal,
+element selected.active {
+    background-color: @primary;
+    text-color: @on-primary;
+}
+
+element-text {
+    background-color: inherit;
+    text-color: inherit;
+}
+
+element-icon {
+    size: 32px;
+    vertical-align: 0.5;
+}

@@ -1,0 +1,55 @@
+#!/usr/bin/env bash
+# Pone el wallpaper de fondo.
+#
+# Fuente de verdad: ~/.config/mango/.current_wallpaper (lo escribe el
+# wallpaper_switcher). Si ese archivo ya no existe, busca la primera
+# imagen de ~/Images o ~/Pictures. Si no hay ninguna, un color plano
+# para que nunca quede un vacío negro.
+set -u
+
+state="$HOME/.config/mango/.current_wallpaper"
+fallback_color='#141416'
+
+pick_image() {
+    local chosen dir img
+
+    # 1) lo que quedó elegido con el switcher
+    if [ -r "$state" ]; then
+        read -r chosen < "$state" || true
+        if [ -n "${chosen:-}" ] && [ -f "$chosen" ]; then
+            printf '%s\n' "$chosen"
+            return 0
+        fi
+    fi
+
+    # 2) primera imagen de ~/Images o ~/Pictures
+    for dir in "$HOME/Images" "$HOME/Pictures"; do
+        [ -d "$dir" ] || continue
+        img=$(find "$dir" -maxdepth 1 -type f \
+            \( -iname '*.jpg' -o -iname '*.jpeg' -o -iname '*.png' -o -iname '*.webp' \) \
+            2>/dev/null | sort | head -n1)
+        if [ -n "$img" ]; then
+            printf '%s\n' "$img"
+            return 0
+        fi
+    done
+
+    return 0
+}
+
+img=$(pick_image)
+
+pkill -x swaybg 2>/dev/null
+sleep 0.2
+
+if [ -n "$img" ]; then
+    # el estado pasa a ser el wallpaper realmente mostrado
+    printf '%s\n' "$img" >"$state"
+    matugen -q --prefer saturation -c "$HOME/.config/matugen/config.toml" image "$img" >/dev/null 2>&1 || true
+    swaybg -i "$img" -m fill >/dev/null 2>&1 &
+else
+    printf 'mango: no hay imágenes, uso %s\n' "$fallback_color" >&2
+    swaybg -c "$fallback_color" >/dev/null 2>&1 &
+fi
+
+exit 0
