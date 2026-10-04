@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+# Power/menu launcher: open a simple rofi menu for logout/reboot/shutdown.
+set -u
+
+# Use a single dmenu style call
+opts="Shutdown\nReboot\nLog out"
+chosen=$(echo -e "$opts" | rofi -dmenu -p "Power" -i -format d -location 1 -yoffset 40 -xoffset 10 -width 20 -lines 3 -hide-scrollbar -no-show-icons 2>/dev/null || echo "")
+case "$chosen" in
+    1) systemctl poweroff ;;
+    2) systemctl reboot ;;
+    3) loginctl terminate-session "${XDG_SESSION_ID:-}" 2>/dev/null || (pkill -HUP mango 2>/dev/null || exit 0) ;;
+esac

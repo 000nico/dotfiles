@@ -2,7 +2,7 @@
 set -u
 
 PIDFILE="/run/user/$(id -u)/dur-screensaver-kitty.pid"
-PLAYER="/home/nico/.local/bin/dur-screensaver-player"
+PLAYER="${HOME}/.local/bin/dur-screensaver-player"
 
 if /usr/bin/playerctl -a status 2>/dev/null | /usr/bin/grep -qx 'Playing'; then
     exit 0

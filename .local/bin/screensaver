@@ -1,0 +1,3 @@
+#!/bin/bash
+pgrep -f 'class scree[n]saver' >/dev/null && exit 0
+kitty --start-as=fullscreen --class screensaver -o confirm_os_window_close=0 cmatrix -b &

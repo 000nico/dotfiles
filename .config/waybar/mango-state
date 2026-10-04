@@ -1,0 +1,189 @@
+#!/usr/bin/env python3
+"""Módulo de waybar para los tags/workspaces de mango (mangowc).
+
+Muestra únicamente los tags que:
+  - tienen al menos una ventana abierta, o
+  - están activos (el que "estás parado" ahora mismo).
+
+En vez de preguntar cada X ms, escucha el IPC de mango (`mmsg watch`), así que
+el bar se actualiza al instante al cambiar de tag o abrir/cerrar una ventana.
+Si el compositor no está disponible, reintenta solo.
+
+Uso:
+  mango-state            -> modo stream (para waybar)
+  mango-state tags       -> imprime una vez y sale (debug)
+  mango-state focus 3    -> salta al tag 3 (sin mover ventanas)
+"""
+import json
+import os
+import queue
+import subprocess
+import sys
+import threading
+import time
+
+C_ACTIVE_BG = "#c9b890"   # píldora del tag actual
+C_ACTIVE_FG = "#141416"   # texto oscuro sobre la píldora
+C_OCCUPIED = "#d0d0d0"
+C_URGENT = "#e06c75"
+C_SEP = "#5a5a5a"
+
+COALESCE = 0.05   # junta ráfagas de eventos (abrir/cerrar genera varios)
+REVERT = 0.7      # ventana para ignorar los "va y viene" de la animación
+
+_last = None
+_history = []
+
+
+def mmsg(*args, timeout=3):
+    return subprocess.run(
+        ["mmsg", *args], capture_output=True, text=True, timeout=timeout
+    )
+
+
+def monitors():
+    """Estado actual vía IPC; lista vacía si el compositor no responde."""
+    if not os.environ.get("MANGO_INSTANCE_SIGNATURE"):
+        return []
+    try:
+        proc = mmsg("get", "all-monitors")
+    except (subprocess.TimeoutExpired, OSError):
+        return []
+    if proc.returncode != 0 or not proc.stdout.strip():
+        return []
+    try:
+        return json.loads(proc.stdout).get("monitors") or []
+    except json.JSONDecodeError:
+        return []
+
+
+def render(mons):
+    """Markup pango con los tags con ventanas + los activos."""
+    if not mons:
+        return ""
+
+    # monitor enfocado primero; con un solo monitor no cambia nada
+    ordered = sorted(mons, key=lambda m: not m.get("active"))
+    groups = []
+    for mon in ordered:
+        active_tags = set(mon.get("active_tags") or [])
+        items = []
+        tags = sorted(mon.get("tags") or [], key=lambda t: t.get("index", 0))
+        for tag in tags:
+            idx = tag.get("index", "?")
+            occupied = (tag.get("client_count") or 0) > 0
+            active = bool(tag.get("is_active")) or idx in active_tags
+            if not (occupied or active):
+                continue  # vacío y no activo -> no se muestra
+            if tag.get("is_urgent"):
+                items.append(f'<span foreground="{C_URGENT}" weight="bold">{idx}</span>')
+            elif active:
+                items.append(
+                    f'<span background="{C_ACTIVE_BG}" foreground="{C_ACTIVE_FG}"'
+                    f' weight="bold"> {idx} </span>'
+                )
+            else:
+                items.append(f'<span foreground="{C_OCCUPIED}">{idx}</span>')
+        if items:
+            groups.append("  ".join(items))
+
+    return f'<span foreground="{C_SEP}">  |  </span>'.join(groups)
+
+
+def emit(mons):
+    """Imprime el markup si cambió. Instantáneo: sin esperar a la animación."""
+    global _last
+    text = render(mons)
+    if text == _last:  # nada nuevo que dibujar
+        return
+
+    now = time.monotonic()
+    # Si volvemos a un texto que acabamos de mostrar, es el vaivén de la
+    # animación: no se redibuja para que el bar no titile.
+    if any(text == t and now - ts < REVERT for t, ts in _history):
+        return
+
+    _last = text
+    _history.append((text, now))
+    del _history[:-3]
+    print(text, flush=True)
+
+
+def _reader(stream_name, events):
+    """Lee un `mmsg watch` y encola sus eventos JSON."""
+    try:
+        proc = subprocess.Popen(
+            ["mmsg", "watch", stream_name],
+            stdout=subprocess.PIPE,
+            stderr=subprocess.DEVNULL,
+            text=True,
+            bufsize=1,
+        )
+    except OSError:
+        return
+    with proc.stdout:
+        for line in proc.stdout:
+            line = line.strip()
+            if line:
+                events.put((stream_name, line))
+    proc.wait()
+
+
+def follow(events):
+    """Escucha el IPC y dibuja al vuelo.
+
+    El evento de mango llega ~130 ms después de apretar la tecla; acá se dibuja
+    en el primer evento (y como mucho uno cada COALESCE segundos), así que el
+    tag cambia de color apenas lo apretás, sin esperar a que termine la
+    animación de 350 ms.
+    """
+    threads = [
+        threading.Thread(target=_reader, args=(name, events), daemon=True)
+        for name in ("all-monitors", "all-clients")
+    ]
+    for t in threads:
+        t.start()
+
+    pending = False
+    last_emit = 0.0
+    while True:
+        try:
+            events.get(timeout=0.01)
+            pending = True
+        except queue.Empty:
+            pass
+
+        now = time.monotonic()
+        if pending and now - last_emit >= COALESCE:
+            emit(monitors())
+            pending = False
+            last_emit = now
+
+        if not any(t.is_alive() for t in threads):
+            return
+
+
+def main():
+    args = sys.argv[1:]
+
+    if args and args[0] == "tags":  # una vez y salir (debug)
+        print(render(monitors()))
+        return 0
+
+    if args and args[0] == "focus" and len(args) > 1:  # saltar a un tag
+        # OJO: "view" cambia de tag sin mover ventanas; "tag" mueve la
+        # ventana enfocada al tag (comando Alt+1..9 de mango).
+        try:
+            mmsg("dispatch", f"view,{int(args[1])},0")
+        except ValueError:
+            return 1
+        return 0
+
+    while True:  # modo stream para waybar, con reintentos
+        emit(monitors())
+        follow(queue.Queue())
+        time.sleep(2)
+
+
+if __name__ == "__main__":
+    sys.exit(main())

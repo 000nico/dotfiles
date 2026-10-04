@@ -1,0 +1,12 @@
+cliphist
+durdraw
+github-copilot-cli
+helium-browser-bin
+legcord
+mangowm-git
+opencode-beta
+tty-clock
+yay-bin
+yay-bin-debug
+wl-clip-persist
+wiremix

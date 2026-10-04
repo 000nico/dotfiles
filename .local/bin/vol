@@ -1,0 +1,50 @@
+#!/usr/bin/env bash
+# Volumen del sistema (sink por defecto) + OSD con wob.
+# uso: vol up | vol down | vol mute
+set -uo pipefail
+
+STEP=5
+FIFO="${XDG_RUNTIME_DIR:-/run/user/$(id -u)}/wob.sock"
+
+sink() {
+    wpctl get-volume @DEFAULT_AUDIO_SINK@ >/dev/null 2>&1 \
+        && echo '@DEFAULT_AUDIO_SINK@' || echo '@DEFAULT_SINK@'
+}
+
+# imprime "fraccion muted"
+state() {
+    local out frac
+    out=$(wpctl get-volume "$(sink)" 2>/dev/null) || { echo "0 1"; return; }
+    frac=$(awk '{for (i=1; i<=NF; i++) if ($i=="Volume:") print $(i+1)}' <<<"$out")
+    [[ "$frac" =~ ^[0-9.]+$ ]] || frac=0
+    if grep -q MUTED <<<"$out"; then echo "$frac 1"; else echo "$frac 0"; fi
+}
+
+show() {
+    local frac muted pct
+    read -r frac muted < <(state)
+    pct=$(awk -v f="$frac" 'BEGIN { v = f*100; if (v>150) v=150; if (v<0) v=0; printf "%d", int(v+0.5) }')
+    printf '%s\n' "$pct" > "$FIFO" 2>/dev/null
+}
+
+case "${1:-}" in
+    up)
+        wpctl set-volume "$(sink)" "${STEP}%+" >/dev/null 2>&1
+        # subir el volumen saca el mute (como en Windows/macOS)
+        read -r _ muted < <(state)
+        [[ "$muted" == 1 ]] && wpctl set-mute "$(sink)" 0 >/dev/null 2>&1
+        show
+        ;;
+    down)
+        wpctl set-volume "$(sink)" "${STEP}%-" >/dev/null 2>&1
+        show
+        ;;
+    mute)
+        wpctl set-mute "$(sink)" toggle >/dev/null 2>&1
+        show
+        ;;
+    *)
+        echo "uso: $(basename "$0") up|down|mute" >&2
+        exit 2
+        ;;
+esac

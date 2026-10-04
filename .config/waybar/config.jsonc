@@ -20,7 +20,7 @@
     // Sin "interval": waybar lo trata como módulo continuo y el script
     // (mango-state) empuja una línea sólo cuando cambia el estado.
     "custom/mango-tags": {
-        "exec": "/home/nico/.config/waybar/mango-state",
+        "exec": "~/.config/waybar/mango-state",
         "restart-interval": 3,
         "format": "{}",
         "pango-markup": true,

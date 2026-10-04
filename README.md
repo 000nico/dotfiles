@@ -10,51 +10,25 @@ Wallpapers and the Fastfetch preview image are included. Browser profiles, cooki
 
 ## Install
 
-Run these commands from the repository directory:
+En una instalación nueva de Arch, cloná este repositorio y ejecutá:
 
 ```bash
-mkdir -p "$HOME/.config" "$HOME/.local/bin" "$HOME/Pictures/wallpapers"
-cp -a .config/. "$HOME/.config/"
-cp -a .local/bin/. "$HOME/.local/bin/"
-cp -a Pictures/wallpapers/. "$HOME/Pictures/wallpapers/"
-cp -a Pictures/fetchimage.png "$HOME/Pictures/fetchimage.png"
-chmod +x "$HOME/.local/bin/menu" \
-    "$HOME/.local/bin/dur-screensaver-start" \
-    "$HOME/.local/bin/dur-screensaver-stop" \
-    "$HOME/.local/bin/dur-screensaver-player" \
-    "$HOME/.config/mango/screenshot" \
-    "$HOME/.config/mango/wallpaper" \
-    "$HOME/.config/mango/wallpaper_switcher"
-systemctl --user daemon-reload
-systemctl --user enable --now swayidle-screensaver.service
+./install.sh
 ```
 
-Install the system-wide Fontconfig file separately:
+El script instala los paquetes nativos de `packages.txt` y los paquetes AUR de
+`aur-packages.txt`, incluyendo `yay` si todavía no está instalado. Después
+copia todas las configuraciones, scripts, wallpapers, fuentes y archivos de
+TLP, habilita el servicio de screensaver y conserva backups de los archivos
+existentes con el sufijo `.before-dotfiles`.
 
-```bash
-sudo install -Dm644 etc/fonts/local.conf /etc/fonts/local.conf
-fc-cache -f
-```
-
-Make sure the required packages are installed before starting Mango:
-
-```bash
-sudo pacman -S --needed \
-    rofi grim slurp satty wf-recorder wl-clipboard \
-    networkmanager bluetui wiremix swayidle brightnessctl \
-    pamixer playerctl swaybg kitty waybar mako cava \
-    pacman-contrib ttf-jetbrains-mono-nerd
-```
-
-Optional packages:
-
-```bash
-sudo pacman -S --needed swaylock tty-clock
-```
+El instalador también crea una configuración de LazyVim solamente si
+`~/.config/nvim` todavía no existe. No copia perfiles del navegador, cookies,
+bases dconf ni caches.
 
 ## Notes
 
-- `super+Space` launches `/home/nico/.local/bin/menu`.
+- `super+Space` launches `~/.local/bin/menu`.
 - The menu uses `kitty --class menu-float` for terminal TUIs. Add a Mango rule for the `menu-float` app ID after checking the exact rule syntax for the installed Mango version.
 - The wallpaper menu reads the included images from `$HOME/Pictures/wallpapers`.
 - The menu stores the selected wallpaper in `$HOME/.config/mango/last-wallpaper`, which is runtime state and is intentionally not included.
