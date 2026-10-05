@@ -16,16 +16,6 @@ En una instalación nueva de Arch, cloná este repositorio y ejecutá:
 ./install.sh
 ```
 
-El script instala los paquetes nativos de `packages.txt` y los paquetes AUR de
-`aur-packages.txt`, incluyendo `yay` si todavía no está instalado. Después
-copia todas las configuraciones, scripts, wallpapers, fuentes y archivos de
-TLP, habilita el servicio de screensaver y conserva backups de los archivos
-existentes con el sufijo `.before-dotfiles`.
-
-El instalador también crea una configuración de LazyVim solamente si
-`~/.config/nvim` todavía no existe. No copia perfiles del navegador, cookies,
-bases dconf ni caches.
-
 ## Notes
 
 - `super+Space` launches `~/.local/bin/menu`.
