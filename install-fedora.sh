@@ -121,6 +121,7 @@ sudo dnf install -y \
     gcc \
     gcc-c++ \
     ncurses-devel \
+    zig \
     cargo \
     pipx \
     python3 \
@@ -140,12 +141,15 @@ sudo dnf install -y \
 if ! fc-list 2>/dev/null | grep -qi 'nerd font'; then
     info 'Descargando JetBrainsMono Nerd Font'
     tmp_zip="$(mktemp --suffix=.zip)"
-    curl -fL --max-time 300 -o "$tmp_zip" \
-        "https://github.com/ryanoasis/nerd-fonts/releases/latest/download/JetBrainsMono.zip"
-    fonts_dir="$HOME/.local/share/fonts/JetBrainsMonoNerd"
-    mkdir -p "$fonts_dir"
-    unzip -o -q "$tmp_zip" -d "$fonts_dir"
-    rm -f "$tmp_zip"
+    if curl -fL --max-time 300 -o "$tmp_zip" \
+        "https://github.com/ryanoasis/nerd-fonts/releases/latest/download/JetBrainsMono.zip"; then
+        fonts_dir="$HOME/.local/share/fonts/JetBrainsMonoNerd"
+        mkdir -p "$fonts_dir"
+        unzip -o -q "$tmp_zip" -d "$fonts_dir" || warn 'JetBrainsMono Nerd Font: el zip no se pudo extraer'
+        rm -f "$tmp_zip"
+    else
+        warn 'JetBrainsMono Nerd Font: no se pudo descargar'
+    fi
 fi
 
 # ---------------------------------------------------------------------------
@@ -176,7 +180,7 @@ sudo dnf install -y \
 if ! command -v lazygit >/dev/null 2>&1; then
     info 'Instalando lazygit'
     ver="$(curl -fsL --max-time 30 https://api.github.com/repos/jesseduffield/lazygit/releases/latest \
-        | grep -oP '"tag_name": "\K[^"]+')"
+        | grep -oP '"tag_name": "\K[^"]+' || true)"
     if [[ -n "${ver:-}" ]]; then
         curl -fsL --max-time 120 -o /tmp/lazygit.tar.gz \
             "https://github.com/jesseduffield/lazygit/releases/download/${ver}/lazygit_${ver#v}_Linux_x86_64.tar.gz"
@@ -216,7 +220,7 @@ if ! command -v durdraw >/dev/null 2>&1; then
 fi
 
 # GitHub Copilot CLI vía extensión de gh
-if command -v gh >/dev/null 2>&1 && ! gh extension list >/dev/null 2>&1 | grep -q gh-copilot; then
+if command -v gh >/dev/null 2>&1 && ! gh extension list 2>/dev/null | grep -q gh-copilot; then
     info 'Instalando gh-copilot'
     gh extension install github/gh-copilot || warn 'gh-copilot: no se pudo instalar'
 fi
