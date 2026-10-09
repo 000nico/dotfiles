@@ -1,6 +1,7 @@
 alsa-utils
 base
 base-devel
+bluez-utils
 bluetui
 brightnessctl
 btop
@@ -8,6 +9,8 @@ btrfs-progs
 cava
 cmatrix
 fastfetch
+foot
+chafa
 fd
 fish
 fwupd
@@ -53,6 +56,9 @@ tmux
 ttf-dejavu
 ttf-jetbrains-mono
 ttf-jetbrains-mono-nerd
+noto-fonts
+noto-fonts-emoji
+ttf-liberation
 tumbler
 waybar
 wf-recorder
@@ -61,3 +67,9 @@ wob
 xdg-desktop-portal-wlr
 yazi
 zed
+vulkan-radeon
+lib32-mesa
+lib32-vulkan-radeon
+libnotify
+slurp
+wireplumber

@@ -9,14 +9,16 @@ if /usr/bin/playerctl -a status 2>/dev/null | /usr/bin/grep -qx 'Playing'; then
 fi
 
 if [ -r "$PIDFILE" ]; then
-    old_pid="$(cat "$PIDFILE")"
-    if [ -n "$old_pid" ] && kill -0 "$old_pid" 2>/dev/null; then
-        exit 0
-    fi
+    while IFS= read -r old_pid; do
+        if [ -n "$old_pid" ] && kill -0 "$old_pid" 2>/dev/null; then
+            exit 0
+        fi
+    done <"$PIDFILE"
     rm -f "$PIDFILE"
 fi
 
-/usr/bin/kitty \
+launch() {
+    /usr/bin/kitty \
     --single-instance=no \
     --class LyDurScreensaver \
     --title LyDurScreensaver \
@@ -27,4 +29,20 @@ fi
     --override window_padding_width=0 \
     --override background_opacity=1 \
     "$PLAYER" &
-printf '%s\n' "$!" >"$PIDFILE"
+    printf '%s\n' "$!" >>"$PIDFILE"
+}
+
+monitor_names="$(/usr/bin/mmsg get all-monitors | /usr/bin/python3 -c '
+import json, sys
+monitors = json.load(sys.stdin)["monitors"]
+print(*[monitor["name"] for monitor in monitors], sep="\n")
+')"
+while IFS= read -r monitor_name; do
+    [ -n "$monitor_name" ] || continue
+    /usr/bin/mmsg dispatch "focusmon,$monitor_name"
+    launch
+    /usr/bin/sleep 0.3
+    /usr/bin/mmsg dispatch "tagmon,$monitor_name"
+done <<EOF
+$monitor_names
+EOF

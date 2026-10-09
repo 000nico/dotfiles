@@ -1,12 +1,13 @@
 #!/usr/bin/env bash
 set -u
-DIR="$HOME/Images"
+DIR="$HOME/Pictures/wallpapers"
 mkdir -p "$DIR"
 mapfile -t files < <(find "$DIR" -maxdepth 1 -type f \( -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.png" -o -iname "*.webp" -o -iname "*.bmp" -o -iname "*.tif" -o -iname "*.tiff" -o -iname "*.heic" \) | sort)
 [ ${#files[@]} -eq 0 ] && exit 0
 for f in "${files[@]}"; do
   printf '%s\0icon\x1f%s\n' "$(basename "$f")" "$f"
 done | rofi -dmenu -p "Wallpaper" -i -matching fuzzy -show-icons \
+  -config "$HOME/.config/rofi/config.rasi" \
   -theme-str 'window { width: 900px; height: 700px; } listview { lines: 3; columns: 3; fixed-height: true; } element { orientation: vertical; padding: 10px; } element-icon { size: 18em; } element-text { horizontal-align: 0.5; }' \
   > /tmp/wp_choice.txt 2>&1 &
 RPID=$!
@@ -15,10 +16,7 @@ choice="$(cat /tmp/wp_choice.txt 2>/dev/null | tr -d '\n\r')"
 [ -z "$choice" ] && exit 0
 for f in "${files[@]}"; do
   if [ "$(basename "$f")" = "$choice" ]; then
-    pkill swaybg 2>/dev/null
-    swaybg -i "$f" -m fill &
-    echo "$f" > ~/.config/mango/.current_wallpaper
-    matugen -q --prefer saturation -c "$HOME/.config/matugen/config.toml" image "$f" >/dev/null 2>&1 || true
+    "$HOME/.local/bin/apply-wallpaper" "$f"
     exit 0
   fi
 done

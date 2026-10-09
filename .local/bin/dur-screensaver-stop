@@ -4,10 +4,11 @@ set -u
 PIDFILE="/run/user/$(id -u)/dur-screensaver-kitty.pid"
 
 if [ -r "$PIDFILE" ]; then
-    pid="$(cat "$PIDFILE")"
-    case "$pid" in
-        ''|*[!0-9]*) ;;
-        *) kill "$pid" 2>/dev/null || true ;;
-    esac
+    while IFS= read -r pid; do
+        case "$pid" in
+            ''|*[!0-9]*) ;;
+            *) kill "$pid" 2>/dev/null || true ;;
+        esac
+    done <"$PIDFILE"
     rm -f "$PIDFILE"
 fi

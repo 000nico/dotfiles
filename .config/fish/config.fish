@@ -1,7 +1,10 @@
 function fastfetch --description 'Mostrar la imagen de jonaszfetch y los datos del sistema'
-    kitten icat --z-index=-1 --place 66x14@0x0 --transfer-mode=file "$HOME/Pictures/fetchimage.png"
-    command fastfetch --config "$HOME/.config/fastfetch/config.jsonc" --logo none --pipe false | sed 's/^/                              /'
+    command fastfetch --config "$HOME/.config/fastfetch/config.jsonc" \
+        --pipe false
 end
+
+set -gx GDK_BACKEND "wayland,x11"
+set -gx QT_QPA_PLATFORM "wayland;xcb"
 
 alias f 'fastfetch'
 alias ff 'fastfetch'
@@ -12,6 +15,4 @@ if status is-interactive
    printf '\n'
 end
 
-starship init fish | source
-starship init fish | source
 starship init fish | source

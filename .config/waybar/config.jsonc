@@ -1,11 +1,10 @@
 // ~/.config/waybar/config.jsonc
-// Three floating islands: left (workspaces+power), center (date), right (cpu/mem/battery)
+// Una sola barra continua: left (workspaces+power) | center (date) | right (cpu/mem/battery)
 
 {
     "layer": "top",
     "position": "top",
-    "height": 32,
-    "margin": "4px 6px 0 6px",
+    "height": 26,
 
     "modules-left": ["custom/power", "custom/mango-tags"],
     "modules-center": ["custom/date"],
@@ -31,7 +30,7 @@
     "custom/date": {
         "format": "{}",
         "interval": 1,
-        "exec": "date +'%A %d, %B'"
+        "exec": "date +'%A %d, %B - %H:%M:%S'"
     },
 
     // --- Right island ---
@@ -42,8 +41,8 @@
     },
     "memory": {
         "interval": 5,
-        "format": "󰍛 {percentage}%",
-        "max-length": 20
+        "format": "󰍛 {used:.1f}Gb / {total:.1f}Gb",
+        "max-length": 24
     },
     "battery": {
         "interval": 30,

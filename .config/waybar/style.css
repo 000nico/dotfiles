@@ -1,5 +1,5 @@
 /* ~/.config/waybar/style.css
-   Three floating islands for mango. */
+   Una sola barra continua a todo el ancho para mango. */
 
 * {
     font-family: "JetBrainsMono Nerd Font", "DejaVu Sans", sans-serif;
@@ -12,35 +12,22 @@
 @import url("colors.css");
 
 window#waybar {
-    background: transparent;
+    background-color: @surface;
     border: none;
-    padding: 6px 10px 0 10px;
+    padding: 0;
 }
 
 .modules-left,
 .modules-center,
 .modules-right {
-    background-color: @surface;
-    border: 1px solid @outline;
-    border-radius: 0px;
-    padding: 0 6px;
-}
-
-.modules-left {
-    margin-right: 8px;
-}
-
-.modules-center {
-    margin: 0 8px;
-}
-
-.modules-right {
-    margin-left: 8px;
+    background-color: transparent;
+    border: none;
+    padding: 0;
 }
 
 #custom-power {
     color: @on_surface;
-    padding: 0 8px;
+    padding: 0 16px;
     border-radius: 0px 0 0 0px;
 }
 
@@ -71,4 +58,8 @@ window#waybar {
 
 #tray {
     padding: 0 4px;
+}
+
+#custom-notifications {
+    padding: 0 16px;
 }

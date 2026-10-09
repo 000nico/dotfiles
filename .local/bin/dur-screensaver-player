@@ -9,7 +9,7 @@ import sys
 import time
 from pathlib import Path
 
-ANIMATION = Path("/etc/ly/blackhole.dur")
+ANIMATION = Path("/etc/ly/blackhole-smooth-240x67.dur")
 BLOCK = "█"
 running = True
 

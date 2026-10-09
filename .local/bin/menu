@@ -7,23 +7,22 @@ readonly RECORDING_PID="$RUNTIME_DIR/menu-wf-recorder.pid"
 readonly SCREENSHOT_DIR="$HOME/Pictures/Screenshots"
 readonly RECORDING_DIR="$HOME/Videos"
 readonly WALLPAPER_DIR="$HOME/Pictures/wallpapers"
-readonly WALLPAPER_STATE="$HOME/.config/mango/last-wallpaper"
-readonly ROFI_COMPACT_THEME='window { width: 18em; height: 22em; } listview { lines: 8; fixed-height: true; spacing: 0px; } element { padding: 1px 4px; } element-text { font: "JetBrainsMono Nerd Font 11"; } textbox-prompt { padding: 2px 4px; font: "JetBrainsMono Nerd Font 11"; }'
-
+readonly WALLPAPER_STATE="$HOME/.config/mango/.current_wallpaper"
+readonly ROFI_CONFIG="$HOME/.config/rofi/config.rasi"
 menu() {
     local prompt="$1"
     shift
     printf '%s\n' "$@" |
-        rofi -dmenu -i -no-custom -lines 8 -p "$prompt" -theme-str "$ROFI_COMPACT_THEME"
+        rofi -dmenu -i -no-custom -config "$ROFI_CONFIG" -p "$prompt"
 }
 
 kitty_cmd() {
-    kitty --class menu-float -e "$@"
+    foot --app-id menu-float "$@"
 }
 
 confirm() {
     [[ "$(printf '%s\n' 'Yes' 'No' |
-        rofi -dmenu -i -no-custom -p "$1" -lines 2 -theme-str "$ROFI_COMPACT_THEME")" == Yes ]]
+        rofi -dmenu -i -no-custom -config "$ROFI_CONFIG" -p "$1")" == Yes ]]
 }
 
 system_menu() {
@@ -44,10 +43,10 @@ update_menu() {
     while choice="$(menu Update 'yay -Syu (official + AUR)' 'pacman -Syu (official only)' 'Back')"; do
         case "$choice" in
             'yay -Syu (official + AUR)')
-                kitty --class menu-float -e bash -lc 'yay -Syu; printf "\nPress Enter to close... "; read -r'
+                foot --app-id menu-float bash -lc 'yay -Syu; printf "\nPress Enter to close... "; read -r'
                 ;;
             'pacman -Syu (official only)')
-                kitty --class menu-float -e bash -lc 'sudo pacman -Syu; printf "\nPress Enter to close... "; read -r'
+                foot --app-id menu-float bash -lc 'sudo pacman -Syu; printf "\nPress Enter to close... "; read -r'
                 ;;
             'Back'|'') return ;;
         esac
@@ -59,10 +58,10 @@ maintenance_menu() {
     while choice="$(menu Maintenance 'Clean pacman cache' 'Create read-only root snapshot' 'Back')"; do
         case "$choice" in
             'Clean pacman cache')
-                kitty --class menu-float -e bash -lc 'sudo paccache -r; printf "\nPress Enter to close... "; read -r'
+                foot --app-id menu-float bash -lc 'sudo paccache -r; printf "\nPress Enter to close... "; read -r'
                 ;;
             'Create read-only root snapshot')
-                kitty --class menu-float -e bash -lc '
+                foot --app-id menu-float bash -lc '
                     set -u
                     stamp="$(date +%Y-%m-%d_%H-%M-%S)"
                     sudo install -d -m 0755 /.snapshots
@@ -139,14 +138,11 @@ wallpaper_menu() {
             \( -iname '*.png' -o -iname '*.jpg' -o -iname '*.jpeg' -o -iname '*.webp' \) \
             -printf '%f\n' |
             sort |
-            rofi -dmenu -i -show-icons -lines 8 -p Wallpaper -theme-str "$ROFI_COMPACT_THEME"
+            rofi -dmenu -i -show-icons -config "$ROFI_CONFIG" -p Wallpaper
     )"
     [[ -n "$selected" ]] || return
     path="$WALLPAPER_DIR/$selected"
-    pkill -x swaybg 2>/dev/null || true
-    swaybg -i "$path" -m fill >/dev/null 2>&1 &
-    mkdir -p "$(dirname "$WALLPAPER_STATE")"
-    printf '%s\n' "$path" > "$WALLPAPER_STATE"
+    "$HOME/.local/bin/apply-wallpaper" "$path"
 }
 
 connectivity_menu() {

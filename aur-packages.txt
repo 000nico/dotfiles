@@ -7,6 +7,5 @@ mangowm-git
 opencode-beta
 tty-clock
 yay-bin
-yay-bin-debug
 wl-clip-persist
 wiremix

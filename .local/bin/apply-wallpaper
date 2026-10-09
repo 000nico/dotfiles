@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+image="${1:?usage: apply-wallpaper IMAGE}"
+[[ -f "$image" ]] || { printf 'Wallpaper not found: %s\n' "$image" >&2; exit 1; }
+
+state="$HOME/.config/mango/.current_wallpaper"
+mkdir -p "$(dirname "$state")"
+printf '%s\n' "$image" > "$state"
+
+for pid in $(pgrep -x swaybg 2>/dev/null || true); do
+    kill "$pid" 2>/dev/null || true
+done
+swaybg -i "$image" -m fill >/dev/null 2>&1 &
+
+matugen -q --prefer saturation \
+    -c "$HOME/.config/matugen/config.toml" image "$image"
