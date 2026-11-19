@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Name=Noctalia Shell
+Exec=noctalia --daemon
+Terminal=false
+X-GNOME-Autostart-enabled=true

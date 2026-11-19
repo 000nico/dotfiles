@@ -1,0 +1,14 @@
+acpid
+agetty-tty1
+agetty-tty3
+agetty-tty4
+agetty-tty5
+agetty-tty6
+chronyd
+dbus
+elogind
+ly
+NetworkManager
+rtkit
+sshd
+udevd

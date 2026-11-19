@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="448" height="448" shape-rendering="crispEdges" version="1.1" viewBox="32 32 448 448" xmlns="http://www.w3.org/2000/svg">
+<path transform="translate(64,64)" d="m0 0h192v64h-64v64h-64v-64h-64z" fill="#F04F78"/>
+<path transform="translate(192,192)" d="m0 0h64v224h-64z" fill="#A884F3"/>
+<path transform="translate(128,192)" d="m0 0h64v224h-64z" fill="#C32454"/>
+<path transform="translate(320,128)" d="m0 0h128v160h-64v-96h-64z" fill="#0B8A8F"/>
+<path transform="translate(256,192)" d="m0 0h64v128h64v32h-128z" fill="#4D65B4"/>
+<path transform="translate(64,128)" d="m0 0h64v320h-32v-288h-32z" fill="#3E3546"/>
+<path transform="translate(320,192)" d="m0 0h64v128h-64z" fill="#3E3546"/>
+<path transform="translate(192,128)" d="m0 0h64v32h32v-32h32v64h-128z" fill="#3E3546"/>
+<path transform="translate(448,128)" d="m0 0h32v192h-32z" fill="#3E3546"/>
+<path transform="translate(64,32)" d="m0 0h192v32h-192z" fill="#3E3546"/>
+<path transform="translate(256,384)" d="m0 0h128v32h-96v32h-32z" fill="#3E3546"/>
+<path transform="translate(128,448)" d="m0 0h128v32h-128z" fill="#3E3546"/>
+<path transform="translate(256,352)" d="m0 0h128v32h-128z" fill="#484A77"/>
+<path transform="translate(320,96)" d="m0 0h128v32h-128z" fill="#3E3546"/>
+<path transform="translate(384,320)" d="m0 0h64v32h-32v32h-32z" fill="#3E3546"/>
+<path transform="translate(192,416)" d="m0 0h64v32h-64z" fill="#905EA9"/>
+<path transform="translate(128,416)" d="m0 0h64v32h-64z" fill="#831C5D"/>
+<path transform="translate(384,288)" d="m0 0h64v32h-64z" fill="#0B5E65"/>
+<path transform="translate(256,64)" d="m0 0h32v64h-32z" fill="#3E3546"/>
+<path transform="translate(32,64)" d="m0 0h32v64h-32z" fill="#3E3546"/>
+</svg>

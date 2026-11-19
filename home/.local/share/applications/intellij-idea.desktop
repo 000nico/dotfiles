@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=IntelliJ IDEA
+Comment=Java IDE
+Exec=/home/nico/.local/bin/idea %U
+Icon=kdevelop
+Terminal=false
+Categories=Development;IDE;
+StartupWMClass=jetbrains-idea

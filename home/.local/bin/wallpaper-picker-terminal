@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+dir="$HOME/Pictures/wallpapers"
+mapfile -t wallpapers < <(
+    find "$dir" -maxdepth 1 -type f \
+        \( -iname '*.jpg' -o -iname '*.jpeg' -o -iname '*.png' -o -iname '*.webp' \) |
+        sort
+)
+
+(( ${#wallpapers[@]} )) || exit 1
+
+clear
+for i in "${!wallpapers[@]}"; do
+    row=$((i / 3))
+    col=$((i % 3))
+    x=$((col * 40))
+    y=$((row * 12))
+    kitty +kitten icat \
+        --transfer-mode=file \
+        --place "38x10@${x}x${y}" \
+        "${wallpapers[$i]}" >/dev/null
+    printf '\033[%d;%dH[%d]' "$((y + 11))" "$((x + 2))" "$((i + 1))"
+done
+
+printf '\033[40;1HSelect wallpaper [1-%d] (q to cancel): ' "${#wallpapers[@]}"
+IFS= read -r choice
+
+[[ "$choice" =~ ^[0-9]+$ ]] || exit 0
+(( choice >= 1 && choice <= ${#wallpapers[@]} )) || exit 0
+noctalia msg wallpaper-set eDP-1 "${wallpapers[$((choice - 1))]}"

@@ -1,0 +1,10 @@
+# Abrir archivos de texto con nano.
+#
+# El preset de yazi usa `${EDITOR:-vi}`, pero EDITOR/VISUAL apuntan a nvim,
+# que no está instalado; por eso "edit" fallaba con error 127.
+# El preset ya manda text/*, JSON, código y archivos vacíos a "edit",
+# así que basta con redefinir ese opener.
+[opener]
+edit = [
+	{ run = "micro $@", desc = "micro", for = "unix", block = true },
+]

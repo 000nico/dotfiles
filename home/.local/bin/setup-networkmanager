@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+if [[ ${EUID} -ne 0 ]]; then
+    echo "Ejecutá este script con sudo: sudo $0"
+    exit 1
+fi
+
+echo "==> Instalando NetworkManager..."
+xbps-install -Sy NetworkManager
+
+echo "==> Deteniendo y deshabilitando dhcpcd y wpa_supplicant..."
+sv down dhcpcd 2>/dev/null || true
+sv down wpa_supplicant 2>/dev/null || true
+rm -f /var/service/dhcpcd /var/service/wpa_supplicant /var/service/dhcpd
+
+echo "==> Habilitando el servicio NetworkManager en runit..."
+ln -snf /etc/sv/NetworkManager /var/service/
+
+echo "==> Agregando al usuario nico al grupo network..."
+usermod -aG network nico
+
+echo "==> Iniciando NetworkManager..."
+sv up NetworkManager
+
+echo "==> ¡Listo! NetworkManager está activo y listo para Noctalia."

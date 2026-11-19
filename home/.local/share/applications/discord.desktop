@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=Discord
+Comment=Voice, video and text chat
+Exec=/home/nico/.local/bin/discord %U
+Icon=discord
+Terminal=false
+Categories=Network;InstantMessaging;Chat;
+StartupWMClass=discord

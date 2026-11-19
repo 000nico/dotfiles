@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+dir="$HOME/Pictures/wallpapers"
+choice="$(
+    find "$dir" -maxdepth 1 -type f \
+        \( -iname '*.jpg' -o -iname '*.jpeg' -o -iname '*.png' -o -iname '*.webp' \) \
+        -printf '%f\n' | sort | noctalia dmenu --prompt Wallpaper
+)"
+
+[[ -n "$choice" ]] || exit 0
+noctalia msg wallpaper-set eDP-1 "$dir/$choice"

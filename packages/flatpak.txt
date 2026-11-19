@@ -1,0 +1,5 @@
+org.freedesktop.Platform.codecs-extra		flathub
+org.freedesktop.Platform	freedesktop-sdk-25.08.20	flathub
+org.freedesktop.Platform.GL.default	26.2.7	flathub
+org.freedesktop.Platform.GL.default	26.2.7	flathub
+org.freedesktop.Platform.VAAPI.Intel		flathub

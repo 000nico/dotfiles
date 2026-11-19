@@ -1,0 +1,92 @@
+name: Validate and publish AUR package
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: aur-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    container: archlinux:base-devel
+    steps:
+      - name: Install validation tools
+        run: pacman -Syu --noconfirm --needed git python
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+      - name: Prepare unprivileged package checks
+        run: |
+          useradd --create-home builder
+          chown -R builder:builder "$GITHUB_WORKSPACE"
+      - name: Check recipe syntax and generated metadata
+        shell: bash
+        run: |
+          set -euo pipefail
+          bash -n aur/pixora-icons-git/PKGBUILD scripts/prepare-aur.sh scripts/publish-aur.sh
+          runuser -u builder -- bash -c '
+            set -euo pipefail
+            cd aur/pixora-icons-git
+            makepkg --printsrcinfo > /tmp/pixora.SRCINFO
+            diff -u .SRCINFO /tmp/pixora.SRCINFO
+          '
+          runuser -u builder -- bash scripts/prepare-aur.sh aur/pixora-icons-git . /tmp/pixora-aur-package
+          runuser -u builder -- bash -c '
+            set -euo pipefail
+            cd /tmp/pixora-aur-package
+            makepkg --printsrcinfo > /tmp/pixora-prepared.SRCINFO
+            diff -u .SRCINFO /tmp/pixora-prepared.SRCINFO
+          '
+      - name: Test package contents and publication
+        run: runuser -u builder -- python -m unittest discover -s tests
+
+  publish:
+    needs: validate
+    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+    environment: aur-packages
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+      - name: Prepare the package version for this commit
+        run: bash scripts/prepare-aur.sh aur/pixora-icons-git . "$RUNNER_TEMP/aur-package"
+      - name: Configure AUR SSH access
+        env:
+          AUR_KEY: ${{ secrets.AUR_KEY }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -n "$AUR_KEY" || { echo 'AUR_KEY is not configured' >&2; exit 1; }
+          umask 077
+          printf '%s\n' "$AUR_KEY" > "$RUNNER_TEMP/aur-key"
+          ssh-keyscan -t ed25519 aur.archlinux.org > "$RUNNER_TEMP/aur-known-hosts"
+      - name: Publish GitHub packaging files to AUR
+        env:
+          GIT_SSH_COMMAND: ssh -i "${{ runner.temp }}/aur-key" -o BatchMode=yes -o IdentitiesOnly=yes -o StrictHostKeyChecking=yes -o UserKnownHostsFile="${{ runner.temp }}/aur-known-hosts"
+          GIT_AUTHOR_NAME: tsora
+          GIT_AUTHOR_EMAIL: neiva.cesar07@proton.me
+          GIT_COMMITTER_NAME: tsora
+          GIT_COMMITTER_EMAIL: neiva.cesar07@proton.me
+        shell: bash
+        run: |
+          set -euo pipefail
+          latest=$(git ls-remote origin refs/heads/main | cut -f1)
+          if [[ "$latest" != "$(git rev-parse HEAD)" ]]; then
+            echo 'A newer push will publish the latest version; skipping this older run.'
+            exit 0
+          fi
+          bash scripts/publish-aur.sh "$RUNNER_TEMP/aur-package" ssh://aur@aur.archlinux.org/pixora-icons-git.git
+      - name: Remove SSH credentials
+        if: always()
+        run: rm -f -- "$RUNNER_TEMP/aur-key" "$RUNNER_TEMP/aur-known-hosts"

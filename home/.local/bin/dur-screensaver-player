@@ -1,0 +1,127 @@
+#!/usr/bin/env python3
+"""Play a Ly/community DurMovie v7 animation in a terminal.
+
+The bundled movie is authored for a 240x67 character grid (8x16 cells on a
+1920x1080 screen).  The renderer below scales the frame to the actual terminal
+size while preserving the character-grid aspect ratio, so the animation can
+never wrap or shear, no matter which font/size the terminal uses.
+"""
+
+import gzip
+import json
+import os
+import signal
+import sys
+import time
+from pathlib import Path
+
+ANIMATION = Path("/etc/ly/blackhole-smooth-240x67.dur")
+BLOCK = "█"
+running = True
+last_size = (0, 0)
+
+
+def stop(_signum, _frame):
+    global running
+    running = False
+
+
+def load_movie():
+    with gzip.open(ANIMATION, "rt", encoding="utf-8") as stream:
+        movie = json.load(stream)["DurMovie"]
+    if movie.get("formatVersion") != 7:
+        raise ValueError(f"unsupported DurMovie format: {movie.get('formatVersion')!r}")
+    if movie.get("columns") != 240 or movie.get("lines") != 67:
+        raise ValueError("the animation is not the expected 240x67 size")
+    frames = movie.get("frames")
+    if not isinstance(frames, list) or not frames:
+        raise ValueError("DurMovie has no frames")
+    return movie, frames
+
+
+def terminal_size(columns, lines):
+    try:
+        size = os.get_terminal_size()
+        return size.columns, size.lines
+    except (AttributeError, OSError, ValueError):
+        return columns, lines
+
+
+def draw(frame, columns, lines):
+    global last_size
+
+    contents = frame.get("contents", [])
+    color_map = frame.get("colorMap", [])
+    term_columns, term_lines = terminal_size(columns, lines)
+    if term_columns < 1 or term_lines < 1:
+        return
+
+    # Fit the movie inside the terminal, keeping its character-grid aspect.
+    scale = min(term_columns / columns, term_lines / lines)
+    out_columns = max(1, min(term_columns, int(columns * scale)))
+    out_lines = max(1, min(term_lines, int(lines * scale)))
+    offset_x = max(0, (term_columns - out_columns) // 2)
+    offset_y = max(0, (term_lines - out_lines) // 2)
+
+    output = []
+    if (term_columns, term_lines) != last_size:
+        output.append("\x1b[2J")
+        last_size = (term_columns, term_lines)
+
+    for out_row in range(out_lines):
+        source_row = min(lines - 1, out_row * lines // out_lines)
+        text = contents[source_row] if source_row < len(contents) else ""
+        output.append(f"\x1b[{offset_y + out_row + 1};{offset_x + 1}H")
+        previous_color = None
+        for out_column in range(out_columns):
+            source_column = min(columns - 1, out_column * columns // out_columns)
+            char = text[source_column] if source_column < len(text) else " "
+            if char.isspace():
+                output.append(" ")
+                previous_color = None
+                continue
+            color = 0
+            if source_column < len(color_map) and source_row < len(color_map[source_column]):
+                color = int(color_map[source_column][source_row][0])
+            if color != previous_color:
+                output.append(f"\x1b[38;5;{color}m")
+                previous_color = color
+            output.append(BLOCK)
+
+    output.append("\x1b[0m")
+    # Synchronized update: the terminal swaps the whole frame at once.
+    sys.stdout.write("\x1b[?2026h" + "".join(output) + "\x1b[?2026l")
+    sys.stdout.flush()
+
+
+def main():
+    global running
+
+    movie, frames = load_movie()
+    frame_delay = 1.0 / float(movie.get("framerate") or 12.0)
+    # No line wrapping: a full-width row must never spill into the next line.
+    sys.stdout.write("\x1b[?25l\x1b[?7l\x1b[2J\x1b[H")
+    sys.stdout.flush()
+    signal.signal(signal.SIGTERM, stop)
+    signal.signal(signal.SIGINT, stop)
+    try:
+        while running:
+            for frame in frames:
+                if not running:
+                    break
+                started = time.monotonic()
+                draw(frame, movie["columns"], movie["lines"])
+                remaining = frame_delay - (time.monotonic() - started)
+                if remaining > 0:
+                    time.sleep(remaining)
+    finally:
+        sys.stdout.write("\x1b[?7h\x1b[?25h\x1b[0m\x1b[2J\x1b[H")
+        sys.stdout.flush()
+
+
+if __name__ == "__main__":
+    try:
+        main()
+    except (OSError, KeyError, TypeError, ValueError, json.JSONDecodeError) as error:
+        print(f"dur-screensaver: {error}", file=sys.stderr)
+        sys.exit(1)

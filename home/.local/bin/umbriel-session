@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+# El sistema está en UTC y /etc/localtime no apunta a una zona válida.
+# Fijamos la zona horaria de la sesión en Mar del Plata.
+export TZ="America/Argentina/Buenos_Aires"
+
+export PATH="$HOME/.local/bin:$PATH"
+export XDG_DATA_DIRS="$HOME/.local/share:/usr/local/share:/usr/share:${XDG_DATA_DIRS:-}"
+export GTK_ICON_THEME="pixora-dark"
+export QT_ICON_THEME="pixora-dark"
+export QT_QPA_SYSTEM_ICON_THEME="pixora-dark"
+export QT_QPA_PLATFORMTHEME="gtk3"
+
+exec /home/nico/.local/bin/start-umbriel "$@"

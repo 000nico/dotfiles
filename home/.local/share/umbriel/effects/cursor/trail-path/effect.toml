@@ -1,0 +1,7 @@
+# Include this file, then select [effects] cursor = "trail-path".
+# Two-second curved tail coloured by each sample's birth phase.
+# radius also pads curve bulges past the straight chords.
+[effects.preset.trail-path]
+kind = "cursor"
+shader = "shader.glsl"
+radius = 24

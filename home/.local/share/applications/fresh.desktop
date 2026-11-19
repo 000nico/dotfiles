@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Name=Fresh
+Comment=Terminal text editor
+Exec=kitty -o window_padding_width=0 /home/nico/.cargo/bin/fresh %F
+Terminal=false
+Categories=Utility;TextEditor;ConsoleOnly;

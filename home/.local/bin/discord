@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+cd /home/nico/.local/opt/discord
+exec ./discord "$@"

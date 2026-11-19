@@ -1,0 +1,7 @@
+#!/bin/sh
+exec /usr/sbin/kitty --single-instance --start-as=normal \
+    --config /home/nico/.config/kitty/kitty.conf \
+    --override 'background=#111318' \
+    --override 'foreground=#e2e2e9' \
+    --override 'cursor=#a8c8ff' \
+    --override background_opacity=1.0

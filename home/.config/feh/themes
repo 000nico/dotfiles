@@ -1,0 +1,2 @@
+# Default theme used by feh when called without -T
+feh --scale-down --auto-zoom

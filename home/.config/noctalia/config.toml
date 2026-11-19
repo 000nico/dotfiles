@@ -1,0 +1,159 @@
+[shell]
+font_family = "Less Perfect DOS VGA"
+time_format = "{:%H:%M}"
+date_format = "%A %-dth, %B, %Y"
+lang = "en"
+corner_radius_scale = 0.0
+button_borders = true
+input_borders = true
+popup_borders = true
+card_borders = true
+popup_shadows = true
+settings_window_translucent = true
+telemetry_enabled = false
+
+[shell.animation]
+enabled = true
+speed = 1.15
+
+[shell.shadow]
+direction = "down"
+alpha = 0.45
+
+[shell.panel]
+transparency_mode = "glass"
+borders = true
+shadow = true
+list_item_background = true
+floating_layer = "overlay"
+launcher_placement = "attached"
+clipboard_placement = "floating"
+control_center_placement = "floating"
+wallpaper_placement = "floating"
+session_placement = "floating"
+polkit_placement = "floating"
+launcher_position = "center"
+clipboard_position = "center"
+control_center_position = "auto"
+session_position = "center"
+polkit_position = "center"
+floating_offset = 10
+open_near_click_control_center = true
+open_near_click_launcher = false
+open_near_click_clipboard = false
+open_near_click_wallpaper = true
+open_near_click_session = true
+
+[shell.launcher]
+categories = false
+show_icons = true
+compact = true
+app_grid = false
+sort_by_usage = true
+pinned = ["kitty"]
+
+[shell.screenshot]
+# Guardar en ~/Pictures, copiar al portapapeles y avisar con una
+# notificación ("Screenshot saved") al terminar.
+save_to_file = true
+copy_to_clipboard = true
+
+[theme]
+mode = "dark"
+# Paleta derivada del fondo de pantalla actual.
+source = "wallpaper"
+wallpaper_scheme = "m3-content"
+pure_black_dark = false
+
+[wallpaper]
+enabled = true
+fill_mode = "crop"
+directory = "~/Pictures/wallpapers"
+transition_on_startup = false
+transition = ["fade"]
+
+[location]
+# Mar del Plata, Buenos Aires, Argentina
+auto_locate = false
+address = "Mar del Plata, Buenos Aires, Argentina"
+latitude = -38.0023
+longitude = -57.5575
+
+[weather]
+enabled = true
+refresh_minutes = 30
+unit = "celsius"
+
+[notification]
+enable_daemon = true
+
+[idle.behavior.dur]
+timeout = 60
+action = "custom"
+command = "/home/nico/.local/bin/dur-screensaver-start"
+resume_command = "/home/nico/.local/bin/dur-screensaver-stop"
+enabled = true
+
+[bar.main]
+position = "top"
+thickness = 26
+background_opacity = 0.0
+radius = 0
+margin_ends = 8
+margin_edge = 4
+padding = 0
+widget_spacing = 6
+shadow = true
+reserve_space = true
+capsule = true
+capsule_fill = "surface"
+capsule_radius = 0
+capsule_opacity = 1.0
+start = ["launcher", "workspaces"]
+center = ["clock"]
+end = ["weather", "network", "volume", "battery", "notifications", "control-center", "session"]
+
+[dock]
+enabled = true
+position = "bottom"
+active_monitor_only = true
+icon_size = 40
+main_axis_padding = 4
+cross_axis_padding = 0
+item_spacing = 1
+background_opacity = 0.0
+border_width = 0
+shadow = false
+radius = 0
+margin_ends = 8
+margin_edge = 4
+show_running = true
+auto_hide = false
+smart_auto_hide = false
+reserve_space = true
+layer = "top"
+active_scale = 1.0
+inactive_scale = 0.85
+magnification = true
+magnification_scale = 1.25
+active_opacity = 1.0
+inactive_opacity = 0.85
+show_instance_count = true
+show_dots = true
+launcher_position = "none"
+pinned = ["kitty", "helium", "discord", "spotifast", "intellij-idea", "dev.zed.Zed", "zapfast"]
+
+[widget.launcher]
+custom_image = "/usr/share/icons/hicolor/scalable/apps/void-logo-notext.svg"
+custom_image_colorize = false
+
+[widget.workspaces]
+style = "minimal"
+labels_only_when_occupied = true
+
+[widget.clock]
+format = "{:%A %-dth, %B, %Y - %H:%M}"
+
+[widget.battery]
+display_mode = "glyph"
+label_content = "percent"

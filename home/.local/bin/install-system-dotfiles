@@ -1,0 +1,39 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+if [[ ${EUID} -eq 0 ]]; then
+    printf 'Ejecutá este script como nico; usa sudo cuando hace falta.\n' >&2
+    exit 1
+fi
+
+root="${HOME}/.local/share/000nico-dotfiles"
+
+sudo -v
+
+if ! command -v ly >/dev/null 2>&1; then
+    sudo xbps-install -S ly
+fi
+
+sudo install -Dm644 "$root/etc/ly/config.ini" /etc/ly/config.ini
+sudo install -Dm644 "$root/etc/ly/blackhole-smooth-240x67.dur" \
+    /etc/ly/blackhole-smooth-240x67.dur
+
+# NetworkManager configuration for Noctalia and Void Linux
+if ! command -v nmcli >/dev/null 2>&1; then
+    sudo xbps-install -S NetworkManager
+fi
+
+sudo sv down wpa_supplicant 2>/dev/null || true
+sudo sv down dhcpcd 2>/dev/null || true
+sudo rm -f /var/service/dhcpcd /var/service/wpa_supplicant /var/service/dhcpd /etc/runit/runsvdir/default/dhcpcd /etc/runit/runsvdir/default/wpa_supplicant
+
+sudo ln -snf /etc/sv/NetworkManager /var/service/NetworkManager
+sudo usermod -aG network nico
+sudo sv up NetworkManager 2>/dev/null || true
+if [[ -d /etc/sv/ly ]]; then
+    sudo ln -snf /etc/sv/ly /etc/runit/runsvdir/default/ly
+elif [[ -d /etc/sv/ly-tty1 ]]; then
+    sudo ln -snf /etc/sv/ly-tty1 /etc/runit/runsvdir/default/ly-tty1
+fi
+
+printf '%s\n' 'Ly y la red quedaron configurados. Reiniciá para probar el arranque limpio.'

@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=Spotifast
+Icon=spotify
+Comment=Native Spotify client
+Exec=/home/nico/.local/bin/spotifast %U
+Terminal=false
+Categories=AudioVideo;Audio;Player;
+StartupWMClass=spotifast

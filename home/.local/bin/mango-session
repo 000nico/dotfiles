@@ -1,0 +1,75 @@
+#!/usr/bin/env bash
+
+# El sistema está en UTC y /etc/localtime no apunta a una zona válida.
+# Fijamos la zona horaria de la sesión en Mar del Plata.
+export TZ="America/Argentina/Buenos_Aires"
+
+exec dbus-run-session -- sh -c '
+    set -eu
+
+    export XDG_DATA_DIRS="$HOME/.local/share:/usr/local/share:/usr/share:${XDG_DATA_DIRS:-}"
+    export GTK_ICON_THEME="pixora-dark"
+    export QT_ICON_THEME="pixora-dark"
+    export QT_QPA_SYSTEM_ICON_THEME="pixora-dark"
+    # Qt apps read the icon theme through the GTK platform theme.
+    export QT_QPA_PLATFORMTHEME="gtk3"
+
+    # wlroots picks its backend from the environment: if WAYLAND_DISPLAY (or
+    # WAYLAND_SOCKET) is set, it tries to run as a nested Wayland client
+    # instead of taking over DRM. When Ly launches this script there is no
+    # parent compositor yet, so that attempt fails with
+    # "could not create backend" and the session dies immediately.
+    # Start mango with a clean environment and export the socket name to the
+    # child applications once mango has created it.
+    unset WAYLAND_DISPLAY WAYLAND_SOCKET
+
+    # Record sockets that already exist (e.g. another compositor left running
+    # on another VT) so we attach to the one this mango creates, not a stale
+    # or foreign one.
+    existing_sockets=$(mktemp)
+    for sock in "$XDG_RUNTIME_DIR"/wayland-*; do
+        [ -S "$sock" ] && printf '%s\n' "${sock##*/}" >> "$existing_sockets"
+    done
+
+    mango "$@" &
+    mango_pid=$!
+
+    cleanup() {
+        kill "$mango_pid" 2>/dev/null || true
+        kill "${noctalia_pid:-}" 2>/dev/null || true
+        kill "${kitty_pid:-}" 2>/dev/null || true
+        rm -f "$existing_sockets"
+    }
+    trap cleanup EXIT INT TERM
+
+    wayland_display=
+    for _ in $(seq 1 100); do
+        for sock in "$XDG_RUNTIME_DIR"/wayland-*; do
+            [ -S "$sock" ] || continue
+            name=${sock##*/}
+            grep -qxF "$name" "$existing_sockets" && continue
+            wayland_display=$name
+            break
+        done
+        [ -n "$wayland_display" ] && break
+        if ! kill -0 "$mango_pid" 2>/dev/null; then
+            wait "$mango_pid"
+        fi
+        sleep 0.1
+    done
+    rm -f "$existing_sockets"
+
+    if [ -z "$wayland_display" ]; then
+        echo "mango did not create a Wayland socket" >&2
+        exit 1
+    fi
+    export WAYLAND_DISPLAY="$wayland_display"
+    export MANGO_INSTANCE_SIGNATURE="$XDG_RUNTIME_DIR/mango-$mango_pid.sock"
+
+    noctalia &
+    noctalia_pid=$!
+    kitty --single-instance --start-as=hidden >/dev/null 2>&1 &
+    kitty_pid=$!
+
+    wait "$mango_pid"
+' -- "$@"

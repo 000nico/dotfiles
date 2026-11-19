@@ -1,0 +1,11 @@
+#!/bin/sh
+exec /usr/sbin/kitty \
+    --config /home/nico/.config/kitty/kitty.conf \
+    --class wallpaper-picker \
+    --title "Wallpaper Picker" \
+    --override initial_window_width=120c \
+    --override initial_window_height=40c \
+    --override background=#111318 \
+    --override foreground=#e2e2e9 \
+    --override background_opacity=1.0 \
+    /home/nico/.local/bin/wallpaper-picker-terminal

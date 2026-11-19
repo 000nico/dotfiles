@@ -1,0 +1,6 @@
+#!/bin/sh
+# Umbriel instalado sin root en ~/.local: sus dependencias viven en ~/.local/lib.
+: "${HOME:=/home/nico}"
+LD_LIBRARY_PATH="$HOME/.local/lib${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"
+export LD_LIBRARY_PATH
+exec "$HOME/.local/libexec/umbriel" "$@"

@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=ZapFast
+Icon=applications-other
+Comment=Fast native WhatsApp client
+Exec=/home/nico/.local/bin/zapfast %U
+Terminal=false
+Categories=Network;InstantMessaging;
+StartupWMClass=zapfast

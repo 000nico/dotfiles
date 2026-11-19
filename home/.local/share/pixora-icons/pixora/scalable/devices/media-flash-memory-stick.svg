@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="384" height="256" shape-rendering="crispEdges" version="1.1" viewBox="64 128 384 256" xmlns="http://www.w3.org/2000/svg">
+<path transform="translate(96,160)" d="m0 0h320v192h-64v-32h-32v32h-128v-32h-32v32h-32v-32h-32zm32 32v64h64v-32h-32v-32zm96 0v64h32v-32h32v-32zm96 0v32h32v-32zm0 64v32h64v-32z" fill="#625565"/>
+<path transform="translate(64,128)" d="m0 0h384v128h-32v-96h-320v160h-32z" fill="#3E3546"/>
+<path transform="translate(416,320)" d="m0 0h32v64h-320v-32h288z" fill="#3E3546"/>
+<path transform="translate(224,192)" d="m0 0h64v32h-32v32h-32z" fill="#966C6C"/>
+<path transform="translate(128,192)" d="m0 0h32v32h32v32h-64z" fill="#966C6C"/>
+<path transform="translate(416,256)" d="m0 0h32v64h-32z" fill="#AB947A"/>
+<path transform="translate(320,256)" d="m0 0h64v32h-64z" fill="#966C6C"/>
+<path transform="translate(320,320)" d="m0 0h32v32h-32z" fill="#966C6C"/>
+<path transform="translate(160,320)" d="m0 0h32v32h-32z" fill="#966C6C"/>
+<path transform="translate(96,320)" d="m0 0h32v32h-32z" fill="#3E3546"/>
+<path transform="translate(320,192)" d="m0 0h32v32h-32z" fill="#966C6C"/>
+</svg>
