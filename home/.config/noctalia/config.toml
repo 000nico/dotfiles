@@ -59,11 +59,27 @@ save_to_file = true
 copy_to_clipboard = true
 
 [theme]
-mode = "dark"
+mode = "light"
 # Paleta derivada del fondo de pantalla actual.
 source = "wallpaper"
 wallpaper_scheme = "m3-content"
 pure_black_dark = false
+
+[theme.templates]
+enable_builtin_templates = true
+builtin_ids = ["kitty", "gtk3", "gtk4", "qt", "btop", "cava", "starship", "mango"]
+enable_community_templates = true
+community_ids = ["micro", "yazi", "tmux", "zed"]
+
+# Colores de fish (prompt, autosugerencias, selección, etc.).
+[theme.templates.user.fish]
+input_path = "templates/fish-colors.fish"
+output_path = "$XDG_CONFIG_HOME/fish/noctalia-colors.fish"
+
+# Colores de umbriel (sin claves obsoletas/inválidas para scratchpad_border).
+[theme.templates.user.umbriel]
+input_path = "templates/umbriel.toml"
+output_path = "$XDG_CONFIG_HOME/umbriel/noctalia.toml"
 
 [wallpaper]
 enabled = true
@@ -88,7 +104,7 @@ unit = "celsius"
 enable_daemon = true
 
 [idle.behavior.dur]
-timeout = 60
+timeout = 90
 action = "custom"
 command = "/home/nico/.local/bin/dur-screensaver-start"
 resume_command = "/home/nico/.local/bin/dur-screensaver-stop"
@@ -157,3 +173,23 @@ format = "{:%A %-dth, %B, %Y - %H:%M}"
 [widget.battery]
 display_mode = "glyph"
 label_content = "percent"
+
+# Botones del menú de Noctalia (Control Center > Home).
+# Incluye el interruptor de modo claro/oscuro.
+[[control_center.shortcuts]]
+type = "wifi"
+
+[[control_center.shortcuts]]
+type = "bluetooth"
+
+[[control_center.shortcuts]]
+type = "dark_mode"
+
+[[control_center.shortcuts]]
+type = "notification"
+
+[[control_center.shortcuts]]
+type = "nightlight"
+
+[[control_center.shortcuts]]
+type = "power_profile"

@@ -3,14 +3,17 @@ set -u
 
 PIDFILE="/run/user/$(id -u)/dur-screensaver-kitty.pid"
 PLAYER="${HOME}/.local/bin/dur-screensaver-player"
+UMBRIEL="${HOME}/.local/bin/umbriel"
 # A 1:2 cell font keeps the 240x67 animation at its intended aspect ratio.
 FONT="Liberation Mono"
 FONT_SIZE="9.9"
 
+# Never cover the screen while music or a video is playing.
 if /usr/bin/playerctl -a status 2>/dev/null | /usr/bin/grep -qx 'Playing'; then
     exit 0
 fi
 
+# One screensaver window per monitor; bail out if one is already running.
 if [ -r "$PIDFILE" ]; then
     while IFS= read -r old_pid; do
         if [ -n "$old_pid" ] && kill -0 "$old_pid" 2>/dev/null; then
@@ -20,79 +23,33 @@ if [ -r "$PIDFILE" ]; then
     rm -f "$PIDFILE"
 fi
 
-client_id_for_pid() {
-    /usr/bin/mmsg get all-clients 2>/dev/null | /usr/bin/python3 -c '
-import json, sys
-pid = int(sys.argv[1])
-try:
-    data = json.load(sys.stdin)
-except ValueError:
-    sys.exit(0)
-for client in data.get("clients", []):
-    if client.get("pid") == pid:
-        print(client.get("id", ""))
-        break
-' "$1"
-}
-
-client_is_fullscreen() {
-    /usr/bin/mmsg get all-clients 2>/dev/null | /usr/bin/python3 -c '
-import json, sys
-cid = int(sys.argv[1])
-try:
-    data = json.load(sys.stdin)
-except ValueError:
-    sys.exit(0)
-for client in data.get("clients", []):
-    if client.get("id") == cid:
-        print("1" if client.get("is_fullscreen") else "0")
-        break
-' "$1"
-}
-
 launch() {
+    # kitty asks for fullscreen itself (Umbriel logs request_fullscreen), so no
+    # compositor round-trip is needed to size the window.
     /usr/bin/kitty \
-    --single-instance=no \
-    --class LyDurScreensaver \
-    --title LyDurScreensaver \
-    --start-as=fullscreen \
-    --override font_family="$FONT" \
-    --override bold_font="$FONT" \
-    --override font_size="$FONT_SIZE" \
-    --override window_padding_width=0 \
-    --override background_opacity=1 \
-    "$PLAYER" &
-    local pid=$!
-    printf '%s\n' "$pid" >>"$PIDFILE"
-
-    # Mango does not always honour the initial fullscreen request; wait for
-    # the client and force it if needed.
-    local i id
-    id=""
-    for i in $(/usr/bin/seq 1 30); do
-        id="$(client_id_for_pid "$pid")"
-        [ -n "$id" ] && break
-        /usr/bin/sleep 0.1
-    done
-    [ -n "$id" ] || return 0
-    /usr/bin/sleep 0.4
-    if [ "$(client_is_fullscreen "$id")" = "0" ]; then
-        /usr/bin/mmsg dispatch "togglefullscreen" "client,$id" >/dev/null 2>&1
-    fi
+        --single-instance=no \
+        --class LyDurScreensaver \
+        --title LyDurScreensaver \
+        --start-as=fullscreen \
+        --override font_family="$FONT" \
+        --override bold_font="$FONT" \
+        --override font_size="$FONT_SIZE" \
+        --override window_padding_width=0 \
+        --override background_opacity=1 \
+        "$PLAYER" &
+    printf '%s\n' "$!" >>"$PIDFILE"
 }
 
-monitor_names="$(/usr/bin/mmsg get all-monitors | /usr/bin/python3 -c '
-import json, sys
-monitors = json.load(sys.stdin)["monitors"]
-print(*[monitor["name"] for monitor in monitors], sep="\n")
-')"
-while IFS= read -r monitor_name; do
-    [ -n "$monitor_name" ] || continue
-    # New windows open on the focused monitor; no tagmon needed (moving a
-    # fullscreen client would drop it out of fullscreen).
-    /usr/bin/mmsg dispatch "focusmon,$monitor_name" >/dev/null 2>&1
+mapfile -t monitor_names < <(
+    "$UMBRIEL" outputs 2>/dev/null | /usr/bin/awk '/^[^[:space:]]/ {print $1}'
+)
+[ "${#monitor_names[@]}" -gt 0 ] || exit 0
+
+for i in "${!monitor_names[@]}"; do
+    # New windows open on the focused monitor, so walk the outputs in order.
+    if [ "$i" -gt 0 ]; then
+        "$UMBRIEL" msg output-focus-next >/dev/null 2>&1
+    fi
     launch
     /usr/bin/sleep 0.3
-done <<EOF
-$monitor_names
-EOF
+done

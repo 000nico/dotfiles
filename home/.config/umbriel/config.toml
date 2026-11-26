@@ -10,7 +10,9 @@ scale = 1.3
 # General
 
 [general]
-autostart = ["pipewire", "noctalia", "kitty --single-instance --start-as=hidden"]
+autostart = ["dbus-update-activation-environment --all", "pipewire", "noctalia", "kitty --single-instance --start-as=hidden"]
+# Sin el cartel de atajos al iniciar sesión.
+show_cheatsheet = false
 
 # ==============================================================================
 # Input
@@ -31,9 +33,10 @@ disable_while_typing = true
 [input.mouse]
 natural_scroll = false
 
-# No sloppy focus — click to focus (como en mango sloppy_focus=0)
-# [input.focus]
-# follows_mouse = true
+# Foco sigue al mouse (sloppy focus: la ventana bajo el cursor toma el foco
+# al pasar por encima, sin necesidad de clickear).
+[input.focus]
+follows_mouse = true
 
 # ==============================================================================
 # Appearance
@@ -46,7 +49,8 @@ natural_scroll = false
 #   border_color = 0x333333ff, focus_color = 0x555555ff
 
 [appearance]
-border_width = 0
+# Borde dibujado dentro de la ventana (no ocupa espacio extra del layout).
+border_width = 2
 corner_radius = 0
 
 # Blur (mango: blur=1, blur_layer=1, optimized, passes=2, radius=4)
@@ -150,10 +154,12 @@ enabled = false
 "Super+Alt+V" = "layout-toggle-split"
 
 # Resize window (Ctrl+Alt+Arrows)
-"Ctrl+Alt+Left" = "window-modify-width-left -0.05"
-"Ctrl+Alt+Right" = "window-modify-width-right 0.05"
-"Ctrl+Alt+Up" = "window-modify-height-up -0.05"
-"Ctrl+Alt+Down" = "window-modify-height-down 0.05"
+# En el layout dwindle las columnas no se pueden redimensionar por borde:
+# se cambia el "extent" primario (ancho) y secundario (alto) del área.
+"Ctrl+Alt+Left" = "window-modify-primary-extent -0.05"
+"Ctrl+Alt+Right" = "window-modify-primary-extent 0.05"
+"Ctrl+Alt+Up" = "window-modify-secondary-extent -0.05"
+"Ctrl+Alt+Down" = "window-modify-secondary-extent 0.05"
 
 # Scratchpad (mango: ALT+z → toggle_scratchpad)
 "Alt+Z" = "scratchpad-toggle"
@@ -274,3 +280,6 @@ blur_popups = true
 [[layer_rule]]
 match.namespace = "^noctalia-(notification|dock|panel|attached-panel|osd)$"
 blur_optimized = false
+
+[include]
+files = []

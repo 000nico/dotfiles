@@ -1,5 +1,10 @@
 {
   "file_explorer": {
     "side": "right"
-  }
+  },
+  "theme": "builtin://terminal",
+  "editor": {
+    "auto_save_enabled": true
+  },
+  "open_last_workspace": false
 }

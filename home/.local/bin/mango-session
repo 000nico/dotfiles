@@ -8,9 +8,9 @@ exec dbus-run-session -- sh -c '
     set -eu
 
     export XDG_DATA_DIRS="$HOME/.local/share:/usr/local/share:/usr/share:${XDG_DATA_DIRS:-}"
-    export GTK_ICON_THEME="pixora-dark"
-    export QT_ICON_THEME="pixora-dark"
-    export QT_QPA_SYSTEM_ICON_THEME="pixora-dark"
+    export GTK_ICON_THEME="Pixora"
+    export QT_ICON_THEME="Pixora"
+    export QT_QPA_SYSTEM_ICON_THEME="Pixora"
     # Qt apps read the icon theme through the GTK platform theme.
     export QT_QPA_PLATFORMTHEME="gtk3"
 
@@ -65,6 +65,7 @@ exec dbus-run-session -- sh -c '
     fi
     export WAYLAND_DISPLAY="$wayland_display"
     export MANGO_INSTANCE_SIGNATURE="$XDG_RUNTIME_DIR/mango-$mango_pid.sock"
+    dbus-update-activation-environment --all
 
     noctalia &
     noctalia_pid=$!

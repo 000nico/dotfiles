@@ -1,0 +1,20 @@
+[colors]
+background = "#1d2026FF"
+text_primary = "#e1e2ebFF"
+text_muted = "#c2c6d5FF"
+accent_primary = "#adc6ffFF"
+accent_secondary = "#b1c6f7FF"
+warning = "#f4aeffFF"
+error = "#ffb4abFF"
+insert_hint = "#f4aeff80"
+backdrop = "#424753FF"
+
+[colors.border]
+focused = "#adc6ffFF"
+unfocused = "#424753FF"
+outer = "#11131aFF"
+
+[colors.overview]
+background_tint = "#11131a88"
+badge = "#adc6ffFF"
+workspace_background = "#11131aFF"

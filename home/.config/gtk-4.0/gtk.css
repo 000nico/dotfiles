@@ -9700,3 +9700,5 @@ window#desktopwindow.background {
 @define-color theme_unfocused_selected_fg_color @accent_fg_color;
 @define-color unfocused_insensitive_color @insensitive_bg_color;
 @define-color unfocused_borders alpha(currentColor,0.12);
+
+@import url("noctalia.css");

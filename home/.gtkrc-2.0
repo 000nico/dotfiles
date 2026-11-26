@@ -1,4 +1,4 @@
-gtk-icon-theme-name="pixora-dark"
-gtk-theme-name="Colloid-Dark-Compact"
+gtk-icon-theme-name="Pixora"
+gtk-theme-name="Adwaita"
 gtk-font-name="Less Perfect DOS VGA 11"
-gtk-application-prefer-dark-theme=1
+gtk-application-prefer-dark-theme=0
